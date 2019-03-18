@@ -6,8 +6,7 @@ import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { SliderComponent } from './partials/slider/slider.component';
 import { MoviesListComponent } from './movies-list/movies-list.component';
-import { FilterComponent } from './movies-list/filter/filter.component';
-import { MovieComponent } from './movies-list/movie/movie.component';
+import { FilterComponent } from './partials/filter/filter.component';
 import { MovieItemComponent } from './movies-list/movie-item/movie-item.component';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { MovieItemComponent } from './movies-list/movie-item/movie-item.componen
     SliderComponent,
     MoviesListComponent,
     FilterComponent,
-    MovieComponent,
     MovieItemComponent
   ],
   imports: [
