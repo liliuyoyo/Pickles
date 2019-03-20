@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from  "rxjs/Observable";
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 import { Subscription } from 'rxjs';
