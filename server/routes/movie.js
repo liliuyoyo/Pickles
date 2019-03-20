@@ -73,7 +73,7 @@ router.post("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
     Movie.findById(req.params.id).exec().then(docs => {
         console.log(docs);
-        res.status(200).json();
+        res.status(200).json(docs);
     }).catch(err => console.log(err));
 
 });

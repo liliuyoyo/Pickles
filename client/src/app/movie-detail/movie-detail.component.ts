@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { MoviesService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/models/movie.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,26 +13,34 @@ import { Movie } from 'src/app/models/movie.model';
   styleUrls: ['./movie-detail.component.css']
 })
 export class MovieDetailComponent implements OnInit {
+  private subscription : Subscription;
   movieToShow: Movie;
   id: string;
   
-  constructor(private movieService : MoviesService,
+  constructor(private moviesService : MoviesService,
               private router:Router,
               private route: ActivatedRoute,
               private location: Location) { }
 
   ngOnInit(){
-    this.route.params.subscribe(
+    this.subscription = this.route.params.subscribe(
       (params:Params)=>{
         this.id = params['id'];
-        console.log(this.id);
-        //this.movieToShow = this.movieService.getMovieById(this.id);
+        this.moviesService.getMovieById(this.id)
+                            .subscribe(data => {
+                          this.movieToShow = data;
+                          });
       }
     );
+
+    
   }
 
   goBack(){
     this.location.back();
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
 }
