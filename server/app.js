@@ -14,7 +14,8 @@ app.use(function(req, res, next) {
 // ===================================
 
 var movie = [
-    { 
+    {   
+        id: 1,
         title: "Harry Potter", 
         description: "Love this movie...", 
         imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
@@ -27,6 +28,7 @@ var movie = [
         rating: 10
     },
     {
+        id: 2,
         title: "Harry Potter111", 
         description: "Love this movie...", 
         imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
