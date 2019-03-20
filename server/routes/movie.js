@@ -3,54 +3,26 @@ const router = express.Router();
 const Movie = require("../models/movies");
 const mongoose = require("mongoose");
 
-var doc = [
-    { 
-        _id: "001",
-        title: "Harry Potter", 
-        description: "Love this movie...", 
-        imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
-        year: "2008", 
-        director: "aaa", 
-        actors: "bbb", 
-        gener: "fantsy", 
-        area: "UK", 
-        length: 120, 
-        rating: 10
-    },
-    {
-        _id: "002",
-        title: "Harry Potter", 
-        description: "Love this movie...", 
-        imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
-        year: "2008", 
-        director: "aaa", 
-        actors: "bbb", 
-        gener: "fantsy", 
-        area: "UK", 
-        length: 120, 
-        rating: 10
-    }
-];
-
-//INDEX - show all movies
+//show all movies
 router.get("/", (req, res, next) => {
-    
-   // res.json(doc);
     // Get all movies from DB
     Movie.find()
     .exec()
     .then(docs => {
         console.log(docs);
+        docs.forEach(function(doc){
+            const currentId = doc.id;
+            doc.id = String(currentId);
+        });
         res.status(200).json(docs);
     })
     .catch(err => console.log(err));
 });
 
+//add new movie
 router.post("/", (req, res, next) => {
     const movie = new Movie({
-       // _id: new mongoose.Types.ObjectId(),
-
-        _id: new mongoose.Types.ObjectId(req.body._id),
+        _id: new mongoose.Types.ObjectId(),
         title: req.body.title,
         description: req.body.description,
         imagePath: req.body.imagePath,
@@ -62,7 +34,6 @@ router.post("/", (req, res, next) => {
         length: req.body.length,
         rating: req.body.rating
     });
-
     movie.save().then(
         result => {
             console.log(result);
@@ -70,12 +41,16 @@ router.post("/", (req, res, next) => {
     ).catch(err => console.log(err));
 });
 
+//seach movie accroding to movie Id
 router.get("/:id", (req, res, next) => {
     Movie.findById(req.params.id).exec().then(docs => {
         console.log(docs);
-        res.status(200).json();
+        docs.forEach(function(doc){
+            const currentId = doc.id;
+            doc.id = String(currentId);
+        });
+        res.status(200).json(docs);
     }).catch(err => console.log(err));
-
 });
 
 module.exports = router;
