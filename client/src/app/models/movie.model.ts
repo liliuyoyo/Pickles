@@ -11,15 +11,11 @@ export class Movie {
     public length: number;
     public rating: number;
 
-<<<<<<< HEAD
+
 
     constructor(id: string, title:string, desc: string, imagePath: string, year:number,
-                director: string, actors:string[], gener:string, area:string, length:number, rating: number){
-=======
-    
-    constructor(id: string, title:string, desc: string, imagePath: string, year:number, 
                 director: string[], actors:string[], gener:string[], area:string, length:number, rating: number){
->>>>>>> a7bb004ad4c3905a3203655f1847a6770b7199ef
+
         this._id = id;
         this.title = title;
         this.description = desc;
