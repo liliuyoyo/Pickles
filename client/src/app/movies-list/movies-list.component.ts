@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Movie } from '../models/movie.model';
+import { MoviesService } from '../services/movies.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.css']
 })
-export class MoviesListComponent implements OnInit {
+export class MoviesListComponent implements OnInit, OnDestroy {
+  private subscription : Subscription;
+  moviesList: Movie[];
 
-  moviesList: Movie[] = [new Movie("Harry Potter","Love this movie...","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM",2008,"aaa",["bbb","ccc"],"fantsy","UK",120,10), 
-                         new Movie("Harry Potter1","Love this movie too...","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVCFC_uuZY7jIT7EecrWAvYYpsFIubVyznbtju4ve50o_AYenZ",2010,"aaa",["bbb","ccc"],"fantsy","UK",120,10)];
-
-  constructor() { }
+  constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
+    this.subscription = this.moviesService.getMovies()
+    .subscribe(data => {
+      this.moviesList = data;
+    });;
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
 }

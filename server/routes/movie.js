@@ -3,8 +3,39 @@ const router = express.Router();
 const Movie = require("../models/movies");
 const mongoose = require("mongoose");
 
+var doc = [
+    { 
+        _id: "001",
+        title: "Harry Potter", 
+        description: "Love this movie...", 
+        imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
+        year: "2008", 
+        director: "aaa", 
+        actors: "bbb", 
+        gener: "fantsy", 
+        area: "UK", 
+        length: 120, 
+        rating: 10
+    },
+    {
+        _id: "002",
+        title: "Harry Potter", 
+        description: "Love this movie...", 
+        imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
+        year: "2008", 
+        director: "aaa", 
+        actors: "bbb", 
+        gener: "fantsy", 
+        area: "UK", 
+        length: 120, 
+        rating: 10
+    }
+];
+
 //INDEX - show all movies
 router.get("/", (req, res, next) => {
+    
+   // res.json(doc);
     // Get all movies from DB
     Movie.find()
     .exec()
