@@ -1,10 +1,12 @@
-<div class="container">
+<div class="container" id="movieInfo">
   <div class="row">
-    <div class="col-md-7">
-        <img src="{{ movieToShow?.imagePath }}" alt="{{ movieToShow?.title }}">
+    <div class="card col-md-6">
+        <img src="{{ movieToShow?.imagePath }}" class="card-img-top" alt="{{ movieToShow?.title }}">
     </div>
-    <div class="col-md-5">
-      <p> {{ movieToShow?.title }}</p>
+    <div class="col-md-6" id="movieDes">
+      <p><span>Title : </span>{{ movieToShow?.title }}</p>
+      <p><span>Year : </span>{{ movieToShow?.year }}</p>
+      <p><span>Area : </span>{{ movieToShow?.area }}</p>
     </div>
   </div>
   <hr>
