@@ -4,16 +4,16 @@ export class Movie {
     public description: string;
     public imagePath: string;
     public year: number;
-    public director: string;
+    public director: string[];
     public actors: string[];
-    public gener: string;
+    public geners: string[];
     public area: string;
     public length: number;
     public rating: number;
 
     
     constructor(id: string, title:string, desc: string, imagePath: string, year:number, 
-                director: string, actors:string[], gener:string, area:string, length:number, rating: number){
+                director: string[], actors:string[], gener:string[], area:string, length:number, rating: number){
         this._id = id;
         this.title = title;
         this.description = desc;
@@ -21,7 +21,7 @@ export class Movie {
         this.year = year;
         this.director = director;
         this.actors = actors;
-        this.gener = gener;
+        this.geners = gener;
         this.area = area;
         this.length = length;
         this.rating = rating;
