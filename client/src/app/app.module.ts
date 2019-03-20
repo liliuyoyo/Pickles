@@ -11,7 +11,7 @@ import { FilterComponent } from './partials/filter/filter.component';
 import { MovieItemComponent } from './movies-list/movie-item/movie-item.component';
 
 import { MoviesService } from './services/movies.service';
-import { MovieDetailComponent } from './movies-list/movie-item/movie-detail/movie-detail.component';
+import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
 
 @NgModule({
