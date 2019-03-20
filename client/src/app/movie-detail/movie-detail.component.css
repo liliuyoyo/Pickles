@@ -13,4 +13,26 @@
 
 #movieDes{
     margin-top: 20px;
+    font-size: 1.3em;
+}
+
+#movieDes span {
+    font-size: 1.2em;
+    position: relative;
+    color: #000;
+}
+
+#movieDes span:after {
+    content: attr(data-content);
+    position: absolute;
+    top: 60%;
+    left: 0;
+    z-index: -10;
+    width: 100%;
+    height: 45%;
+    background-color:#b3fff0;
+}
+
+#movieDes span::selection {
+    background: white;
 }
