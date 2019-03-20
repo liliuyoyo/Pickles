@@ -11,6 +11,8 @@ import { FilterComponent } from './partials/filter/filter.component';
 import { MovieItemComponent } from './movies-list/movie-item/movie-item.component';
 
 import { MoviesService } from './services/movies.service';
+import { MovieDetailComponent } from './movies-list/movie-item/movie-detail/movie-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { MoviesService } from './services/movies.service';
     SliderComponent,
     MoviesListComponent,
     FilterComponent,
-    MovieItemComponent
+    MovieItemComponent,
+    MovieDetailComponent
   ],
   imports: [
     BrowserModule,
