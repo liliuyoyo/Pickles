@@ -45,13 +45,11 @@ router.post("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
     Movie.findById(req.params.id).exec().then(docs => {
         console.log(docs);
-<<<<<<< HEAD
         docs.forEach(function(doc){
             const currentId = doc.id;
             doc.id = String(currentId);
         });
-=======
->>>>>>> e1f43043287570f7b65f9879aae5a65d534b96a1
+
         res.status(200).json(docs);
     }).catch(err => console.log(err));
 });
