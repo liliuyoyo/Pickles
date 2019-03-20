@@ -17,7 +17,7 @@ export class MovieItemComponent implements OnInit {
   }
 
   getMoiveDetail(){
-    this.router.navigateByUrl('/movies/'+ this.movie.id);
+    this.router.navigateByUrl('/movies/'+ this.movie._id);
   }
 
 }

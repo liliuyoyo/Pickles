@@ -1,5 +1,5 @@
 export class Movie {
-    public id: string;
+    public _id: string;
     public title: string;
     public description: string;
     public imagePath: string;
@@ -14,7 +14,7 @@ export class Movie {
     
     constructor(id: string, title:string, desc: string, imagePath: string, year:number, 
                 director: string, actors:string[], gener:string, area:string, length:number, rating: number){
-        this.id = id;
+        this._id = id;
         this.title = title;
         this.description = desc;
         this.imagePath = imagePath;
