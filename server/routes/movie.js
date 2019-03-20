@@ -9,8 +9,8 @@ router.get("/", (req, res, next) => {
     Movie.find()
     .exec()
     .then(docs => {
-        console.log(docs);
-        docs.forEach(function(doc){
+       // console.log(docs);
+        Object.entries(docs).forEach(function(doc){
             const currentId = doc.id;
             doc.id = String(currentId);
         });
@@ -44,12 +44,11 @@ router.post("/", (req, res, next) => {
 //seach movie accroding to movie Id
 router.get("/:id", (req, res, next) => {
     Movie.findById(req.params.id).exec().then(docs => {
-        console.log(docs);
-        docs.forEach(function(doc){
+       // console.log(docs);
+        Object.entries(docs).forEach(function(doc){
             const currentId = doc.id;
             doc.id = String(currentId);
         });
-
         res.status(200).json(docs);
     }).catch(err => console.log(err));
 });
