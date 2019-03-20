@@ -13,7 +13,7 @@ import { Movie } from 'src/app/models/movie.model';
 })
 export class MovieDetailComponent implements OnInit {
   movieToShow: Movie;
-  id: number;
+  id: string;
   
   constructor(private movieService : MoviesService,
               private router:Router,
@@ -23,7 +23,7 @@ export class MovieDetailComponent implements OnInit {
   ngOnInit(){
     this.route.params.subscribe(
       (params:Params)=>{
-        this.id = +params['id'];
+        this.id = params['id'];
         console.log(this.id);
         //this.movieToShow = this.movieService.getMovieById(this.id);
       }
