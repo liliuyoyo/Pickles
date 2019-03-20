@@ -7,15 +7,16 @@
       <p>movie info here</p>
     </div>
   </div>
+  <hr>
   <div class="row">
-    <button>Like</button>
-    <button>Watched</button>
-    <button>Add to Wishlist</button>
+    <button class="btn btn-outline-primary btn-sm"><i class="far fa-heart"></i> Like</button>
+    <button class="btn btn-outline-secondary btn-sm"><i class="far fa-check-circle"></i> Watched</button>
+    <button class="btn btn-outline-success btn-sm"><i class="fas fa-plus"></i> Add to Wishlist</button>
   </div>
 </div>
 <div class="container">
   <hr>
-  <button (click)="goBack()">Go Back</button>
-  <button>Add Comment</button>
+  <button class="btn btn-outline-primary pull-right" (click)="goBack()"><i class="fas fa-arrow-left"></i> Go Back</button>
+  <button class="btn btn-outline-success pull-right"><i class="fas fa-plus"></i> Add Comment</button>
   <p>comments here...</p>
 </div>
