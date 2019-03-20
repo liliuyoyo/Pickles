@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Observable } from  "rxjs/Observable";
 import { Movie } from '../models/movie.model';
+import { MoviesService } from '../services/movies.service';
 
 @Component({
   selector: 'app-movies-list',
@@ -9,12 +10,15 @@ import { Movie } from '../models/movie.model';
 })
 export class MoviesListComponent implements OnInit {
 
-  moviesList: Movie[] = [new Movie("Harry Potter","Love this movie...","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM",2008,"aaa",["bbb","ccc"],"fantsy","UK",120,10), 
-                         new Movie("Harry Potter1","Love this movie too...","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVCFC_uuZY7jIT7EecrWAvYYpsFIubVyznbtju4ve50o_AYenZ",2010,"aaa",["bbb","ccc"],"fantsy","UK",120,10)];
+  moviesList: Movie[];
 
-  constructor() { }
+  constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
+    this.moviesService.getMovies()
+    .subscribe(data => {
+      this.moviesList = data;
+    });;
   }
 
 }

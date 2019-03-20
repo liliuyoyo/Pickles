@@ -4,6 +4,14 @@ var path = require('path');
 
 var port = 4600;
 
+// ===== Do not delete this part =====
+// This allow CORS domain request
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+// ===================================
 
 var movie = [
     { 
@@ -19,7 +27,7 @@ var movie = [
         rating: 10
     },
     {
-        title: "Harry Potter", 
+        title: "Harry Potter111", 
         description: "Love this movie...", 
         imagePath: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSDXEJwBLV-yzjNOFHMoJ-OqSyFtjjqweTkvby3rePZYOzudM", 
         year: "2008", 

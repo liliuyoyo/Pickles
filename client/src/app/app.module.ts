@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './partials/header/header.component';
@@ -8,6 +9,8 @@ import { SliderComponent } from './partials/slider/slider.component';
 import { MoviesListComponent } from './movies-list/movies-list.component';
 import { FilterComponent } from './partials/filter/filter.component';
 import { MovieItemComponent } from './movies-list/movie-item/movie-item.component';
+
+import { MoviesService } from './services/movies.service';
 
 @NgModule({
   declarations: [
@@ -20,9 +23,10 @@ import { MovieItemComponent } from './movies-list/movie-item/movie-item.componen
     MovieItemComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ MoviesService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
