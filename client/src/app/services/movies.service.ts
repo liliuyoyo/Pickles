@@ -6,14 +6,10 @@ import { Movie } from '../models/movie.model';
 
 @Injectable()
 export class MoviesService {
-    private searchString : string;
+    
     serverUrl: string = "http://localhost:4600/";
 
     constructor(private http: HttpClient){};
-
-    public setSearchString(str: string){
-        this.searchString = str;
-    }
 
     public getMovies():Observable<Movie[]>{
         return this.http.get<Movie[]>(this.serverUrl);
