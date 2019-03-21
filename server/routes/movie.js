@@ -15,13 +15,6 @@ router.get("/", (req, res, next) => {
     .exec()
     .then(docs => {
        // console.log(docs);
-       //convert each doc Id type from ObjectId to String
-        // Object.entries(docs).forEach(function(doc){
-        //     // const currentId = doc.id;
-        //     // doc.id = String(currentId);
-        //     //console.log(doc[1]);
-        //     doc[1]._id = String(doc[1]._id);
-        // });
         res.status(200).json(docs);
     })
     .catch(err => console.log(err));
@@ -53,22 +46,73 @@ router.get("/", (req, res, next) => {
 // });
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: Using specify condition to seach 
+ * note: need to optimize
 ***************************************************************************************************/
 router.get("/search", (req, res, next) => {
     const year = req.query.year;
-    const geners = req.query.geners;
+    const geners = req.query.genres;
     const area = req.query.area;
-    Movie.find({year: year, geners: geners, area: area}).exec().then(docs => {
-        // Object.entries(docs).forEach(function(doc){
-        //     const currentId = doc.id;
-        //     doc.id = String(currentId);
-        // });
-        console.log(docs);
-        res.status(200).json(docs);
-    })
-    .catch(err => console.log(err));
+    //console.log(req.query);
+
+    if(year == '*'&& geners == '*' && area == '*'){
+        query = {};
+    }else if(year != '*'&& geners != '*' && area != '*'){
+        if(year == 'other' && area != 'other'){
+            query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
+                            {'geners': geners}, {'area': area}]}
+        }else if(year != 'other' && area == 'other'){
+            query = {$and: [{'year': year}, {"geners": geners},
+                            {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};
+        }else{
+            query = {'year': year,'geners': geners, 'area': area};
+        }
+    }else if(year == '*'&& geners != '*' && area != '*'){
+        if(area == 'other') {
+            query = {$and: [{"geners": geners},
+                           {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};   
+        }else{
+            query = {'geners': geners, 'area': area};
+        }
+    }else if(year != '*'&& geners == '*' && area != '*'){
+        if(year == 'other' && area != 'other'){
+            query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
+                            {'area': area}]}
+        }else if(year != 'other' && area == 'other'){
+            query = {$and: [{'year': year},,
+                            {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};
+        }else{
+            query = {'year': year, 'area': area};
+        }
+    }else if(year != '*'&& geners != '*' && area == '*'){
+        if(year == 'other'){
+            query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
+                            {'geners': geners}]}
+        }else{
+            query = {'year': year, 'geners': geners};
+        }       
+    }else if(year == '*'&& geners == '*' && area != '*'){
+        if(area == 'other'){
+            query = {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]};
+        }else{
+            query = {'area': area};
+        }              
+    }else if(year == '*'&& geners != '*' && area == '*'){
+        query = {'geners': geners};
+    }else if(year != '*'&& geners == '*' && area == '*'){
+        if(year == 'other'){
+            query = {$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]};
+        }else
+            query = {'year': year};
+    }
+
+    //console.log(query);
+    
+    Movie.find(query).exec().then(docs => {
+           // console.log(docs);
+            res.status(200).json(docs);
+        }).catch(err => console.log(err));
 });
 
 /*************************************************************************************************
