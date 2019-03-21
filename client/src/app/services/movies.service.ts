@@ -30,6 +30,6 @@ export class MoviesService {
 
     // get movie by search string
     public searchMoviesByString(searchString : any): Observable<Movie[]>{
-        return this.http.get<Movie[]>(this.serverUrl+"search?"+searchString);
+        return this.http.get<Movie[]>(this.serverUrl+"search/global?"+searchString);
     }
 }
