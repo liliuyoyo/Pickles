@@ -8,10 +8,11 @@ import { Movie } from '../models/movie.model';
 export class MoviesService {
     
     serverUrl: string = "http://localhost:4600/";
+    movies : Movie[];
 
     constructor(private http: HttpClient){};
 
-    // get all movies
+    //get all movies
     public getMovies():Observable<Movie[]>{
         return this.http.get<Movie[]>(this.serverUrl);
     }
