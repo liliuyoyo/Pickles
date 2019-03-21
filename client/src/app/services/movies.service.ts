@@ -23,9 +23,6 @@ export class MoviesService {
 
     // get movie by filter values
     public searchMovies(filterVal : any): Observable<Movie[]>{
-        console.log(filterVal.year);
-        console.log(filterVal.genres);
-        console.log(filterVal.area);
         return this.http.get<Movie[]>(this.serverUrl+"search?year="+filterVal.year
                                                     +"&genres="+filterVal.genres
                                                     +"&area="+filterVal.area);
