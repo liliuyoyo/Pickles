@@ -1,10 +1,13 @@
+/*************************************************************************************************
+ * description: define movie schema
+***************************************************************************************************/
 const mongoose = require("mongoose");
-const mongodb = require("mongodb");
 
 const movieSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
 	title: String,
 	description: String,
+	smallImagePath: String,
 	imagePath: String,
 	year: Number,
 	director: Array,
@@ -12,7 +15,13 @@ const movieSchema = new mongoose.Schema({
 	geners: Array,
 	area: String,
 	length: Number,
-	rating: Number
+	rating: Number,
+	comments: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Comment"
+		}
+	]
 });
 
 module.exports = mongoose.model("Movie", movieSchema);
