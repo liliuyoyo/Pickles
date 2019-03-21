@@ -18,4 +18,8 @@ export class MoviesService {
     public getMovieById( id:string ): Observable<Movie>{
         return this.http.get<Movie>(this.serverUrl+id);
     }
+
+    public getMoivesBySearchString( searchString: string):Observable<Movie[]>{
+        return this.http.get<Movie[]>(this.serverUrl+"?search='"+searchString+"'");
+    }
 }
