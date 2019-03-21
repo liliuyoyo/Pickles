@@ -7,7 +7,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class FilterComponent implements OnInit {
   
-  @Output() onFilter = new EventEmitter<any>();
+  @Output() onFilter = new EventEmitter<Object>();
 
   private filterValues = {
     year: 'all',
@@ -21,9 +21,6 @@ export class FilterComponent implements OnInit {
   }
 
   filterBy(){
-    // console.log(this.filterValues.year);
-    // console.log(this.filterValues.genres);
-    // console.log(this.filterValues.area);
     this.onFilter.emit(this.filterValues);
   }
 }

@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class MoviesListComponent implements OnInit, OnDestroy {
   private subscription : Subscription;
   moviesList: Movie[];
-  moviesListCopy: Movie[];
+  //moviesListCopy: Movie[];
 
   constructor(private moviesService: MoviesService) {}
 
@@ -19,35 +19,40 @@ export class MoviesListComponent implements OnInit, OnDestroy {
     this.subscription = this.moviesService.getMovies()
     .subscribe(data => {
       this.moviesList = data;
-      this.moviesListCopy = data;
+      //this.moviesListCopy = data;
     });;
   }
 
+  // filterMovies(filterVal : any){
+  //   if(filterVal.year === 'all' || filterVal.geners === 'all' || filterVal.area === 'all'){
+  //     this.moviesList = this.moviesListCopy;
+  //   }
+
+  //   if(filterVal.year !== 'all'){
+  //     if(filterVal.year === 'other'){
+  //       this.moviesList = this.moviesListCopy.filter(movie => {
+  //         return movie.year <= +filterVal.year;
+  //       });
+  //     }else{
+  //       this.moviesList = this.moviesListCopy.filter(movie => {
+  //         return movie.year === +filterVal.year;
+  //       });
+  //     }
+  //   }
+
+  //   if(filterVal.genres !== 'all'){
+  //     if(filterVal.genres !== 'other'){
+  //       this.moviesList = this.moviesListCopy.filter(movie => {
+  //         return movie.geners.includes(filterVal.genres);
+  //       });
+  //     }
+  //   }
+  // }
   filterMovies(filterVal : any){
-    if(filterVal.year === 'all' || filterVal.geners === 'all' || filterVal.area === 'all'){
-      this.moviesList = this.moviesListCopy;
-    }
-
-    if(filterVal.year !== 'all'){
-      if(filterVal.year === 'other'){
-        this.moviesList = this.moviesListCopy.filter(movie => {
-          return movie.year <= +filterVal.year;
-        });
-      }else{
-        this.moviesList = this.moviesListCopy.filter(movie => {
-          return movie.year === +filterVal.year;
-        });
-      }
-    }
-
-    if(filterVal.genres !== 'all'){
-      if(filterVal.genres !== 'other'){
-        this.moviesList = this.moviesListCopy.filter(movie => {
-          console.log(movie.geners.includes("Action"));
-          return movie.geners.includes(filterVal.geners);
-        });
-      }
-    }
+    this.moviesService.searchMovies(filterVal)
+    .subscribe(data => {
+      this.moviesList = data;
+    });;
   }
 
   ngOnDestroy(){

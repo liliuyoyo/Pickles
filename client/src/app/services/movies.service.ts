@@ -22,4 +22,10 @@ export class MoviesService {
     public getMovieById( id:string ): Observable<Movie>{
         return this.http.get<Movie>(this.serverUrl+id);
     }
+
+    public searchMovies(filterVal : any): Observable<Movie[]>{
+        return this.http.get<Movie[]>(this.serverUrl+"search?year="+filterVal.year
+                                                    +"&genres="+filterVal.genres
+                                                    +"&area="+filterVal.area);
+    }
 }
