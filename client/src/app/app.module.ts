@@ -11,14 +11,15 @@ import { MoviesListComponent } from './movies-list/movies-list.component';
 import { FilterComponent } from './partials/filter/filter.component';
 import { MovieItemComponent } from './movies-list/movie-item/movie-item.component';
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
+import { SignupComponent } from './users/signup/signup.component';
+import { LoginComponent } from './users/login/login.component';
 
 // Services
 import { MoviesService } from './services/movies.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
-import { SignupComponent } from './users/signup/signup.component';
-import { LoginComponent } from './users/login/login.component';
+
 
 
 @NgModule({
