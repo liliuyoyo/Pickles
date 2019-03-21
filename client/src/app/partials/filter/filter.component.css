@@ -7,12 +7,32 @@
     margin: 0 10px;
 }
 
-ul li{
+ul {
     list-style: none;
-    display: inline;
-    margin-left: 20px;
 }
-li a{
-    text-decoration: none;
-    color:black;
+
+li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+input {
+    visibility:hidden;
+}
+
+li label {
+    cursor: pointer;
+}
+
+li label:hover {
+    background:#b3fff0;
+}
+
+input:checked + label {
+    background:#b3fff0;
+}
+
+.filterLabel{
+    font-size: 1.2em;
+    font-weight: bold;
 }
