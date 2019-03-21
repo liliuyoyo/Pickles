@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MoviesService } from 'src/app/services/movies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,13 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
-  constructor() { }
+  searchString:string;
+
+  constructor(private moviesService : MoviesService,
+              private router: Router) { }
 
   ngOnInit() {
   }
 
-  onSubmit(searchObj: any ){
-    
+  onSubmit(){
+    console.log(this.searchString);
+    // this.moviesService.setSearchString(searchObj['searchString']);
+    // this.router.navigateByUrl('/movies/search');  
   }
 }

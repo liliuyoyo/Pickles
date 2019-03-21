@@ -6,8 +6,8 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 
 const appRoutes:Routes = [
     { path: "", redirectTo:"/movies", pathMatch: "full" },
-    { path: "movies", component: MoviesListComponent },// children: [
-        //{ path: "search", component: MovieDetailComponent } 
+    { path: "movies", component: MoviesListComponent }, //children: [
+        //{ path: "search", component: MoviesListComponent } 
     //]},
     { path: "movies/:id", component: MovieDetailComponent },
 ];
