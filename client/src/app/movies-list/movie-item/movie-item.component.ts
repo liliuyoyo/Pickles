@@ -9,13 +9,14 @@ import { Movie } from 'src/app/models/movie.model';
   styleUrls: ['./movie-item.component.css']
 })
 export class MovieItemComponent implements OnInit {
+  
   @Input() movie:Movie;
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  // direct to the movie-detail page
   getMoiveDetail(){
     this.router.navigateByUrl('/movies/'+ this.movie._id);
   }

@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./movies-list.component.css']
 })
 export class MoviesListComponent implements OnInit, OnDestroy {
+  
   private subscription : Subscription;
   moviesList: Movie[];
 

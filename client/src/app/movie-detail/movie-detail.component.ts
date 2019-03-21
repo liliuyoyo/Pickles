@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { MoviesService } from 'src/app/services/movies.service';
@@ -18,24 +18,20 @@ export class MovieDetailComponent implements OnInit {
   id: string;
   
   constructor(private moviesService : MoviesService,
-              private router:Router,
               private route: ActivatedRoute,
               private location: Location) { }
 
   ngOnInit(){
-    this.subscription = this.route.params.subscribe(
-      (params:Params)=>{
-        this.id = params['id'];
-        this.moviesService.getMovieById(this.id)
-                            .subscribe(data => {
-                          this.movieToShow = data;
-                          });
+    this.subscription = this.route.params
+    .subscribe((params:Params)=>{ 
+        this.id = params['id']; // get movie-id from current url
+        this.moviesService.getMovieById(this.id) // search the movie from serve by movie-id
+        .subscribe(data => { this.movieToShow = data; });
       }
     );
-
-    
   }
 
+  // Back to the last page.
   goBack(){
     this.location.back();
   }

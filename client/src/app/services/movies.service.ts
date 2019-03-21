@@ -11,14 +11,17 @@ export class MoviesService {
 
     constructor(private http: HttpClient){};
 
+    // get all movies
     public getMovies():Observable<Movie[]>{
         return this.http.get<Movie[]>(this.serverUrl);
     }
 
+    // get movie by id 
     public getMovieById( id:string ): Observable<Movie>{
         return this.http.get<Movie>(this.serverUrl+id);
     }
 
+    // get movie by filter values
     public searchMovies(filterVal : any): Observable<Movie[]>{
         console.log(filterVal.year);
         console.log(filterVal.genres);
@@ -28,6 +31,7 @@ export class MoviesService {
                                                     +"&area="+filterVal.area);
     }
 
+    // get movie by search string
     public searchMoviesByString(searchString : any): Observable<Movie[]>{
         return this.http.get<Movie[]>(this.serverUrl+"search?"+searchString);
     }
