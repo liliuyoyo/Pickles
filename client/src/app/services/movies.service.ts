@@ -27,4 +27,9 @@ export class MoviesService {
                                                     +"&genres="+filterVal.genres
                                                     +"&area="+filterVal.area);
     }
+
+    public searchMoviesByString(searchString : any): Observable<Movie[]>{
+        console.log(searchString);
+        return this.http.get<Movie[]>(this.serverUrl+"search?"+searchString);
+    }
 }
