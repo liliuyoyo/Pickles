@@ -54,32 +54,32 @@ router.get("/search", (req, res, next) => {
     const year = req.query.year;
     const geners = req.query.genres;
     const area = req.query.area;
-    //console.log(req.query);
+    console.log(req.query);
 
     if(year == '*'&& geners == '*' && area == '*'){
         query = {};
     }else if(year != '*'&& geners != '*' && area != '*'){
-        if(year == 'other' && area != 'other'){
+        if(year == 'other' && area != 'Other'){
             query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
                             {'geners': geners}, {'area': area}]}
-        }else if(year != 'other' && area == 'other'){
+        }else if(year != 'other' && area == 'Other'){
             query = {$and: [{'year': year}, {"geners": geners},
                             {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};
         }else{
             query = {'year': year,'geners': geners, 'area': area};
         }
     }else if(year == '*'&& geners != '*' && area != '*'){
-        if(area == 'other') {
+        if(area == 'Other') {
             query = {$and: [{"geners": geners},
                            {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};   
         }else{
             query = {'geners': geners, 'area': area};
         }
     }else if(year != '*'&& geners == '*' && area != '*'){
-        if(year == 'other' && area != 'other'){
+        if(year == 'other' && area != 'Other'){
             query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
                             {'area': area}]}
-        }else if(year != 'other' && area == 'other'){
+        }else if(year != 'other' && area == 'Other'){
             query = {$and: [{'year': year},,
                             {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};
         }else{
@@ -93,8 +93,8 @@ router.get("/search", (req, res, next) => {
             query = {'year': year, 'geners': geners};
         }       
     }else if(year == '*'&& geners == '*' && area != '*'){
-        if(area == 'other'){
-            query = {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]};
+        if(area == 'Other'){
+            query = {$nor: [{'area': 'USA'}, {'area': 'China'}, {'area': 'Europe'}, {'area': 'India'}, {'area': 'Korea'}, {'area': 'Japan'}]};
         }else{
             query = {'area': area};
         }              
@@ -107,10 +107,10 @@ router.get("/search", (req, res, next) => {
             query = {'year': year};
     }
 
-    //console.log(query);
+    console.log(query);
     
     Movie.find(query).exec().then(docs => {
-           // console.log(docs);
+            console.log(docs);
             res.status(200).json(docs);
         }).catch(err => console.log(err));
 });

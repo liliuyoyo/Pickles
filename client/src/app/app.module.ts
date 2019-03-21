@@ -17,6 +17,8 @@ import { MoviesService } from './services/movies.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
+import { SignupComponent } from './users/signup/signup.component';
+import { LoginComponent } from './users/login/login.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { AppRoutingModule } from './app-routing.module';
     MoviesListComponent,
     FilterComponent,
     MovieItemComponent,
-    MovieDetailComponent
+    MovieDetailComponent,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
