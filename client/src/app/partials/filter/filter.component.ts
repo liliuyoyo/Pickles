@@ -10,9 +10,9 @@ export class FilterComponent implements OnInit {
   @Output() onFilter = new EventEmitter<Object>();
 
   private filterValues = {
-    year: 'all',
-    genres: 'all',
-    area: 'all'
+    year: '*',
+    genres: '*',
+    area: '*'
   }
   
   constructor() { }

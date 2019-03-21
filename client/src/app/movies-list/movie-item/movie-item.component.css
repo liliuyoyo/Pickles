@@ -3,3 +3,7 @@ p span{
     font-style: italic;
     color: #ff8000;
 }
+
+img {
+    max-width: 100%;
+}

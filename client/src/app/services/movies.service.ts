@@ -6,7 +6,7 @@ import { Movie } from '../models/movie.model';
 
 @Injectable()
 export class MoviesService {
-    
+
     serverUrl: string = "http://localhost:4600/";
 
     constructor(private http: HttpClient){};
@@ -20,6 +20,9 @@ export class MoviesService {
     }
 
     public searchMovies(filterVal : any): Observable<Movie[]>{
+        console.log(filterVal.year);
+        console.log(filterVal.genres);
+        console.log(filterVal.area);
         return this.http.get<Movie[]>(this.serverUrl+"search?year="+filterVal.year
                                                     +"&genres="+filterVal.genres
                                                     +"&area="+filterVal.area);
