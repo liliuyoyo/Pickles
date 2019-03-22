@@ -116,6 +116,31 @@ router.get("/search", (req, res, next) => {
 });
 
 /*************************************************************************************************
+ * test status: no
+ * description: Global search
+***************************************************************************************************/
+router.get("/search/global", (req, res, next) => {
+    const queryVar = req.query.search.split(" ");
+    const regexNumberQuery = new Array();
+    queryVar.forEach(element => {
+        if(!isNaN(parseInt(element))){
+            regexNumberQuery.push(element);
+        }
+    });
+    const regexQuery = queryVar.join("|");
+    console.log(regexQuery);
+
+    query = {$or: [{'geners': {$regex:regexQuery,$options:"$i"}}, {'title': {$regex:regexQuery,$options:"$i"}}, 
+                       {'actors': {$regex:regexQuery,$options:"$i"}},{'description': {$regex:regexQuery,$options:"$i"}},
+                       {'year': {$in: regexNumberQuery}}]};
+
+    Movie.find(query).exec().then(docs => {
+        console.log(docs);
+        //res.status(200).json(docs);
+    }).catch(err => console.log(err));
+});
+
+/*************************************************************************************************
  * test status: yes
  * description: Using image id seach specify image
 ***************************************************************************************************/
