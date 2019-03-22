@@ -136,7 +136,7 @@ router.get("/search/global", (req, res, next) => {
 
     Movie.find(query).exec().then(docs => {
         console.log(docs);
-        //res.status(200).json(docs);
+        res.status(200).json(docs);
     }).catch(err => console.log(err));
 });
 
