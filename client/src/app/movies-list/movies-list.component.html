@@ -1,13 +1,13 @@
 <div class="container"> 
     <app-filter (onFilter)="filterMovies($event)"></app-filter>
     <div class="row">
-        <div class="col-md-3 col-sm-6" *ngFor="let movieEl of moviesList">
+        <div class="col-md-3 col-sm-6" *ngFor="let movieEl of moviesList | paginate: {
+                                                                            itemsPerPage: 8,
+                                                                            currentPage: p }">
             <app-movie-item [movie]="movieEl"></app-movie-item>
         </div>
     </div>
-    <div class="row">
-        <app-pagination></app-pagination>
-    </div>
+    <pagination-controls class="pagination" (pageChange)="p = $event"></pagination-controls>
 </div>
 
 

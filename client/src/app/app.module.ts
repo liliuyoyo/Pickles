@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 // Components
 import { AppComponent } from './app.component';
@@ -19,7 +20,6 @@ import { MoviesService } from './services/movies.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
-import { PaginationComponent } from './partials/pagination/pagination.component';
 
 
 
@@ -34,13 +34,13 @@ import { PaginationComponent } from './partials/pagination/pagination.component'
     MovieDetailComponent,
     SignupComponent,
     LoginComponent,
-    PaginationComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [ MoviesService ],
   bootstrap: [AppComponent]
