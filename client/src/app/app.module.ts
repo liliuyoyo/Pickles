@@ -19,6 +19,7 @@ import { MoviesService } from './services/movies.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
+import { PaginationComponent } from './partials/pagination/pagination.component';
 
 
 
@@ -32,7 +33,8 @@ import { AppRoutingModule } from './app-routing.module';
     MovieItemComponent,
     MovieDetailComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
