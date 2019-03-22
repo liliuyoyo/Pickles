@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 const Movie = require("../models/movies");
 const mongoose = require("mongoose");
+const sw = require("stopword");
 /*************************************************************************************************
  * test status: yes
  * description: send all the schema to client. Showing on the main page
@@ -120,7 +121,7 @@ router.get("/search", (req, res, next) => {
  * description: Global search
 ***************************************************************************************************/
 router.get("/search/global", (req, res, next) => {
-    const queryVar = req.query.search.split(" ");
+    const queryVar = sw.removeStopwords(req.query.search.split(" "));
     const regexNumberQuery = new Array();
     queryVar.forEach(element => {
         if(!isNaN(parseInt(element))){
