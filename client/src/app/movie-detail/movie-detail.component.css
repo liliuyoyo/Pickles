@@ -1,5 +1,6 @@
 .container {
     margin-top: 50px;
+    text-align: left;
 }
 
 .btn{
@@ -39,4 +40,8 @@
 
 #movieDes span::selection {
     background: white;
+}
+
+app-star-rating{
+    margin-left: 10px;
 }

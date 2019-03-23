@@ -7,3 +7,8 @@ p span{
 img {
     max-width: 100%;
 }
+
+.card {
+    height: 500px;
+    margin-bottom: 30px;
+}

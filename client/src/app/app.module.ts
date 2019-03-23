@@ -20,6 +20,7 @@ import { MoviesService } from './services/movies.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
+import { StarRatingComponent } from './partials/star-rating/star-rating.component';
 
 
 
@@ -34,6 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
     MovieDetailComponent,
     SignupComponent,
     LoginComponent,
+    StarRatingComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+div {
+    font-size: 1.2em;
+    display: inline;
+}
+.stars{
+    margin-left: 10px;
+    direction: rtl;
+}
+span {
+    color: gray;
+    transition: 0.3s all;
+}
+span:hover{
+    color:gold;
+}
+
+.s1:hover ~ span {
+    color:gold;
+}
+.s2:hover ~ span {
+    color:gold;
+}
+.s3:hover ~ span {
+    color:gold;
+}
+.s4:hover ~ span {
+    color:gold;
+}
