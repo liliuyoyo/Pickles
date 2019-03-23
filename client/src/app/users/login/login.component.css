@@ -13,7 +13,7 @@ h4{
 .img{
     margin: 10% auto 0 auto ;
     display:block;
-    width: 40%;
+    width: 38%;
 }
 .img1{
     margin: 12% auto 0 auto ;
@@ -29,7 +29,7 @@ h4{
 .txt{
     padding-bottom: 7%;
 }
-#name{
+#username{
 	border-color:#ccc
 }
 #email{
