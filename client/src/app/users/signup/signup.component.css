@@ -1,20 +1,14 @@
 #signupscreen{
-    margin: 0 auto 22% auto ;
-	width: 22%;
+    margin: 8% auto 22% auto ;
+	width: 28%;
     height: 30%;
     min-width:350px;
     min-height:380px;
 	border-style: ridge;
 }
-h4{
-    float:left;
-    padding-bottom: 3%;
-}
-hr{
-    margin-top: 12% ;
-}
+
 .img{
-    margin: 12% auto 0 auto ;
+    margin: 6% auto 0 auto ;
     display:block;
     width: 12%;
 }
@@ -36,6 +30,25 @@ hr{
 #password{
 	border-color:#ccc
 }
+meter {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+  
+    margin: 0 0 1em 0;
+    width: 100%;
+    height: 0.5em;
+  
+    /* Applicable only to Firefox */
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  meter::-webkit-meter-bar {
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 #prmpt{
     color:SlateGray;
     text-align:left;

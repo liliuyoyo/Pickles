@@ -24,10 +24,9 @@
   </form>
 </div> -->
 
-<img class="img" src="http://tu.027cgb.com/618498/2019322193154520.png">
 <div id="signupscreen">
     <form class="signup" action="login.php" method="post">
-        <h4>Sign Up</h4>
+        <h2>Sign Up</h2>
         <hr>
         <div class="form-group" class = "txt">
             <input type="text" class="form-control" name="email" id="emai;" placeholder="Email" onfocus="rewrite(this)"/>
@@ -35,8 +34,10 @@
         <div class="form-group" class = "txt">
             <input type="text" class="form-control" name="username" id="username" placeholder="Username" onfocus="rewrite(this)"/>
         </div>
-        <div class="form-group" class = "txt">
+        <div class="form-group">
             <input type="password" class="form-control" name="password" id="password" placeholder="Password" onfocus="rewrite(this)"/>
+            <meter max="4" id="password-strength-meter"></meter>
+            <p id="password-strength-text"></p>
         </div>
         <div id="prmpt">
             <p>In order to <strong>protect your account</strong>, make sure your password:</p>
@@ -45,15 +46,15 @@
               <li> Does not match or significantly contain your username, e.g. do not use 'username123'.</li>
               <li>Is not a member of this list of common passwords</li>
             </ul>
-            <p><input type="checkbox"> Agree to the <a href="https://www.npmjs.com/policies/privacy">Privacy Policy</a>.</p>
+            <p><input type="checkbox"> Agree to the <a [routerLink]="['/policy']">Privacy Policy</a>.</p>
           </div>
         <div id="signup-btn">
-            <button type="submit" class="btn btn-outline-secondary btn-block">Create an Account</button>
+            <button type="submit" class="btn btn-outline-secondary btn-block">Sign Up</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
         </div> 
         <div>
             <a [routerLink]="['/movies']" class="btn btn-link">Cancel</a>
-            <a [routerLink]="['/login']" class="btn btn-link">or, Login</a>
+            <a [routerLink]="['/login']" class="btn btn-link">Already registered?Login</a>
         </div>
     </form>
 </div>

@@ -1,6 +1,6 @@
 #loginscreen{
-    margin: 0 auto 22% auto ;
-	width: 22%;
+    margin: 8% auto 22% auto ;
+	width: 26%;
     height: 30%;
     min-width:350px;
     min-height:380px;
@@ -15,15 +15,12 @@ h4{
     display:block;
     width: 38%;
 }
-.img1{
-    margin: 12% auto 0 auto ;
-    display:block;
-    width: 12%;
-}
 .login{
-	padding: 7%;
+    padding: 7%;
+    padding-top:5%;
 }
 #login-btn{
+    padding-top:7%;
     padding-bottom: 5%; 
 }
 .txt{

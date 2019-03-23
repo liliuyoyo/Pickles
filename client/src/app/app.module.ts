@@ -21,6 +21,7 @@ import { MoviesService } from './services/movies.service';
 // Routes
 import { AppRoutingModule } from './app-routing.module';
 import { StarRatingComponent } from './partials/star-rating/star-rating.component';
+import { PolicyComponent } from './policy/policy.component';
 
 
 
@@ -36,6 +37,7 @@ import { StarRatingComponent } from './partials/star-rating/star-rating.componen
     SignupComponent,
     LoginComponent,
     StarRatingComponent,
+    PolicyComponent,
   ],
   imports: [
     BrowserModule,
