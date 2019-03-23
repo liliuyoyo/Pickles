@@ -1,3 +1,40 @@
-#loginscreen {
-    margin: 10% auto 22% auto ;
+#loginscreen{
+    margin: 0 auto 22% auto ;
+	width: 22%;
+    height: 30%;
+    min-width:350px;
+    min-height:380px;
+	border-style: ridge;
+}
+h4{
+    float:left;
+    padding-bottom: 3%;
+}
+.img{
+    margin: 10% auto 0 auto ;
+    display:block;
+    width: 40%;
+}
+.img1{
+    margin: 12% auto 0 auto ;
+    display:block;
+    width: 12%;
+}
+.login{
+	padding: 7%;
+}
+#login-btn{
+    padding-bottom: 5%; 
+}
+.txt{
+    padding-bottom: 7%;
+}
+#name{
+	border-color:#ccc
+}
+#email{
+	border-color:#ccc
+}
+#password{
+	border-color:#ccc
 }
