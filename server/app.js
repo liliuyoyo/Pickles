@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 
 //requiring routes
 const moviesRoute = require("./routes/movie");
+const usersRoute = require("./routes/user");
 
 //connect to mongoDB
 const database_url = "mongodb+srv://pickle:pickle@cluster0-bieuw.mongodb.net/test?retryWrites=true";
@@ -32,6 +33,7 @@ app.use(function(req, res, next) {
 
 //connect to routes
 app.use("/", moviesRoute);
+app.use("/", usersRoute);
 
 const port = process.env.PORT || 4600;
 app.listen(port, process.env.IP, function(){

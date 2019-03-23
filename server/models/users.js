@@ -1,10 +1,11 @@
-const mongoose = require(mongoose);
+const mongoose = require("mongoose");
 
 const userSchema = mongoose.Schema({
-    userId: mongoose.Schema.Types.ObjectId,
-    username: String,
+    _id: mongoose.Schema.Types.ObjectId,
+    userName: String,
     userEmail: String, 
-    userPassword: String,
+    userPassword: Array,
+    userImage: String
 });
 
-module.exports = mongoose.model("User", movieSchema);
+module.exports = mongoose.model("User", userSchema);
