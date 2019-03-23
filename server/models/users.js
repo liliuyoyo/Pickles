@@ -5,7 +5,13 @@ const userSchema = mongoose.Schema({
     userName: String,
     userEmail: String, 
     userPassword: Array,
-    userImage: String
+    userImage: String,
+    userList: [
+        {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Movie"
+		}
+    ]
 });
 
 module.exports = mongoose.model("User", userSchema);

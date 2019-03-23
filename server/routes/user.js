@@ -69,6 +69,7 @@ router.get("/profile", (req, res, next) => {
         res.status(200).json(output);            
     }).catch(err => console.log(err));
 });
+
 /*************************************************************************************************
  * test status: no
  * description: edit image

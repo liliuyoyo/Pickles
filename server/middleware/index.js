@@ -9,7 +9,7 @@ module.exports = {
         req.flash("error", "You must be signed in to do that!");
        // res.redirect("/login");
     },
-    checkUserCampground: function(req, res, next){
+    checkUserMovie: function(req, res, next){
         if(req.isAuthenticated()){
             Movie.findById(req.params.id, function(err, movie){
                if(movie.author.id.equals(req.user._id)){
