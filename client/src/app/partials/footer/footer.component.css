@@ -1,5 +1,9 @@
+
 div{
     text-align: center;
     margin: 0 auto;
-    color: gainsboro;
+    color: gray;
+    border-top: 2px solid gray;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
