@@ -39,7 +39,7 @@ function saltHashPassword(userpassword) {
  * test status: no
  * description: signup get all users
 ***************************************************************************************************/
-router.get("/register", (req, res, next) => {
+router.get("/user/register", (req, res, next) => {
     User.find().exec().then(docs => {
         const output = new Array();
         Object.entries(docs).forEach(doc => {
@@ -108,7 +108,7 @@ router.get("/profile/:id", (req, res, next) => {
  * test status: no
  * description: add new user into database
 ***************************************************************************************************/
-router.post("/register", (req, res, next) => {
+router.post("/user/register", (req, res, next) => {
 
     const name = req.query.username;
     const email = req.query.useremail;

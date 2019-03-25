@@ -6,12 +6,12 @@ const userSchema = mongoose.Schema({
     userEmail: String, 
     userPassword: Array,
     userImage: String,
-    userList: [
-        {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Movie"
-		}
-    ]
+    // userList: [
+    //     {
+	// 		type: mongoose.Schema.Types.ObjectId,
+	// 		ref: "Movie"
+	// 	}
+    // ]
 });
 
 module.exports = mongoose.model("User", userSchema);
