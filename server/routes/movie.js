@@ -132,8 +132,7 @@ router.get("/search/global", (req, res, next) => {
     console.log(regexQuery);
 
     query = {$or: [{'geners': {$regex:regexQuery,$options:"$i"}}, {'title': {$regex:regexQuery,$options:"$i"}}, 
-                       {'actors': {$regex:regexQuery,$options:"$i"}},{'description': {$regex:regexQuery,$options:"$i"}},
-                       {'year': {$in: regexNumberQuery}}]};
+                       {'actors': {$regex:regexQuery,$options:"$i"}},{'year': {$in: regexNumberQuery}}]};
 
     Movie.find(query).exec().then(docs => {
         console.log(docs);
