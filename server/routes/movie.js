@@ -6,10 +6,11 @@ const router = express.Router();
 const Movie = require("../models/movies");
 const mongoose = require("mongoose");
 const sw = require("stopword");
-/*************************************************************************************************
- * test status: yes
- * description: send all the schema to client. Showing on the main page
-***************************************************************************************************/
+const pagination = require("express-paginate");
+// /*************************************************************************************************
+//  * test status: yes
+//  * description: send all the schema to client. Showing on the main page
+// ***************************************************************************************************/
 router.get("/", (req, res, next) => {
     // Get all movies from DB
     Movie.find()
@@ -19,7 +20,48 @@ router.get("/", (req, res, next) => {
         res.status(200).json(docs);
     })
     .catch(err => console.log(err));
+    
 });
+
+/*************************************************************************************************
+ * test status: no
+ * description: send total movie numberin database
+***************************************************************************************************/
+router.get("/movies/count", (req, res, next) => {
+    Movie.find()
+    .exec()
+    .then(docs => {
+       // console.log(docs);
+        res.status(200).json(docs.length);
+    })
+    .catch(err => console.log(err));
+  });
+
+/*************************************************************************************************
+ * test status: no
+ * description: send all the schema to client. Showing on the main page. add pagination
+***************************************************************************************************/
+router.get("/movies", (req, res, next) => {
+    const pageNumber = parseInt(req.query.pagenumber);
+    const pageLimit = parseInt(req.query.pagelimit);
+    const query = {};
+    if(pageNumber <= 0) {
+        const response = {
+            "error": true,
+            "message": "Invalid page number. Page number should start at 1."
+        }
+        res.status(204).json(response);
+    }
+    query.skip = pageLimit * (pageNumber - 1);
+    query.limit = pageLimit;
+    Movie.find({}, {}, query, function(err, data) {
+        if(err) {
+            console.log(err);
+        }else {
+            res.status(200).json(data);
+        }
+    })
+  });
 
 /*************************************************************************************************
  * test status: no 
@@ -131,9 +173,8 @@ router.get("/search/global", (req, res, next) => {
     const regexQuery = queryVar.join("|");
     console.log(regexQuery);
 
-    query = {$or: [{'geners': {$regex:regexQuery,$options:"$i"}}, {'title': {$regex:regexQuery,$options:"$i"}}, 
-                       {'actors': {$regex:regexQuery,$options:"$i"}},{'description': {$regex:regexQuery,$options:"$i"}},
-                       {'year': {$in: regexNumberQuery}}]};
+    query = {$or: [{'title': {$regex:regexQuery,$options:"$i"}}, {'geners': {$regex:regexQuery,$options:"$i"}}, 
+                       {'actors': {$regex:regexQuery,$options:"$i"}},{'year': {$in: regexNumberQuery}}]};
 
     Movie.find(query).exec().then(docs => {
         console.log(docs);
@@ -151,6 +192,20 @@ router.get("/:id", (req, res, next) => {
         res.status(200).json(docs);
     }).catch(err => console.log(err));
 });
+
+// /*************************************************************************************************
+//  * test status: no
+//  * description: Show comments
+// ***************************************************************************************************/
+// router.get("/movies/:id", (req, res, next) => {
+//     Movie.findById(req.params.id).populate("comments").exec(function(err, image) {
+//         if(err) {
+//             console.log(err);
+//         }else {
+//             res.status(200).json(image);
+//         }
+//     });
+// });
 
 /*************************************************************************************************
  * test status: yes

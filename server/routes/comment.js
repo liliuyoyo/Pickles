@@ -9,7 +9,15 @@ const mongoose = require("mongoose");
  * description: create new comments
  * note: need to check if loggin
 ***************************************************************************************************/
-router.post("/", (req, res, next) => {
+router.get("/movie/comment", (req, res, next) => {
+    console.log(req.body);
+});
+/*************************************************************************************************
+ * test status: no
+ * description: create new comments
+ * note: need to check if loggin
+***************************************************************************************************/
+router.post("/comment", (req, res, next) => {
     Movie.findById(req.params.id).exec().then(docs => {
         Comment.create(req.body.comment, function(err, comment){
             if(err) {
@@ -26,3 +34,6 @@ router.post("/", (req, res, next) => {
         })
     }).catch(err => {console.log(err)});
 });
+
+
+module.exports = router;

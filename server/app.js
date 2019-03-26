@@ -3,10 +3,12 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const pagination = require("express-paginate");
 
 //requiring routes
 const moviesRoute = require("./routes/movie");
 const usersRoute = require("./routes/user");
+const commentsRoute = require("./routes/comment");
 
 //connect to mongoDB
 const database_url = "mongodb+srv://pickle:pickle@cluster0-bieuw.mongodb.net/test?retryWrites=true";
@@ -31,9 +33,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+// keep this before all routes that will use pagination
+app.use(pagination.middleware(10, 50));
+
 //connect to routes
 app.use("/", moviesRoute);
 app.use("/", usersRoute);
+app.use("/", commentsRoute);
+
 
 const port = process.env.PORT || 4600;
 app.listen(port, process.env.IP, function(){
