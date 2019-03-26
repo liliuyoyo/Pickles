@@ -7,7 +7,7 @@ const User = require("../models/users");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: generate saltpassword
 ***************************************************************************************************/
 //generates random string of characters
@@ -36,7 +36,7 @@ function saltHashPassword(userpassword) {
 }
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: signup get all users
 ***************************************************************************************************/
 router.get("/user/register", (req, res, next) => {

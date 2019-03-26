@@ -7,20 +7,36 @@ const Movie = require("../models/movies");
 const mongoose = require("mongoose");
 const sw = require("stopword");
 const pagination = require("express-paginate");
+// /*************************************************************************************************
+//  * test status: yes
+//  * description: send all the schema to client. Showing on the main page
+// ***************************************************************************************************/
+router.get("/", (req, res, next) => {
+    // Get all movies from DB
+    Movie.find()
+    .exec()
+    .then(docs => {
+       // console.log(docs);
+        res.status(200).json(docs);
+    })
+    .catch(err => console.log(err));
+    
+});
+
 /*************************************************************************************************
- * test status: yes
- * description: send all the schema to client. Showing on the main page
+ * test status: no
+ * description: send total movie numberin database
 ***************************************************************************************************/
-// router.get("/", (req, res, next) => {
-//     // Get all movies from DB
-//     Movie.find()
-//     .exec()
-//     .then(docs => {
-//        // console.log(docs);
-//         res.status(200).json(docs);
-//     })
-//     .catch(err => console.log(err));
-// });
+router.get("/movies/count", (req, res, next) => {
+    Movie.find()
+    .exec()
+    .then(docs => {
+       // console.log(docs);
+        res.status(200).json(docs.length);
+    })
+    .catch(err => console.log(err));
+  });
+
 /*************************************************************************************************
  * test status: no
  * description: send all the schema to client. Showing on the main page. add pagination
@@ -176,6 +192,20 @@ router.get("/:id", (req, res, next) => {
         res.status(200).json(docs);
     }).catch(err => console.log(err));
 });
+
+// /*************************************************************************************************
+//  * test status: no
+//  * description: Show comments
+// ***************************************************************************************************/
+// router.get("/movies/:id", (req, res, next) => {
+//     Movie.findById(req.params.id).populate("comments").exec(function(err, image) {
+//         if(err) {
+//             console.log(err);
+//         }else {
+//             res.status(200).json(image);
+//         }
+//     });
+// });
 
 /*************************************************************************************************
  * test status: yes
