@@ -1,0 +1,32 @@
+div{
+    width: 100%;
+    align-items: center;
+}
+
+.pagination{
+    width: 50%;
+    margin: 10px auto;
+    align-items: center;
+}
+
+.pagination li{
+    margin: 0 0;
+    padding: 0 0;
+    display: inline-block;
+  }
+  
+.pagination a {
+    cursor: pointer;
+    color: black;
+    float: left;
+    padding: 8px 15px;
+    text-decoration: none;
+}
+
+a span{
+    margin: 0 10px;
+}
+
+.pagination a:hover{
+    border-bottom: 5px solid #81fce3;
+}

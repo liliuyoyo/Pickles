@@ -17,6 +17,11 @@ export class MoviesService {
         return this.http.get<Movie[]>(this.serverUrl);
     }
 
+    //get all movies by page
+    public getMoviesByPage(pageNum:number, pageLimit:number):Observable<Movie[]>{
+        return this.http.get<Movie[]>(this.serverUrl+"movies?pagenumber="+pageNum+"&pagelimit="+pageLimit);
+    }
+
     // get movie by id 
     public getMovieById( id:string ): Observable<Movie>{
         return this.http.get<Movie>(this.serverUrl+id);
