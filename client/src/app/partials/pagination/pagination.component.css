@@ -15,9 +15,8 @@ div{
     display: inline-block;
   }
   
-.pagination a {
+.pagination li a {
     cursor: pointer;
-    color: black;
     float: left;
     padding: 8px 15px;
     text-decoration: none;
@@ -27,6 +26,16 @@ a span{
     margin: 0 10px;
 }
 
-.pagination a:hover{
+/* .pagination a:hover{
     border-bottom: 5px solid #81fce3;
+} */
+
+.pagination .disabled{
+    /* background-color: gray; */
+    color: gray;
 }
+
+.pagination .active{
+    background-color: #93fae6b5;
+}
+

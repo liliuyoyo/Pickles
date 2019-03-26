@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PaginationService } from 'src/app/services/pagination.service';
 
 @Component({
@@ -19,7 +19,10 @@ export class PaginationComponent implements OnInit {
   ngOnInit() {
     this.pgService.getTotalNum()
     .subscribe((total)=>{
-      this.pager.totalPages = total / this.pager.pageLimit;
+      this.pager.totalPages = Math.round(total / this.pager.pageLimit);
+      for(var i = 2; i <= this.pager.totalPages; i++){
+        this.pager.pages.push(i);
+      }
     });
   }
 

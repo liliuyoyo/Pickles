@@ -24,10 +24,6 @@ import { PaginationService } from './services/pagination.service';
 // Routes
 import { AppRoutingModule } from './app-routing.module';
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
