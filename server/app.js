@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const pagination = require("express-paginate");
 
 //requiring routes
 const moviesRoute = require("./routes/movie");
@@ -30,6 +31,9 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
+// keep this before all routes that will use pagination
+app.use(pagination.middleware(10, 50));
 
 //connect to routes
 app.use("/", moviesRoute);
