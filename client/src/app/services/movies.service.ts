@@ -12,10 +12,10 @@ export class MoviesService {
 
     constructor(private http: HttpClient){};
 
-    //get all movies
-    public getMovies():Observable<Movie[]>{
-        return this.http.get<Movie[]>(this.serverUrl);
-    }
+    // //get all movies
+    // public getMovies():Observable<Movie[]>{
+    //     return this.http.get<Movie[]>(this.serverUrl);
+    // }
 
     //get all movies by page
     public getMoviesByPage(pageNum:number, pageLimit:number):Observable<Movie[]>{
