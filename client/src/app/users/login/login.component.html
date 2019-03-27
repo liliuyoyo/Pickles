@@ -24,10 +24,10 @@
     <form class="login" (ngSubmit)="onSubmit()">
         <h4>Login</h4>
         <div class="form-group" class = "txt">
-            <input type="text" [(ngModel)]="user.username" class="form-control" name="username" id="username" placeholder="Username"/>
+            <input type="text" [(ngModel)]="username" class="form-control" name="username" id="username" placeholder="Username"/>
         </div>
         <div class="form-group" class = "txt-spec">
-            <input type="password" [(ngModel)]="user.password" class="form-control" name="password" id="password" placeholder="Password"/>
+            <input type="password" [(ngModel)]="password" class="form-control" name="password" id="password" placeholder="Password"/>
         </div>
         <div id="login-btn">
             <button type="submit" class="btn btn-outline-secondary btn-block">Login</button>

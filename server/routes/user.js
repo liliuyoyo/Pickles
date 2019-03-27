@@ -64,7 +64,7 @@ router.post("/user/profile", (req, res, next) => {
 
    // console.log(req.body);
     const username = req.body.username;
-    const password = req.body.userpassword;
+    const password = req.body.password;
     console.log(username);
     console.log(password);
   

@@ -2,7 +2,7 @@ import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 
-import { User } from 'src/app/models/user.model';
+import { User,signupUser } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 
 /*Interfaces */

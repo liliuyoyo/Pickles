@@ -5,7 +5,20 @@ export class User {
     public password?: string;
     public image?: string;
     public isUser: boolean;
+
+    constructor(id: string, username:string, email:string, password:string, image:string, isUser:boolean){
+
+        this._id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.image = image;
+        this.isUser = isUser;
+        
+    }
 }
+
+
 
 export class signupUser{
     public username: string;
