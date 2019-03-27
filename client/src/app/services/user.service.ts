@@ -2,6 +2,7 @@ import { Injectable} from '@angular/core';
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 
+<<<<<<< HEAD
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 
@@ -18,6 +19,11 @@ export interface UserDetails {
 export interface TokenResponse {
     token: string;
 }
+||||||| merged common ancestors
+import { User } from 'src/app/models/user.model';
+=======
+import { User,signupUser } from 'src/app/models/user.model';
+>>>>>>> bf3f7fead38c720715e61e0369211156911f4d97
 
 @Injectable()
 export class UserService {
@@ -85,19 +91,8 @@ export class UserService {
         return this.http.get<User[]>(this.serverUrl+"user/register="+searchString);
     }
     
-    public sendToBackend(signupString : User): Observable<User>{
-        // return this.http.get<User>(this.serverUrl
-        //     +"user/register?username="+signupString.username
-        //     +"&useremeail="+signupString.email
-        //     +"&userpassword="+signupString.password);
-    
-        this.headers = new HttpHeaders({
-            'Content-Type': 'application/json'
-          });
+    public sendToBackend(signupString : signupUser): Observable<User>{
         return this.http.post<User>(
-            this.serverUrl+"user/register",
-            JSON.stringify(signupString), 
-            {headers: this.headers}
-        );
+            this.serverUrl+"user/register",{}, {})
     }
 }
