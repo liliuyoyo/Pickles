@@ -17,24 +17,19 @@ import {CustomValidators} from 'ng2-validation';
 })
 
 export class SignupComponent implements OnInit {
-  email:string;
-  username:string;
-  password:string;
   usertoSend:signupUser={email:"",username:"",password:""};
   usersList: User[];
   userBack:signupUser={email:"",username:"",password:""};
   private subscription : Subscription;
-
+  form:FormGroup;
   constructor(private userService : UserService,
     private router: Router,
     private elementRef:ElementRef)
   { 
-    // 4. 初始化表达组里面的内容
     this.form = new FormGroup({
-      // 定义form.field 是一个区间
-      field: new FormControl('', CustomValidators.range([5, 9])),
-      // 定义form.num 是数字类型
-      num: new FormControl('', CustomValidators.number)
+      username: new FormControl('', CustomValidators.range([5, 9])),
+      email: new FormControl('', CustomValidators.number),
+      password: new FormControl('', CustomValidators.number),
     });
   }
 
@@ -47,13 +42,15 @@ export class SignupComponent implements OnInit {
   }
   
   signup() {
-    this.usertoSend.email=this.email;
-    this.usertoSend.username=this.username;
-    this.usertoSend.password=this.password;
+    this.usertoSend.email= this.form.get('email').value;
+    this.usertoSend.username=this.form.get('username').value;
+    this.usertoSend.password=this.form.get('password').value;
+    console.log(this.form);
     this.userService.sendToBackend(this.usertoSend)
     .subscribe(data =>
     {
-      this.userBack = data;
+      console.log(data);
+      // this.userBack = data;
     }); 
   }
 
@@ -116,7 +113,7 @@ export class SignupComponent implements OnInit {
 
 // }
   // 3. 定义表单组
-  form:FormGroup;
+  
 
     //username
   usernameFocus(){
@@ -124,17 +121,17 @@ export class SignupComponent implements OnInit {
     d1.remove();
   }
   usernameBlur(){
-    var d1 = this.elementRef.nativeElement.querySelector('.username');
-    var isAlphanumeric=/^[A-Za-z0-9]+$/; 
-		if(this.username==""||this.username==undefined){
-      d1.insertAdjacentHTML('beforeend', '<div class="usernameMsg">*</div>');
-		}
-    else if(isAlphanumeric.test(this.username)){
-      d1.insertAdjacentHTML('beforeend', '<div class="usernameMsg">OK</div>');
-    }
-    else{
-      d1.insertAdjacentHTML('beforeend', '<div class="usernameMsg">The username field must contain only alphabetical or numeric characters.</div>');
-    }
+    // var d1 = this.elementRef.nativeElement.querySelector('.username');
+    // var isAlphanumeric=/^[A-Za-z0-9]+$/; 
+		// if(this.username==""||this.username==undefined){
+    //   d1.insertAdjacentHTML('beforeend', '<div class="usernameMsg">*</div>');
+		// }
+    // else if(isAlphanumeric.test(this.username)){
+    //   d1.insertAdjacentHTML('beforeend', '<div class="usernameMsg">OK</div>');
+    // }
+    // else{
+    //   d1.insertAdjacentHTML('beforeend', '<div class="usernameMsg">The username field must contain only alphabetical or numeric characters.</div>');
+    // }
   }
 
   //Email
@@ -143,17 +140,17 @@ export class SignupComponent implements OnInit {
     d2.remove();
   }
   emailBlur(){
-    var d2 = this.elementRef.nativeElement.querySelector('.email');
-    var isEmail=/^[A-Za-z\d]+([A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{3}$/; 
-		if(this.email==""||this.email==undefined){
-      d2.insertAdjacentHTML('beforeend', '<div class="emailMsg">*</div>');
-		}
-    else if(isEmail.test(this.username)){
-      d2.insertAdjacentHTML('beforeend', '<div class="emailMsg">OK</div>');
-    }
-    else{
-      d2.insertAdjacentHTML('beforeend', '<div class="emailMsg">The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.</div>');
-    }
+    // var d2 = this.elementRef.nativeElement.querySelector('.email');
+    // var isEmail=/^[A-Za-z\d]+([A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{3}$/; 
+		// if(this.email==""||this.email==undefined){
+    //   d2.insertAdjacentHTML('beforeend', '<div class="emailMsg">*</div>');
+		// }
+    // else if(isEmail.test(this.username)){
+    //   d2.insertAdjacentHTML('beforeend', '<div class="emailMsg">OK</div>');
+    // }
+    // else{
+    //   d2.insertAdjacentHTML('beforeend', '<div class="emailMsg">The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.</div>');
+    // }
   }
 
   //password
@@ -162,16 +159,16 @@ export class SignupComponent implements OnInit {
     d3.remove();
   }
   passwordBlur(){
-    var d3 = this.elementRef.nativeElement.querySelector('.password');
-    var isMoreThanSixChars=/^.{6,}$/; 
-		if(this.password==""||this.password==undefined){
-      d3.insertAdjacentHTML('beforeend', '<div class="passwordMsg">*</div>');
-		}
-    else if(isMoreThanSixChars.test(this.username)){
-      d3.insertAdjacentHTML('beforeend', '<div class="passwordMsg">OK</div>');
-    }
-    else{
-      d3.insertAdjacentHTML('beforeend', '<div class="passwordMsg">The password field should be at least six characters long.</div>');
-    }
+    // var d3 = this.elementRef.nativeElement.querySelector('.password');
+    // var isMoreThanSixChars=/^.{6,}$/; 
+		// if(this.password==""||this.password==undefined){
+    //   d3.insertAdjacentHTML('beforeend', '<div class="passwordMsg">*</div>');
+		// }
+    // else if(isMoreThanSixChars.test(this.username)){
+    //   d3.insertAdjacentHTML('beforeend', '<div class="passwordMsg">OK</div>');
+    // }
+    // else{
+    //   d3.insertAdjacentHTML('beforeend', '<div class="passwordMsg">The password field should be at least six characters long.</div>');
+    // }
   }
 }
