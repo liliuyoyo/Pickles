@@ -6,37 +6,37 @@
             <label class="filterLabel">Year :</label>
             <ul>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='allyear' value='*' checked
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='allyear' value='*' checked
                     (change)="filterBy()"/>
                     <label for='allyear'>ALL</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='year2019' value='2019'
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='year2019' value='2019'
                     (change)="filterBy()"/>
                     <label for='year2019'>2019</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='year2018' value='2018'
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='year2018' value='2018'
                     (change)="filterBy()"/>
                     <label for='year2018'>2018</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='year2017' value='2017'
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='year2017' value='2017'
                     (change)="filterBy()"/>
                     <label for='year2017'>2017</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='year2016' value='2016'
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='year2016' value='2016'
                     (change)="filterBy()"/>
                     <label for='year2016'>2016</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='year2015' value='2015'
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='year2015' value='2015'
                     (change)="filterBy()"/>
                     <label for='year2015'>2015</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.year" name='year' id='yearOther' value='other'
+                    <input type='radio' [(ngModel)]="searchConditions.year" name='year' id='yearOther' value='other'
                     (change)="filterBy()"/>
                     <label for='yearOther'>More ealier...</label>
                 </li>
@@ -47,47 +47,47 @@
             <label class="filterLabel">Genres :</label>
             <ul>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='allGenres' value='*' checked
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='allGenres' value='*' checked
                     (change)="filterBy()"/>
                     <label for='allGenres'>ALL</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='action' value='Action'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='action' value='Action'
                     (change)="filterBy()"/>
                     <label for='action'>Action</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='romance' value='Romance'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='romance' value='Romance'
                     (change)="filterBy()"/>
                     <label for='romance'>Romance</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='sci-fi' value='Sci-Fi'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='sci-fi' value='Sci-Fi'
                     (change)="filterBy()"/>
                     <label for='sci-fi'>Sci-fi</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='crime' value='Crime'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='crime' value='Crime'
                     (change)="filterBy()"/>
                     <label for='crime'>Crime</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='comey' value='Comey'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='comey' value='Comey'
                     (change)="filterBy()"/>
                     <label for='comey'>Comey</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='adventure' value='Adventure'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='adventure' value='Adventure'
                     (change)="filterBy()"/>
                     <label for='adventure'>Adventure</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='animation' value='Animation'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='animation' value='Animation'
                     (change)="filterBy()"/>
                     <label for='animation'>Animation</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.genres" name='genres' id='drama' value='Drama'
+                    <input type='radio' [(ngModel)]="searchConditions.genres" name='genres' id='drama' value='Drama'
                     (change)="filterBy()"/>
                     <label for='drama'>Drama</label>
                 </li>
@@ -98,42 +98,42 @@
             <label class="filterLabel">Area :</label>
             <ul>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='allArea' value='*' checked
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='allArea' value='*' checked
                     (change)="filterBy()"/>
                     <label for='allArea'>ALL</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='America' value='USA'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='America' value='USA'
                     (change)="filterBy()"/>
                     <label for='America'>USA</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='China' value='China'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='China' value='China'
                     (change)="filterBy()"/>
                     <label for='China'>China</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='Europe' value='Europe'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='Europe' value='Europe'
                     (change)="filterBy()"/>
                     <label for='Europe'>Europe</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='India' value='India'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='India' value='India'
                     (change)="filterBy()"/>
                     <label for='India'>India</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='Korea' value='Korea'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='Korea' value='Korea'
                     (change)="filterBy()"/>
                     <label for='Korea'>Korea</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='Japan' value='Japan'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='Japan' value='Japan'
                     (change)="filterBy()"/>
                     <label for='Japan'>Japan</label>
                 </li>
                 <li>
-                    <input type='radio' [(ngModel)]="filterValues.area" name='area' id='otherArea' value='Other'
+                    <input type='radio' [(ngModel)]="searchConditions.area" name='area' id='otherArea' value='Other'
                     (change)="filterBy()"/>
                     <label for='otherArea'>Other...</label>
                 </li>

@@ -12,27 +12,39 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   
   private subscription : Subscription;
   moviesList: Movie[];
-  pager:any;
-
-  
+  searchConditions = {
+    str:"",
+    year:"*",
+    genres:"*",
+    area:"*"
+  };
 
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
-    this.moviesService.getMovies()
-    .subscribe( data => {
+    // this.moviesService.getMovies()
+    // .subscribe( data => {
+    //   this.moviesList = data;
+    // });
+
+    /* Initially get all movies */
+    this.subscription = this.moviesService.searchingMovies(this.searchConditions)
+    .subscribe((data)=>{
       this.moviesList = data;
     });
 
+    /* Top searching bar event linster */
     this.subscription = this.moviesService.searchEvent
     .subscribe( str => {
-      this.moviesService.searchMoviesByString(str)
+      this.searchConditions.str = str;
+      this.moviesService.searchingMovies(this.searchConditions)
       .subscribe(data => this.moviesList = data);
     });
   }
 
+  /* Filter linster */
   filterMovies(filterVal : any){
-    this.moviesService.searchMovies(filterVal)
+    this.moviesService.searchingMovies(filterVal)
     .subscribe(data => {
       this.moviesList = data;
     });;
