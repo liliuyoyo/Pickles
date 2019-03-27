@@ -6,6 +6,7 @@ const router = express.Router();
 const User = require("../models/users");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const jwt = require('jsonwebtoken');
 /*************************************************************************************************
  * test status: yes
  * description: generate saltpassword
@@ -19,6 +20,7 @@ const sha512 = function(password, salt) {
     const hash = crypto.createHmac("sha512", salt);
     hash.update(password);
     const value = hash.digest("hex");
+    
     return {
         salt: salt,
         passwordHash: value
@@ -29,10 +31,11 @@ function saltHashPassword(userpassword) {
     var salt = genRandomString(16);
     var password = sha512(userpassword, salt);
 
-    return {
-        salt: password.salt,
-        newPassword: password.passwordHash
-    }
+    const result = Array();
+    result.push(password.salt);
+    result.push(password.passwordHash);
+
+    return result;
 }
 
 /*************************************************************************************************
@@ -57,16 +60,31 @@ router.get("/user/register", (req, res, next) => {
  * description: login
  * note: only use email to check user
 ***************************************************************************************************/
-router.get("/user/profile", (req, res, next) => {
-    const email = req.query.userEmail;
-    const password = req.query.userPassword;
-    const newPassword = saltHashPassword(password);
-    const output = new Array();
-    User.find({'userEmail': email}).exec().then(docs => {
-        if(docs.userPassword.passwordHash == newPassword.passwordHash){
-            output.push(docs);
+router.post("/user/profile", (req, res, next) => {
+    const username = req.query.username;
+    const password = req.query.userpassword;
+  
+    User.find({'userName': username}).exec().then(docs => {
+        if(Object.keys(docs).length === 0){
+            console.log("empty");
+            res.status(200).json("Error: Please input right Name");
+        }else {
+            Object.entries(docs).forEach(doc => {
+                const hashpassword = sha512(password, doc[1].userPassword[0]);
+                if(doc[1].userPassword[1] == hashpassword.passwordHash){
+                    const currentuserinfo = new Object();
+                    currentuserinfo._id = doc[1]._id;
+                    currentuserinfo.userName = doc[1].userName;
+                    currentuserinfo.isUser = doc[1].isUser;
+                    const token = jwt.sign(currentuserinfo, 'secret', {expiresIn: '1h'});
+                    console.log(token);
+                    res.status(200).json(token); 
+                }else {
+                    res.status(200).json("Error: Please input right Password");
+                }               
+            });
+
         }
-        res.status(200).json(output);            
     }).catch(err => console.log(err));
 });
 
@@ -108,26 +126,55 @@ router.get("/user/profile/:id", (req, res, next) => {
  * test status: no
  * description: add new user into database
 ***************************************************************************************************/
+// router.post("/user/register", (req, res, next) => {
+
+//     console.log("user");
+
+//     // const newPassword = saltHashPassword(password);
+
+//     // const user = new User({
+//     //     _id: new mongoose.Types.ObjectId(),
+//     //     userName: name,
+//     //     userEmail: email,
+//     //     userPassword: newPassword,
+//     //     userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
+//     // });
+
+//     // user.save().then(
+//     //     result => {
+//     //         console.log(result);
+//     //         res.status(200).json(user);
+//     //     }
+//     // ).catch(err => console.log(err));
+// });
+/*************************************************************************************************
+ * test status: no
+ * description: add admin user
+***************************************************************************************************/
 router.post("/user/register", (req, res, next) => {
 
-    console.log("user");
+    const name = req.body.username;
+    const email = req.body.useremail;
+    const password = req.body.userpassword;
+    const status = req.body.isuser;
+    const newPassword = saltHashPassword(password);
 
-    // const newPassword = saltHashPassword(password);
+    const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        userName: name,
+        userEmail: email,
+        userPassword: newPassword,
+        isUser: status,
+        userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
+    });
 
-    // const user = new User({
-    //     _id: new mongoose.Types.ObjectId(),
-    //     userName: name,
-    //     userEmail: email,
-    //     userPassword: newPassword,
-    //     userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
-    // });
-
-    // user.save().then(
-    //     result => {
-    //         console.log(result);
-    //         res.status(200).json(user);
-    //     }
-    // ).catch(err => console.log(err));
+    user.save().then(
+        result => {
+            console.log(result);
+            res.status(200).json(user);
+        }
+    ).catch(err => console.log(err));
 });
+
 
 module.exports = router;
