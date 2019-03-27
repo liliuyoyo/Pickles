@@ -9,9 +9,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username:string;
-  password:string;
-
+  
   user : User = new User("","","","","",true);
   tokenResponse: TokenResponse;
 
@@ -20,12 +18,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(){}
 
   onSubmit(){
-    
-    this.user.username = this.username;
-    this.user.password = this.password;
-
-    console.log(this.user);
-
     // get logined user
     this.userService.getLoginedUser(this.user)
     .subscribe((data)=>{
