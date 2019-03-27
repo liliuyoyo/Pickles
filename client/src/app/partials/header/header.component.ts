@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
 
   onSubmit(){
     this.moviesService.searchEvent.emit(this.searchString);
+    this.searchString="";
     this.router.navigateByUrl('/movies');  
   }
 }
