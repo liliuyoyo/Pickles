@@ -9,9 +9,9 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   user : User = new User("","","","","",true);
-  tokenResponse: TokenResponse;
+  tokenResponse: string;
 
   constructor(private userService: UserService) {}
   
@@ -21,8 +21,13 @@ export class LoginComponent implements OnInit {
     // get logined user
     this.userService.getLoginedUser(this.user)
     .subscribe((data)=>{
-      this.tokenResponse = data;
-      console.log(this.tokenResponse);
+      if(data[0] == 1){
+        this.tokenResponse = data[1];
+        this.userService.saveToken(this.tokenResponse);
+      }else{
+        console.log(data[1]);
+      }
+      
     });
   }
 }

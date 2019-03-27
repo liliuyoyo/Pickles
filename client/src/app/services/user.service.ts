@@ -28,12 +28,12 @@ export class UserService {
     constructor(private http: HttpClient,
                 private router: Router){};
 
-    private saveToken(token: string): void {
+    public saveToken(token: string): void {
         localStorage.setItem('mean-token', token);
         this.token = token;
     }
     
-    private getToken(): string {
+    public getToken(): string {
         if (!this.token) {
             this.token = localStorage.getItem('mean-token');
         }
