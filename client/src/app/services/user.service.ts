@@ -75,6 +75,9 @@ export class UserService {
         this.router.navigateByUrl('/movies');
     }
 
+    /***************************************
+     *  SHI JIN RU functions
+    *****************************************/
     //get all users
     public getAllUsers():Observable<User[]>{
         return this.http.get<User[]>(this.serverUrl+"user/register/");
