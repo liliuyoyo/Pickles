@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { UserService, TokenResponse } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 
 
@@ -9,9 +9,8 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
   user : User;
+  tokenResponse: TokenResponse;
 
   constructor(private userService: UserService) {}
   
@@ -19,10 +18,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     // get logined user
-    this.userService.getLoginedUser(this.username,this.password)
+    this.userService.getLoginedUser(this.user)
     .subscribe((data)=>{
-      this.user = data;
-      console.log(this.user);
+      this.tokenResponse = data;
+      console.log(this.tokenResponse);
     });
   }
 }
