@@ -1,5 +1,5 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpParams} from "@angular/common/http";
+import { Injectable} from '@angular/core';
+import { HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 
 import { User } from 'src/app/models/user.model';
@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user.model';
 @Injectable()
 export class UserService {
     serverUrl: string = "http://localhost:4600/";
+    headers:HttpHeaders;
 
     constructor(private http: HttpClient){};
 
@@ -21,9 +22,18 @@ export class UserService {
     }
     
     public sendToBackend(signupString : User): Observable<User>{
-        return this.http.get<User>(this.serverUrl
-            +"user/register?username="+signupString.username
-            +"&useremeail="+signupString.email
-            +"&userpassword="+signupString.password);
+        // return this.http.get<User>(this.serverUrl
+        //     +"user/register?username="+signupString.username
+        //     +"&useremeail="+signupString.email
+        //     +"&userpassword="+signupString.password);
+    
+        this.headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+          });
+        return this.http.post<User>(
+            this.serverUrl+"user/register",
+            JSON.stringify(signupString), 
+            {headers: this.headers}
+        );
     }
 }

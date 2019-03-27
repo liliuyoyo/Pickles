@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
     this.userService.sendToBackend(this.usertoSend)
     .subscribe(data =>
     {
-      this.userBack = data;
+      console.info(JSON.stringify(data));
     }); 
   }
 
