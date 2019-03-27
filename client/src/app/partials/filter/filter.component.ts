@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-filter',
@@ -8,12 +8,12 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class FilterComponent implements OnInit {
   
   @Output() onFilter = new EventEmitter<Object>();
-
-  private filterValues = {
-    year: '*',
-    genres: '*',
-    area: '*'
-  }
+  @Input() searchConditions = {
+    str:"",
+    year:"*",
+    genres:"*",
+    area:"*"
+  };
   
   constructor() { }
 
@@ -21,6 +21,6 @@ export class FilterComponent implements OnInit {
   }
 
   filterBy(){
-    this.onFilter.emit(this.filterValues);
+    this.onFilter.emit(this.searchConditions);
   }
 }
