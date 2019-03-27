@@ -30,6 +30,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
     /* Initially get all movies */
     this.subscription = this.moviesService.searchingMovies(this.searchConditions)
     .subscribe((data)=>{
+      console.log(data);
       this.moviesList = data;
     });
 
