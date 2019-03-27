@@ -112,13 +112,6 @@ router.post("/user/register", (req, res, next) => {
 
     console.log("user");
 
-    const name = req.query.username;
-    const email = req.query.useremail;
-    const password = req.query.userpassword;
-
-    console.log(req.parames);
-   
-
     // const newPassword = saltHashPassword(password);
 
     // const user = new User({
