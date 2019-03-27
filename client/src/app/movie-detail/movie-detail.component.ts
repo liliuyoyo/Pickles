@@ -16,6 +16,11 @@ export class MovieDetailComponent implements OnInit {
   private subscription : Subscription;
   movieToShow: Movie;
   id: string;
+  private stars ={
+    fullStars:0,
+    halfStar:0,
+    emptyStars:0
+  }
   
   constructor(private moviesService : MoviesService,
               private route: ActivatedRoute,
@@ -26,7 +31,13 @@ export class MovieDetailComponent implements OnInit {
     .subscribe((params:Params)=>{ 
         this.id = params['id']; // get movie-id from current url
         this.moviesService.getMovieById(this.id) // search the movie from serve by movie-id
-        .subscribe(data => { this.movieToShow = data; });
+        .subscribe(data => { 
+          this.movieToShow = data; 
+          var totalS = +(this.movieToShow.rating).toFixed();
+          this.stars.fullStars = Math.floor(totalS/2);
+          this.stars.halfStar = totalS%2;
+          this.stars.emptyStars = 5 - this.stars.fullStars - this.stars.halfStar;
+        });
       }
     );
   }

@@ -14,7 +14,9 @@ export class MovieItemComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   // direct to the movie-detail page
   getMoiveDetail(){
