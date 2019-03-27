@@ -6,3 +6,9 @@ export class User {
     public image?: string;
     public isUser: boolean;
 }
+
+export class signupUser{
+    public username: string;
+    public email?: string;
+    public password?: string;
+}
