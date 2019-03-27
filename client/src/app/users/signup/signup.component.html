@@ -1,30 +1,38 @@
 <div id="signupscreen">
-    <form class="signup" (ngSubmit)="signup()">
+    <form class="signup" (ngSubmit)="signup()" #myForm="ngForm">
         <h2>Sign Up</h2>
         <hr>
         <div class="form-group txt username">
             <input type="text" class="form-control" 
             (focus)="usernameFocus()" (blur)="usernameBlur()"
-            [(ngModel)]="username" 
-            name="username" id="username" placeholder="Username"/>
+            [(ngModel)]="form.username" 
+            name="username" id="username" placeholder="Username"
+            #username="ngModel" 
+            [rangeLength]="[5, 9]"
+            required/>
+            <p class="text-danger" *ngIf="username.errors?.rangeLength">输入字符长度在5-9之间</p>
         </div>
         <div class="prmptMsg usernameMsg"></div>
 
         <div class="form-group txt email" >
                 <input type="text" class="form-control" 
-                (focus)="emailFocus()" (blur)="emailBlur()" 
-                [(ngModel)]="email" 
-                name="email" id="email;" placeholder="Email"/>
+                (focus)="emailFocus()" (blur)="emailBlur()"
+                [(ngModel)]="form.email" 
+                name="email" id="email;" placeholder="Email"
+                #email="ngModel" number  required/>
+                <p class="text-danger" *ngIf="email.errors?.number">只能输入数字</p>
         </div>
         <div class="prmptMsg emailMsg"></div>
 
         <div class="form-group password">
             <input type="password" class="form-control" 
             (focus)="passwordFocus()" (blur)="passwordBlur()" 
-            [(ngModel)]="password" 
-            name="password" id="password" placeholder="Password"/>
+            [(ngModel)]="form.password" 
+            name="password" id="password" placeholder="Password"
+            #password="ngModel" number  required/>
             <meter max="4" id="password-strength-meter"></meter>
             <p id="password-strength-text"></p>
+            <p class="text-danger" *ngIf="password.errors?.number">只能输入数字</p>
         </div>
         <div class="prmptMsg passwordMsg"></div>
 
@@ -38,7 +46,7 @@
             <p><input type="checkbox"> Agree to the <a [routerLink]="['/policy']">Privacy Policy</a>.</p>
           </div>
         <div id="signup-btn">
-            <button type="submit" class="btn btn-outline-secondary btn-block">Sign Up</button>
+            <button type="submit" [disabled]="!myForm.form.valid" class="btn btn-outline-secondary btn-block">Sign Up</button>
         </div> 
         <div>
             <a [routerLink]="['/movies']" class="btn btn-link">Cancel</a>
@@ -46,3 +54,25 @@
         </div>
     </form>
 </div>
+<!-- <br/>
+<br/>
+<br/>
+<div class="container">
+  <form #myForm="ngForm">
+    <div>
+      <input type="text" [(ngModel)]="form.field" name="field" #field="ngModel" [rangeLength]="[5, 9]"
+             class="form-control" required/>
+      <p class="text-danger" *ngIf="field.errors?.rangeLength">输入字符长度在5-9之间</p>
+    </div>
+    <p></p>
+    <div>
+      <input type="text" [(ngModel)]="form.num" name="num" #num="ngModel" number class="form-control" required/>
+      <p class="text-danger" *ngIf="num.errors?.number">只能输入数字</p>
+    </div>
+    <p></p>
+    这个是提交按钮,如果条件不满足, 提价按钮为只读
+    <p>
+      <button [disabled]="!myForm.form.valid" class="btn btn-primary">提交</button>
+    </p>
+  </form>
+</div> -->
