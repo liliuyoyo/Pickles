@@ -53,3 +53,9 @@ meter {
     color:SlateGray;
     text-align:left;
 }
+.help-block{
+    color: rgb(247, 57, 57);
+}
+.prmptMsg{
+    float:left;
+}

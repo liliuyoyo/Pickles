@@ -19,6 +19,7 @@ import { PolicyComponent } from './policy/policy.component';
 
 // Services
 import { MoviesService } from './services/movies.service';
+import { UserService } from 'src/app/services/user.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
@@ -44,7 +45,7 @@ import { AppRoutingModule } from './app-routing.module';
     FormsModule,
     NgxPaginationModule
   ],
-  providers: [ MoviesService],
+  providers: [ MoviesService,UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
