@@ -1,6 +1,6 @@
 #signupscreen{
     margin: 8% auto 22% auto ;
-	width: 28%;
+	width: 35%;
     height: 30%;
     min-width:350px;
     min-height:380px;
@@ -13,7 +13,7 @@
     width: 12%;
 }
 .signup{
-	padding: 7%;
+	padding: 15%;
 }
 #signup-btn{
     padding-bottom: 5%; 
@@ -58,4 +58,7 @@ meter {
 }
 .prmptMsg{
     float:left;
+}
+.login-tag{
+   margin-left:18%;
 }
