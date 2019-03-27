@@ -10,6 +10,12 @@ export class UserService {
     headers:HttpHeaders;
 
     constructor(private http: HttpClient){};
+    
+    //get logined user
+    public getLoginedUser(username:string, password:string):Observable<User>{
+        return this.http.get<User>(this.serverUrl+"user/profile?username="+username
+                                                                +"&password="+password);
+    }
 
     //get all users
     public getAllUsers():Observable<User[]>{

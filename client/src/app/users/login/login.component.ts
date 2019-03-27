@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-// import { AlertService, AuthenticationService } from '../_services/index';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user.model';
+
 
 @Component({
   selector: 'app-login',
@@ -8,38 +9,20 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  ngOnInit() {
+  username: string;
+  password: string;
+  user : User;
+
+  constructor(private userService: UserService) {}
+  
+  ngOnInit(){}
+
+  onSubmit(){
+    // get logined user
+    this.userService.getLoginedUser(this.username,this.password)
+    .subscribe((data)=>{
+      this.user = data;
+      console.log(this.user);
+    });
   }
-
-    model: any = {};
-    loading = false;
-    returnUrl: string;
-
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        // private authenticationService: AuthenticationService,
-        // private alertService: AlertService
-        ) { }
-
-    // ngOnInit() {
-    //     // reset login status
-    //     this.authenticationService.logout();
-
-    //     // get return url from route parameters or default to '/'
-    //     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    // }
-
-    // login() {
-    //     this.loading = true;
-    //     this.authenticationService.login(this.model.username, this.model.password)
-    //         .subscribe(
-    //             data => {
-    //                 this.router.navigate([this.returnUrl]);
-    //             },
-    //             error => {
-    //                 this.alertService.error(error);
-    //                 this.loading = false;
-    //             });
-    // }
 }

@@ -11,15 +11,34 @@ export class MoviesService {
     searchEvent = new EventEmitter<string>();
 
     constructor(private http: HttpClient){};
+    
+    /*******************************************************
+     * General Searching Method
+     ********************************************************/
+    public searchingMovies(searchConditions : any): Observable<Movie[]>{
+        return this.http.get<Movie[]>(this.serverUrl+"search?str="+searchConditions.str
+                                                    +"&year="+searchConditions.year
+                                                    +"&genres="+searchConditions.genres
+                                                    +"&area="+searchConditions.area);
+    }
 
+    /*******************************************************
+     * Get single movie by id
+     ********************************************************/
+    public getMovieById( id:string ): Observable<Movie>{
+        return this.http.get<Movie>(this.serverUrl+id);
+    }
+
+
+
+
+
+    /*******************************************************
+    * Unused Functions
+     
     //get all movies
     public getMovies():Observable<Movie[]>{
         return this.http.get<Movie[]>(this.serverUrl);
-    }
-
-    // get movie by id 
-    public getMovieById( id:string ): Observable<Movie>{
-        return this.http.get<Movie>(this.serverUrl+id);
     }
 
     // get movie by filter values
@@ -33,14 +52,5 @@ export class MoviesService {
     public searchMoviesByString(searchString : any): Observable<Movie[]>{
         return this.http.get<Movie[]>(this.serverUrl+"search/global?search="+searchString);
     }
-
-    /*******************************************************
-     * General Searching Method
-     ********************************************************/
-    public searchingMovies(searchConditions : any): Observable<Movie[]>{
-        return this.http.get<Movie[]>(this.serverUrl+"search?str="+searchConditions.str
-                                                    +"&year="+searchConditions.year
-                                                    +"&genres="+searchConditions.genres
-                                                    +"&area="+searchConditions.area);
-    }
+    */
 }

@@ -18,6 +18,10 @@
     padding: 0;
     margin-left: 1%;
 }
+.brand img{
+    margin: 0;
+    padding: 0;
+}
 
 .brandImg{
     width: 20%;
@@ -34,18 +38,18 @@
     border-bottom: 7px solid gray;
 }
 
-a {
-    width: 80px;
+.top-link a {
+    width: 90px;
     font-size: 1.1em;
     color:black;
     border-radius: 10px;
     margin:0 auto;
     margin-right: 20px;
-    padding: 20px 20px;
+    padding: 20px auto;
     transition: 0.4s all;
 }
 
-a:hover{
+.top-link a:hover{
     font-style: italic;
     background-color: #b3fff0;
 }
