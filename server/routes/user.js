@@ -71,7 +71,10 @@ router.post("/user/profile", (req, res, next) => {
     User.find({'userName': username}).exec().then(docs => {
         if(Object.keys(docs).length === 0){
             console.log("empty");
-            res.status(200).json("Error: Please input right Name");
+            const output = Array();
+            output.push(0);
+            output.push("Error: Please input right Name");
+            res.status(200).json(output);
         }else {
             Object.entries(docs).forEach(doc => {
                 const hashpassword = sha512(password, doc[1].userPassword[0]);
@@ -81,10 +84,16 @@ router.post("/user/profile", (req, res, next) => {
                     currentuserinfo.userName = doc[1].userName;
                     currentuserinfo.isUser = doc[1].isUser;
                     const token = jwt.sign(currentuserinfo, 'secret', {expiresIn: '1h'});
+                    const output = Array();
                     console.log(token);
-                    res.status(200).json(token); 
+                    output.push(1);
+                    output.push(token);
+                    res.status(200).json(output);
                 }else {
-                    res.status(200).json("Error: Please input right Password");
+                    const output = Array();
+                    output.push(0);
+                    output.push("Error: Please input right Password");
+                    res.status(200).json(output);
                 }               
             });
 
