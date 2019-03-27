@@ -61,8 +61,12 @@ router.get("/user/register", (req, res, next) => {
  * note: only use email to check user
 ***************************************************************************************************/
 router.post("/user/profile", (req, res, next) => {
-    const username = req.query.username;
-    const password = req.query.userpassword;
+
+   // console.log(req.body);
+    const username = req.body.username;
+    const password = req.body.userpassword;
+    console.log(username);
+    console.log(password);
   
     User.find({'userName': username}).exec().then(docs => {
         if(Object.keys(docs).length === 0){
