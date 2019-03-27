@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PaginationService } from 'src/app/services/pagination.service';
+
 
 @Component({
   selector: 'app-pagination',
@@ -7,6 +8,9 @@ import { PaginationService } from 'src/app/services/pagination.service';
   styleUrls: ['./pagination.component.css']
 })
 export class PaginationComponent implements OnInit {
+  
+  @Output() pageChangedEvent:EventEmitter<any> = new EventEmitter<any>();
+
   private pager = {
     currentPage: 1,
     totalPages:1,
@@ -27,7 +31,9 @@ export class PaginationComponent implements OnInit {
   }
 
   public setPage(pageNum:number){
-    this.pager.currentPage = pageNum;
+    if(pageNum !== this.pager.currentPage){
+      this.pager.currentPage = pageNum;
+      this.pageChangedEvent.emit(this.pager);
+    }
   }
-
 }

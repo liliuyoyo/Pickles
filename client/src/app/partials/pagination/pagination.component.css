@@ -32,7 +32,7 @@ a span{
 
 .pagination .disabled{
     /* background-color: gray; */
-    color: gray;
+    color: lightgray;
 }
 
 .pagination .active{

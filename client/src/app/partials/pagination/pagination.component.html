@@ -18,7 +18,7 @@
       </li>
       <li *ngFor="let page of pager.pages" >
           <a [ngClass]="{'active':pager.currentPage == page}" 
-             (click)="setPage(page)">{{page}}</a>
+             (click)="setPage(page)">{{ page }}</a>
       </li>
       <li >
           <a [ngClass]="{'disabled':pager.currentPage == pager.totalPages}" 
