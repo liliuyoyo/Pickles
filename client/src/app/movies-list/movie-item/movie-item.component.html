@@ -1,8 +1,7 @@
 <div class="card">
-    <img src="{{ movie.smallImagePath }}" class="card-img-top" alt="{{ movie.title }}">
+    <a (click)="getMoiveDetail()"><img src="{{ movie.smallImagePath }}" class="card-img-top" alt="{{ movie.title }}"></a>
     <div class="card-body">
       <p class="card-text">{{ movie.title }} <span>{{ movie.rating }}</span></p>
-      <button class="btn btn-outline-secondary" (click)="getMoiveDetail()">More Info</button>
     </div>
 </div>
  

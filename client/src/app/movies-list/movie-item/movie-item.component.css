@@ -5,10 +5,11 @@ p span{
 }
 
 img {
+    cursor: pointer;
     max-width: 100%;
 }
 
 .card {
-    height: 500px;
+    height: 470px;
     margin-bottom: 30px;
 }
