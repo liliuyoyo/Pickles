@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, TokenResponse } from 'src/app/services/user.service';
+import { Location } from '@angular/common';
+import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 
 
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   user : User = new User("","","","","",true);
   tokenResponse: string;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService,
+              private location: Location) {}
   
   ngOnInit(){}
 
@@ -24,6 +26,8 @@ export class LoginComponent implements OnInit {
       if(data[0] == 1){
         this.tokenResponse = data[1];
         this.userService.saveToken(this.tokenResponse);
+        console.log(this.tokenResponse);
+        this.location.back();
       }else{
         console.log(data[1]);
       }
