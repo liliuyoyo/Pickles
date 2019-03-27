@@ -117,8 +117,8 @@ export class SignupComponent implements OnInit {
 
     //username
   usernameFocus(){
-    var d1 = this.elementRef.nativeElement.querySelector('.usernameMsg');
-    d1.remove();
+    // var d1 = this.elementRef.nativeElement.querySelector('.usernameMsg');
+    // d1.remove();
   }
   usernameBlur(){
     // var d1 = this.elementRef.nativeElement.querySelector('.username');
@@ -136,8 +136,8 @@ export class SignupComponent implements OnInit {
 
   //Email
   emailFocus(){
-    var d2 = this.elementRef.nativeElement.querySelector('.emailMsg');
-    d2.remove();
+    // var d2 = this.elementRef.nativeElement.querySelector('.emailMsg');
+    // d2.remove();
   }
   emailBlur(){
     // var d2 = this.elementRef.nativeElement.querySelector('.email');
@@ -155,8 +155,8 @@ export class SignupComponent implements OnInit {
 
   //password
   passwordFocus(){
-    var d3 = this.elementRef.nativeElement.querySelector('.passwordMsg');
-    d3.remove();
+    // var d3 = this.elementRef.nativeElement.querySelector('.passwordMsg');
+    // d3.remove();
   }
   passwordBlur(){
     // var d3 = this.elementRef.nativeElement.querySelector('.password');

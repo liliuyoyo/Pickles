@@ -167,9 +167,9 @@ router.get("/user/profile/:id", (req, res, next) => {
 router.post("/user/register", (req, res, next) => {
 
     const name = req.body.username;
-    const email = req.body.useremail;
-    const password = req.body.userpassword;
-    const status = req.body.isuser;
+    const email = req.body.email;
+    const password = req.body.password;
+    const status = "false";
     const newPassword = saltHashPassword(password);
 
     const user = new User({
