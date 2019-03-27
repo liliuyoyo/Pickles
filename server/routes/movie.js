@@ -7,101 +7,6 @@ const Movie = require("../models/movies");
 const mongoose = require("mongoose");
 const sw = require("stopword");
 const pagination = require("express-paginate");
-/*************************************************************************************************
- * test status: yes
- * description: 
-***************************************************************************************************/
-//global search function
-const globalSearch = function(query) {
-    console.log("globalsearch")
-    const queryVar = sw.removeStopwords(query.split(" "));
-    console.log(queryVar);
-    const regexNumberQuery = new Array();
-    queryVar.forEach(element => {
-        if(!isNaN(parseInt(element))){
-            regexNumberQuery.push(element);
-        }
-    });
-    const regexQuery = queryVar.join("|");
-    console.log(regexQuery);
-
-    query = {$or: [{'title': {$regex:regexQuery,$options:"$i"}}, {'geners': {$regex:regexQuery,$options:"$i"}}, 
-                {'area': {$regex:regexQuery,$options:"$i"}}, {'actors': {$regex:regexQuery,$options:"$i"}},
-                {'year': {$in: regexNumberQuery}}]};
-
-    Movie.find(query).exec().then(docs => {
-        return docs;
-    }).catch(err => console.log(err));
-}
-//filter search function
-const filterSearch = function(query) {
-    console.log("filterSearch")
-
-    const year = query.year;
-    const geners = query.genres;
-    const area = query.area;
-   
-    if(year == '*' && geners == '*' && area == '*'){
-        query = {};
-    }else if(year != '*'&& geners != '*' && area != '*'){
-        if(year == 'other' && area != 'Other'){
-            query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
-                            {'geners': geners}, {'area': area}]}
-        }else if(year != 'other' && area == 'Other'){
-            query = {$and: [{'year': year}, {"geners": geners},
-                            {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};
-        }else{
-            query = {'year': year,'geners': geners, 'area': area};
-        }
-    }else if(year == '*'&& geners != '*' && area != '*'){
-        if(area == 'Other') {
-            query = {$and: [{"geners": geners},
-                           {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};   
-        }else{
-            query = {'geners': geners, 'area': area};
-        }
-    }else if(year != '*'&& geners == '*' && area != '*'){
-        if(year == 'other' && area != 'Other'){
-            query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
-                            {'area': area}]}
-        }else if(year != 'other' && area == 'Other'){
-            query = {$and: [{'year': year},,
-                            {$nor: [{'area': USA}, {'area': China}, {'area': Europe}, {'area': India}, {'area': Korea}, {'area': Japan}]}]};
-        }else{
-            query = {'year': year, 'area': area};
-        }
-    }else if(year != '*'&& geners != '*' && area == '*'){
-        if(year == 'other'){
-            query = {$and: [{$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]}, 
-                            {'geners': geners}]}
-        }else{
-            query = {'year': year, 'geners': geners};
-        }       
-    }else if(year == '*'&& geners == '*' && area != '*'){
-        if(area == 'Other'){
-            query = {$nor: [{'area': 'USA'}, {'area': 'China'}, {'area': 'Europe'}, {'area': 'India'}, {'area': 'Korea'}, {'area': 'Japan'}]};
-        }else{
-            query = {'area': area};
-        }              
-    }else if(year == '*'&& geners != '*' && area == '*'){
-        query = {'geners': geners};
-    }else if(year != '*'&& geners == '*' && area == '*'){
-        if(year == 'other'){
-            query = {$nor: [{'year': 2019}, {'year': 2018}, {'year': 2017}, {'year': 2016}, {'year': 2015}]};
-        }else
-            query = {'year': year};
-    }
-
-    console.log(query);
-    Movie.find(query).exec().then(docs => {
-        const data = new Array();
-        Object.entries(docs).forEach(doc => {
-            data.push(doc[1]);
-        });
-        return data;
-    }).catch(err => console.log(err)); 
-}
-
 // /*************************************************************************************************
 //  * test status: yes
 //  * description: send all the schema to client. Showing on the main page
@@ -115,7 +20,6 @@ router.get("/", (req, res, next) => {
         res.status(200).json(docs);
     })
     .catch(err => console.log(err));
-    
 });
 
 /*************************************************************************************************
@@ -256,7 +160,7 @@ router.get("/movies", (req, res, next) => {
 // });
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: filter + global search
  * note: need to optimize
 ***************************************************************************************************/
