@@ -26,6 +26,7 @@ router.get("/", (req, res, next) => {
 /*************************************************************************************************
  * test status: no
  * description: send total movie numberin database
+ * note: unused
 ***************************************************************************************************/
 router.get("/movies/count", (req, res, next) => {
     Movie.find()
@@ -38,8 +39,9 @@ router.get("/movies/count", (req, res, next) => {
   });
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: send all the schema to client. Showing on the main page. add pagination
+ * note: unused
 ***************************************************************************************************/
 router.get("/movies", (req, res, next) => {
     const pageNumber = parseInt(req.query.pagenumber);
@@ -159,11 +161,12 @@ router.get("/search", (req, res, next) => {
 });
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: Global search
 ***************************************************************************************************/
 router.get("/search/global", (req, res, next) => {
     const queryVar = sw.removeStopwords(req.query.search.split(" "));
+    console.log(queryVar);
     const regexNumberQuery = new Array();
     queryVar.forEach(element => {
         if(!isNaN(parseInt(element))){
@@ -174,7 +177,8 @@ router.get("/search/global", (req, res, next) => {
     console.log(regexQuery);
 
     query = {$or: [{'title': {$regex:regexQuery,$options:"$i"}}, {'geners': {$regex:regexQuery,$options:"$i"}}, 
-                       {'actors': {$regex:regexQuery,$options:"$i"}},{'year': {$in: regexNumberQuery}}]};
+                   {'area': {$regex:regexQuery,$options:"$i"}}, {'actors': {$regex:regexQuery,$options:"$i"}},
+                   {'year': {$in: regexNumberQuery}}]};
 
     Movie.find(query).exec().then(docs => {
         console.log(docs);
