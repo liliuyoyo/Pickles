@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { FilterComponent } from './partials/filter/filter.component';
-import { PaginationComponent } from './partials/pagination/pagination.component';
 import { StarRatingComponent } from './partials/star-rating/star-rating.component';
 import { MoviesListComponent } from './movies-list/movies-list.component';
 import { MovieItemComponent } from './movies-list/movie-item/movie-item.component';
@@ -19,7 +18,6 @@ import { PolicyComponent } from './policy/policy.component';
 
 // Services
 import { MoviesService } from './services/movies.service';
-import { PaginationService } from './services/pagination.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
@@ -36,8 +34,7 @@ import { AppRoutingModule } from './app-routing.module';
     SignupComponent,
     LoginComponent,
     StarRatingComponent,
-    PolicyComponent,
-    PaginationComponent,
+    PolicyComponent
   ],
   imports: [
     BrowserModule,
@@ -45,8 +42,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [ MoviesService,
-               PaginationService],
+  providers: [ MoviesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
