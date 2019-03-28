@@ -141,7 +141,11 @@ router.get("/user/profile/:id", (req, res, next) => {
  * note: unused
 ***************************************************************************************************/
 // router.post("/user/register", (req, res, next) => {
+<<<<<<< HEAD
 
+=======
+//     // console.log(req.body);
+>>>>>>> fd9aa83b5143c6ea4d44d45d6be42335a1d28b92
 //     const newPassword = saltHashPassword(password);
 
 //     const user = new User({
