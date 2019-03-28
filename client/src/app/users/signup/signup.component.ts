@@ -25,12 +25,7 @@ export class SignupComponent implements OnInit {
   constructor(private userService : UserService,
     private router: Router,
     private elementRef:ElementRef)
-  { 
-    this.form = new FormGroup({
-      username: new FormControl('', CustomValidators.range([5, 9])),
-      email: new FormControl('', CustomValidators.number),
-      password: new FormControl('', CustomValidators.number),
-    });
+  {
   }
 
   ngOnInit() {
@@ -42,10 +37,6 @@ export class SignupComponent implements OnInit {
   }
   
   signup() {
-    this.usertoSend.email= this.form.get('email').value;
-    this.usertoSend.username=this.form.get('username').value;
-    this.usertoSend.password=this.form.get('password').value;
-    console.log(this.form);
     this.userService.sendToBackend(this.usertoSend)
     .subscribe(data =>
     {
@@ -112,9 +103,6 @@ export class SignupComponent implements OnInit {
 //   }
 
 // }
-  // 3. 定义表单组
-  
-
     //username
   usernameFocus(){
     // var d1 = this.elementRef.nativeElement.querySelector('.usernameMsg');

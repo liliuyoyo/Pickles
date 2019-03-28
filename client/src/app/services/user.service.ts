@@ -89,9 +89,8 @@ export class UserService {
     }
     
     public sendToBackend(signupString : signupUser): Observable<signupUser>{
-        return this.http.post<signupUser>(
-            this.serverUrl+"user/register",
-            {signupString },
+        return this.http.post<signupUser>( this.serverUrl+"user/register",
+            signupString,
              {})
     }
 }

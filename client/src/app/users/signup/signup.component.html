@@ -5,7 +5,7 @@
         <div class="form-group txt username">
             <input type="text" class="form-control" 
             (focus)="usernameFocus()" (blur)="usernameBlur()"
-            [(ngModel)]="form.username" 
+            [(ngModel)]="usertoSend.username" 
             name="username" id="username" placeholder="Username"
             #username="ngModel" 
             [rangeLength]="[5, 9]"
@@ -17,7 +17,7 @@
         <div class="form-group txt email" >
                 <input type="text" class="form-control" 
                 (focus)="emailFocus()" (blur)="emailBlur()"
-                [(ngModel)]="form.email" 
+                [(ngModel)]="usertoSend.email" 
                 name="email" id="email;" placeholder="Email"
                 #email="ngModel" number  required/>
                 <p class="text-danger" *ngIf="email.errors?.number">只能输入数字</p>
@@ -27,7 +27,7 @@
         <div class="form-group password">
             <input type="password" class="form-control" 
             (focus)="passwordFocus()" (blur)="passwordBlur()" 
-            [(ngModel)]="form.password" 
+            [(ngModel)]="usertoSend.password" 
             name="password" id="password" placeholder="Password"
             #password="ngModel" number  required/>
             <meter max="4" id="password-strength-meter"></meter>
