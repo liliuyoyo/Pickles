@@ -141,13 +141,8 @@ router.get("/user/profile/:id", (req, res, next) => {
  * note: unused
 ***************************************************************************************************/
 // router.post("/user/register", (req, res, next) => {
-<<<<<<< HEAD
-
-=======
 //     // console.log(req.body);
->>>>>>> fd9aa83b5143c6ea4d44d45d6be42335a1d28b92
 //     const newPassword = saltHashPassword(password);
-
 //     const user = new User({
 //         _id: new mongoose.Types.ObjectId(),
 //         userName: name,
@@ -169,10 +164,12 @@ router.get("/user/profile/:id", (req, res, next) => {
 ***************************************************************************************************/
 router.post("/user/register", (req, res, next) => {
 
+    console.log(req.body);
+
     const name = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
-    const status = "false";
+    const status = req.body.isUser;
     const newPassword = saltHashPassword(password);
 
     const user = new User({
@@ -183,6 +180,8 @@ router.post("/user/register", (req, res, next) => {
         isUser: status,
         userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
     });
+
+   // console.log(user);
 
     user.save().then(
         result => {
