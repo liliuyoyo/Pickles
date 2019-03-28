@@ -88,9 +88,14 @@ export class UserService {
         return this.http.get<User[]>(this.serverUrl+"user/register="+searchString);
     }
     
-    public sendToBackend(signupString : signupUser): Observable<signupUser>{
-        return this.http.post<signupUser>( this.serverUrl+"user/register",
+    // public sendToBackend(signupString : signupUser): Observable<signupUser>{
+    //     return this.http.post<signupUser>( this.serverUrl+"user/register",
+    //         signupString,
+    //          {})
+    // }
+    public sendToBackend(signupString : User): Observable<User>{
+        return this.http.post<User>( this.serverUrl+"user/register",
             signupString,
-             {})
+             {});
     }
 }

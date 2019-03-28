@@ -139,25 +139,25 @@ router.get("/user/profile/:id", (req, res, next) => {
  * test status: no
  * description: add new user into database
 ***************************************************************************************************/
-router.post("/user/register", (req, res, next) => {
+// router.post("/user/register", (req, res, next) => {
+//     // console.log(req.body);
+//     const newPassword = saltHashPassword(password);
 
-    const newPassword = saltHashPassword(password);
+//     const user = new User({
+//         _id: new mongoose.Types.ObjectId(),
+//         userName: name,
+//         userEmail: email,
+//         userPassword: newPassword,
+//         userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
+//     });
 
-    const user = new User({
-        _id: new mongoose.Types.ObjectId(),
-        userName: name,
-        userEmail: email,
-        userPassword: newPassword,
-        userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
-    });
-
-    user.save().then(
-        result => {
-            console.log(result);
-            res.status(200).json(user);
-        }
-    ).catch(err => console.log(err));
-});
+//     user.save().then(
+//         result => {
+//             console.log(result);
+//             res.status(200).json(user);
+//         }
+//     ).catch(err => console.log(err));
+// });
 /*************************************************************************************************
  * test status: no
  * description: add admin user
