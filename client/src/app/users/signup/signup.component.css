@@ -33,32 +33,43 @@
 meter {
     /* Reset the default appearance */
     -webkit-appearance: none;
-       -moz-appearance: none;
+        -moz-appearance: none;
             appearance: none;
-  
+
     margin: 0 0 1em 0;
     width: 100%;
     height: 0.5em;
-  
+
     /* Applicable only to Firefox */
     background: none;
     background-color: rgba(0, 0, 0, 0.1);
-  }
-  
-  meter::-webkit-meter-bar {
+}
+
+meter::-webkit-meter-bar {
     background: none;
     background-color: rgba(0, 0, 0, 0.1);
-  }
-#prmpt{
-    color:SlateGray;
-    text-align:left;
-}
-.help-block{
-    color: rgb(247, 57, 57);
-}
-.prmptMsg{
-    float:left;
 }
 .login-tag{
    margin-left:18%;
+}
+.prmpt{
+    
+}
+
+.ok {
+	background: #cfc;
+	border: 2px solid #9c9;
+}
+
+.info {
+    border: ridge;
+    position: absolute;
+    width: 17%;
+    background: white;
+    border-radius: 5px;
+}
+
+.error {
+	background: #fcc;
+	border: 2px solid #c99;
 }

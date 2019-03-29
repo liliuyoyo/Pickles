@@ -1,4 +1,4 @@
-<div id="signupscreen">
+<!-- <div id="signupscreen">
     <form class="signup" (ngSubmit)="signup()" #myForm="ngForm">
         <h2>Sign Up</h2>
         <hr>
@@ -53,4 +53,51 @@
             <a [routerLink]="['/login']" class="btn btn-link login-tag">Login</a>
         </div>
     </form>
+</div> -->
+<div id="signupscreen">
+  <form class="signup" (ngSubmit)="signup()">
+      <h2>Sign Up</h2>
+      <hr>
+      <div class="form-group txt">
+          <input type="text" class="form-control" 
+          [(ngModel)]="usertoSend.username" 
+          name="username" id="username" placeholder="Username"
+          required/>
+          <span id="username-info" [ngClass]="{'info': id === 11,'ok': id === 12,'error': id === 13}"></span>
+      </div>
+      
+      <div class="form-group txt" >
+          <input type="text" class="form-control" 
+          [(ngModel)]="usertoSend.email" 
+          name="email" id="email" placeholder="Email"required/>
+          <span id="email-info" [ngClass]="{'info': id === 21,'ok': id === 22,'error': id === 23}"></span>
+      </div>
+      
+
+      <div class="form-group">
+          <input type="password" class="form-control" 
+          [(ngModel)]="usertoSend.password" 
+          name="password" id="password" placeholder="Password"required/>
+          <meter max="4" id="password-strength-meter"></meter>
+          <p id="password-strength-text"></p>
+          <span id="password-info" [ngClass]="{'info': id === 31,'ok': id === 32,'error': id === 33}"></span>
+      </div>
+
+      <div id="prmpt">
+          <p>In order to <strong>protect your account</strong>, make sure your password:</p>
+          <ul>
+            <li>Is longer than 6 characters</li>
+            <li> Does not match or significantly contain your username, e.g. do not use 'username123'.</li>
+            <li>Is not a member of this list of common passwords</li>
+          </ul>
+          <p><input type="checkbox"> Agree to the <a [routerLink]="['/policy']">Privacy Policy</a>.</p>
+        </div>
+      <div id="signup-btn">
+          <button type="submit" class="btn btn-outline-secondary btn-block">Sign Up</button>
+      </div> 
+      <div>
+          <a [routerLink]="['/movies']" class="btn btn-link">Cancel</a>
+          <a [routerLink]="['/login']" class="btn btn-link login-tag">Login</a>
+      </div>
+  </form>
 </div>
