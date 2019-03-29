@@ -1,7 +1,5 @@
 //need to install these below:
-//  npm install --save jquery
-//  npm install @types/jquery --save
-//  npm install ng2-password-strength-bar --save
+//  npm install --save jquery @types/jquery --save ng2-password-strength-bar --save
 
 import { Component, OnInit,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
