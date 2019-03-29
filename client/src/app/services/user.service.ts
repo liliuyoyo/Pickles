@@ -38,8 +38,8 @@ export class UserService {
     }
 
     // check whether user is loggedIn
-    public isLoggedIn():boolean {
-        this.http.post<boolean>(this.serverUrl+"comment",this.token)
+    public isLoggedIn():boolean{
+        this.http.post<boolean>(this.serverUrl+"status", { token: this.token })
         .subscribe((res)=>{
             this.loggedin = res;
         });

@@ -50,11 +50,12 @@ export class MovieDetailComponent implements OnInit {
   }
 
   public addNewComment(){
-    if(this.userService.isLoggedIn()){
-      console.log("logged in");
-    }else{
-      console.log("please login!");
-    }
+    this.userService.isLoggedIn();
+    // if(this.userService.isLoggedIn()){
+    //   console.log(this.userService.isLoggedIn());
+    // }else{
+    //   console.log(this.userService.isLoggedIn());
+    // }
   }
 
   ngOnDestroy(){

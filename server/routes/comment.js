@@ -18,15 +18,18 @@ router.get("/movie/comment", (req, res, next) => {
  * note: need to check if loggin
 ***************************************************************************************************/
 router.post("/status", (req, res, next) => {
-    const token = req.body;
+    const token = req.body.token;
    // console.log(Object.keys(token).length);
     if(Object.keys(token).length == 0) {
+        console.log("false");
         res.status(200).json("false");
     }else {
         const legit = jwt.verify(token, 'secret');
         if(Date.now()/1000 > legit.exp) {
+            console.log("false");
              res.status(200).json("false");
         }else {
+            console.log("true");
             res.status(200).json("true");
         }
     }
