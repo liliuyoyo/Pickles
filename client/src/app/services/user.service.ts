@@ -55,23 +55,20 @@ export class UserService {
     /***************************************
      *  SHI JIN RU functions
     *****************************************/
-    //get all users
-    public getAllUsers():Observable<User[]>{
-        return this.http.get<User[]>(this.serverUrl+"user/register/");
-    }
-
     // get user by username
     public getUserByUsername(searchString : any): Observable<User[]>{
         return this.http.get<User[]>(this.serverUrl+"user/register="+searchString);
     }
-    
-    // public sendToBackend(signupString : signupUser): Observable<signupUser>{
-    //     return this.http.post<signupUser>( this.serverUrl+"user/register",
+    //Just for test, to be deleted
+    // public sendToBackend(signupString : User): Observable<User>{
+    //     return this.http.post<User>( this.serverUrl+"user/register",
     //         signupString,
-    //          {})
+    //          {});
     // }
-    public sendToBackend(signupString : User): Observable<User>{
-        return this.http.post<User>( this.serverUrl+"user/register",
+    //username or email already exists when return false
+    //signup successfully when return true
+    public sendToBackend(signupString : User): Observable<boolean>{
+        return this.http.post<boolean>( this.serverUrl+"user/register",
             signupString,
              {});
     }
