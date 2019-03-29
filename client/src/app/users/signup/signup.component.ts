@@ -27,9 +27,12 @@ export class SignupComponent implements OnInit {
   email_valid:boolean=false;
   password_valid:boolean=false;
 
+  //for check exist
+  userToCheckUsername: User=new User("","","","","",true);
+  userToCheckEmail: User=new User("","","","","",true);
+
   //for password strength
   public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
-  public strengthLabels = ['', 'Weak', 'Normal', 'Strong', 'Great!'];
 
   private subscription : Subscription;
 
@@ -44,25 +47,29 @@ export class SignupComponent implements OnInit {
   }
   
   signup() {
+    if(!$('#agree').is(':checked')){
+      console.log('1');
+    }
     if(this.username_valid==true&&
       this.email_valid==true&&
       this.password_valid==true&&
       $('#agree').is(':checked')
       ){
-        console.log("yse");
-      // this.userService.sendToBackend(this.usertoSend)
-      // .subscribe(data =>
-      // {
-      //   if(data==true){
-      //     console.log(data);
-      //     //jump to signup loading page and then jump to singup successful page.
-      //   }
-      //   else{
-      //     //jump to signup loading page(prompt something is wrong!)
-      //   }
-      // }); 
+      this.userService.signup(this.usertoSend)
+      .subscribe(data =>
+      {
+        console.log(data);
+        if(data==true){
+          //--->jump to signup loading page and then jump to singup successful page.
+        }
+        else{
+          //--->jump to signup loading page(prompt something is wrong!)
+        }
+      }); 
+      this.username_valid=false;
+      this.email_valid=false;
+      this.password_valid=false;
     }
-    
   }
   
   listeners(signup:any){
@@ -73,7 +80,6 @@ export class SignupComponent implements OnInit {
 
     //focus
     $("#username").focus(function(){
-      $("#username-info").removeClass();
       $("#username-info").text("The username field must contain only alphabetical or numeric characters.");
       $("#username-info").css({
         "left":$("#username").offset().left + 1.12*$("#username").width(),
@@ -95,11 +101,12 @@ export class SignupComponent implements OnInit {
       else if(isAlphanumeric.test(String(username).toLowerCase())){
         //send user{username:"username.value",email:"?",password:"?",_id:"",...}
         //  to back end, check if username exists.
-        signup.userService.sendToBackend(signup.usertoSend)
+        signup.userToCheckUsername.username=signup.usertoSend.username;
+        signup.userService.checkUsername(signup.userToCheckUsername)
         .subscribe(data =>
         {
           //username exists
-          if(data==false){
+          if(data=='false'){
             $("#username-info").text("Username already exists.");
             signup.username_id=2;
           }
@@ -118,7 +125,6 @@ export class SignupComponent implements OnInit {
     
     //focus
     $("#email").focus(function(){
-      $("#email-info").removeClass();
       $("#email-info").text("The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.");
       $("#email-info").css({
         "left":$("#email").offset().left + 1.12*$("#email").width(),
@@ -140,11 +146,12 @@ export class SignupComponent implements OnInit {
       else if(isEmail.test(String(email).toLowerCase())){
         //send user{username:"?",email:"email.value",password:"?",_id:"",...}
         //  to back end, check if email exists.
-        signup.userService.sendToBackend(signup.usertoSend)
+        signup.userToCheckEmail.email=signup.usertoSend.email;
+        signup.userService.checkEmail(signup.userToCheckEmail)
         .subscribe(data =>
         {
           //email exists
-          if(data==false){
+          if(data=='false'){
             $("#email-info").text("Email already exists.");
             signup.email_id=2;
           }
@@ -163,7 +170,6 @@ export class SignupComponent implements OnInit {
     
     //focus
     $("#password").focus(function(){
-      $("#password-info").removeClass();
       $("#password-info").text("The password field should be at least 6 characters long.");
       $("#password-info").css({
         "left":$("#password").offset().left + 1.12*$("#password").width(),
@@ -191,7 +197,7 @@ export class SignupComponent implements OnInit {
        }
     });
 
-    //if continue, add code here
+    //--->if continue, add code here
 
   }
 }

@@ -37,7 +37,7 @@
     margin-top: 10%;
     color:slategray;
     text-align: left;
-    display: block;
+    clear: left;
 }
 
 .ok {
@@ -57,11 +57,11 @@
 .error {
     Font-size:75%;
     float:left;
-	color:rgb(226, 52, 52);
+    color:rgb(226, 52, 52);
 }
 #password-info{
     margin-top: 1.6%;
-    margin-left: 0.6%;
+    margin-left: 4%;
 }
 
 /*password strength */
