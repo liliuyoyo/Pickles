@@ -14,6 +14,25 @@ router.get("/movie/comment", (req, res, next) => {
 });
 /*************************************************************************************************
  * test status: no
+ * description: check if user loggin
+ * note: need to check if loggin
+***************************************************************************************************/
+router.post("/status", (req, res, next) => {
+    const token = req.body;
+   // console.log(Object.keys(token).length);
+    if(Object.keys(token).length == 0) {
+        res.status(200).json("false");
+    }else {
+        const legit = jwt.verify(token, 'secret');
+        if(Date.now()/1000 > legit.exp) {
+             res.status(200).json("false");
+        }else {
+            res.status(200).json("true");
+        }
+    }
+});
+/*************************************************************************************************
+ * test status: no
  * description: create new comments
  * note: need to check if loggin
 ***************************************************************************************************/
@@ -33,10 +52,6 @@ router.post("/comment", (req, res, next) => {
                 comments.author.id = legit._id;
                 comments.author.username = legit.userName;
                 comments.text = req.body.comment;
-                // comments.save().then(docs => {
-                //     console.log(docs);
-                //     movie.comments.push(docs);
-                // }).catch(err => {console.log(err)})
                 Comment.create(comments, function(err, comment){
                     if(err) {
                         console.log(err);
