@@ -1,3 +1,4 @@
+/*Control the whole signup panel*/
 #signupscreen{
     margin: 8% auto 22% auto ;
 	width: 35%;
@@ -5,12 +6,6 @@
     min-width:350px;
     min-height:380px;
 	border-style: ridge;
-}
-
-.img{
-    margin: 6% auto 0 auto ;
-    display:block;
-    width: 12%;
 }
 .signup{
 	padding: 15%;
@@ -30,6 +25,34 @@
 #password{
 	border-color:#ccc
 }
+.login-tag{
+   margin-left:18%;
+}
+#prmpt{
+    margin-top: 10%;
+    color:slategray;
+    text-align: left;
+}
+
+.ok {
+	background: #cfc;
+	border: 2px solid #9c9;
+}
+
+.info {
+    color:slategray;
+    border: ridge;
+    position: absolute;
+    width: 17%;
+    background: white;
+    border-radius: 5px;
+}
+
+.error {
+    Font-size:75%;
+    float:left;
+	color:rgb(226, 52, 52);
+}
 meter {
     /* Reset the default appearance */
     -webkit-appearance: none;
@@ -48,28 +71,4 @@ meter {
 meter::-webkit-meter-bar {
     background: none;
     background-color: rgba(0, 0, 0, 0.1);
-}
-.login-tag{
-   margin-left:18%;
-}
-.prmpt{
-    
-}
-
-.ok {
-	background: #cfc;
-	border: 2px solid #9c9;
-}
-
-.info {
-    border: ridge;
-    position: absolute;
-    width: 17%;
-    background: white;
-    border-radius: 5px;
-}
-
-.error {
-	background: #fcc;
-	border: 2px solid #c99;
 }

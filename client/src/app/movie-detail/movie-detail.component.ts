@@ -16,6 +16,7 @@ import { UserService } from '../services/user.service';
 export class MovieDetailComponent implements OnInit {
   private subscription : Subscription;
   movieToShow: Movie;
+  isLoggedin: boolean = false;
   id: string;
   private stars ={
     fullStars:0,
@@ -50,11 +51,10 @@ export class MovieDetailComponent implements OnInit {
   }
 
   public addNewComment(){
-    if(this.userService.isLoggedIn()){
-      console.log("logged in");
-    }else{
-      console.log("please login!");
-    }
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      console.log(res);
+    });  
   }
 
   ngOnDestroy(){

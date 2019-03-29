@@ -18,10 +18,8 @@ router.get("/movie/comment", (req, res, next) => {
  * note: need to check if loggin
 ***************************************************************************************************/
 router.post("/status", (req, res, next) => {
-    console.log("status");
-   // console.log(req);
     const token = req.body;
-   // console.log(Object.keys(token).length);
+ 
     if(Object.keys(token).length == 0) {
         res.status(200).json("false");
     }else {
