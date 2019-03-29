@@ -212,14 +212,15 @@ router.post("/user/register", (req, res, next) => {
         userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg"
     });
 
-   // console.log(user);
-
     user.save().then(
         result => {
-            console.log(result);
-            res.status(200).json(user);
+           // console.log(result);
+            res.status(200).json("true");
         }
-    ).catch(err => console.log(err));
+    ).catch(err => {
+        console.log(err);
+        res.status(200).json("false");
+    });
 });
 
 module.exports = router;
