@@ -20,6 +20,7 @@ export class UserService {
     serverUrl: string = "http://localhost:4600/";
     headers:HttpHeaders;
     token: string;
+    loggedin:boolean;
 
     constructor(private http: HttpClient,
                 private router: Router){};
@@ -37,8 +38,12 @@ export class UserService {
     }
 
     // check whether user is loggedIn
-    public isLoggedIn(): Observable<boolean> {
-        return this.http.post<boolean>(this.serverUrl+"comment",this.token);
+    public isLoggedIn():boolean {
+        this.http.post<boolean>(this.serverUrl+"comment",this.token)
+        .subscribe((res)=>{
+            this.loggedin = res;
+        });
+        return this.loggedin;
     }
 
     //login user and get TokenResponse

@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { MoviesService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/models/movie.model';
 import { Subscription } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class MovieDetailComponent implements OnInit {
   }
   
   constructor(private moviesService : MoviesService,
+              private userService:UserService,
               private route: ActivatedRoute,
               private location: Location) { }
 
@@ -45,6 +47,14 @@ export class MovieDetailComponent implements OnInit {
   // Back to the last page.
   goBack(){
     this.location.back();
+  }
+
+  public addNewComment(){
+    if(this.userService.isLoggedIn()){
+      console.log("logged in");
+    }else{
+      console.log("please login!");
+    }
   }
 
   ngOnDestroy(){

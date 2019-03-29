@@ -172,10 +172,10 @@ router.get("/search", function(req, res){
     const area = req.query.area;
     const gloablstring = String(req.query.str);
     
-    console.log(req.query);
+ //   console.log(req.query);
 
     if(gloablstring.length != 0) {
-        console.log("gloablstring");
+     //   console.log("gloablstring");
         const queryVar = sw.removeStopwords(gloablstring.split(" "));
      //   console.log(queryVar);
         const regexNumberQuery = new Array();
@@ -195,7 +195,7 @@ router.get("/search", function(req, res){
             res.status(200).json(docs);
         }).catch(err => console.log(err));      
     }else{
-        console.log("filterSearch")   
+       // console.log("filterSearch")   
         if(year == '*' && geners == '*' && area == '*'){
             query = {};
         }else if(year != '*'&& geners != '*' && area != '*'){
@@ -246,7 +246,7 @@ router.get("/search", function(req, res){
             }else
                 query = {'year': year};
         }
-        console.log(query);
+      //  console.log(query);
         Movie.find(query).exec().then(docs => {
             res.status(200).json(docs);
         }).catch(err => console.log(err)); 

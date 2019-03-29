@@ -40,6 +40,14 @@ function saltHashPassword(userpassword) {
 
 /*************************************************************************************************
  * test status: yes
+ * description: generate token ootion
+***************************************************************************************************/
+var signOptions = {
+    expiresIn:  "1h",
+    algorithm:  "RS256"
+};
+/*************************************************************************************************
+ * test status: yes
  * description: signup get all users
 ***************************************************************************************************/
 router.get("/user/register", (req, res, next) => {
@@ -56,25 +64,20 @@ router.get("/user/register", (req, res, next) => {
 });
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: login
- * note: only use email to check user
+ * note: only use username to check user
 ***************************************************************************************************/
 router.post("/user/profile", (req, res, next) => {
-
-   // console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username);
-    console.log(password);
+    // console.log(username);
+    // console.log(password);
   
     User.find({'userName': username}).exec().then(docs => {
         if(Object.keys(docs).length === 0){
             console.log("empty");
-            const output = Array();
-            output.push(0);
-            output.push("Error: Please input right Name");
-            res.status(200).json(output);
+            res.status(200).json("false");
         }else {
             Object.entries(docs).forEach(doc => {
                 const hashpassword = sha512(password, doc[1].userPassword[0]);
@@ -82,21 +85,15 @@ router.post("/user/profile", (req, res, next) => {
                     const currentuserinfo = new Object();
                     currentuserinfo._id = doc[1]._id;
                     currentuserinfo.userName = doc[1].userName;
-                    currentuserinfo.isUser = doc[1].isUser;
-                    const token = jwt.sign(currentuserinfo, 'secret', {expiresIn: '1h'});
-                    const output = Array();
-                    console.log(token);
-                    output.push(1);
-                    output.push(token);
-                    res.status(200).json(output);
+                    const token = jwt.sign(currentuserinfo, 'secret', {expiresIn: "1h"});
+                    res.status(200).json({
+                        "isuser" : doc[1].isUser,
+                        "token": token
+                    });
                 }else {
-                    const output = Array();
-                    output.push(0);
-                    output.push("Error: Please input right Password");
-                    res.status(200).json(output);
+                    res.status(200).json("false");
                 }               
             });
-
         }
     }).catch(err => console.log(err));
 });
@@ -159,8 +156,8 @@ router.get("/user/profile/:id", (req, res, next) => {
 //     ).catch(err => console.log(err));
 // });
 /*************************************************************************************************
- * test status: no
- * description: add admin user
+ * test status: yes
+ * description: add user
 ***************************************************************************************************/
 router.post("/user/register", (req, res, next) => {
 
@@ -190,6 +187,5 @@ router.post("/user/register", (req, res, next) => {
         }
     ).catch(err => console.log(err));
 });
-
 
 module.exports = router;
