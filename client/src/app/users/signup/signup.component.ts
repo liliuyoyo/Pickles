@@ -1,3 +1,8 @@
+//need to install these below:
+//  npm install --save jquery
+//  npm install @types/jquery --save
+//  npm install ng2-password-strength-bar --save
+
 import { Component, OnInit,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -24,6 +29,10 @@ export class SignupComponent implements OnInit {
   email_valid:boolean=false;
   password_valid:boolean=false;
 
+  //for password strength
+  public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
+  public strengthLabels = ['', 'Weak', 'Normal', 'Strong', 'Great!'];
+
   private subscription : Subscription;
 
   constructor(private userService : UserService,
@@ -39,18 +48,23 @@ export class SignupComponent implements OnInit {
   signup() {
     if(this.username_valid==true&&
       this.email_valid==true&&
-      this.password_valid==true){
-      this.userService.sendToBackend(this.usertoSend)
-      .subscribe(data =>
-      {
-        if(data==true){
-          //jump to signup loading page and then jump to singup successful page.
-        }
-        else{
-          //jump to signup loading page(prompt something is wrong!)
-        }
-      }); 
+      this.password_valid==true&&
+      $('#agree').is(':checked')
+      ){
+        console.log("yse");
+      // this.userService.sendToBackend(this.usertoSend)
+      // .subscribe(data =>
+      // {
+      //   if(data==true){
+      //     console.log(data);
+      //     //jump to signup loading page and then jump to singup successful page.
+      //   }
+      //   else{
+      //     //jump to signup loading page(prompt something is wrong!)
+      //   }
+      // }); 
     }
+    
   }
   
   listeners(signup:any){
@@ -73,6 +87,7 @@ export class SignupComponent implements OnInit {
 
     //blur
     $("#username").blur(function(){
+      $("#username-info").text("");
       signup.username_id=0;
       let isAlphanumeric=/^[A-Za-z0-9]+$/; 
       var username=$("#username").val();
@@ -81,7 +96,7 @@ export class SignupComponent implements OnInit {
       }
       else if(isAlphanumeric.test(String(username).toLowerCase())){
         //send user{username:"username.value",email:"?",password:"?",_id:"",...}
-        //to back end, check if username exists.
+        //  to back end, check if username exists.
         signup.userService.sendToBackend(signup.usertoSend)
         .subscribe(data =>
         {
@@ -92,7 +107,6 @@ export class SignupComponent implements OnInit {
           }
           else{
             signup.username_valid=true;
-            $("#username-info").text("");
           }
         }); 
       }
@@ -118,6 +132,7 @@ export class SignupComponent implements OnInit {
 
     //blur
     $("#email").blur(function(){
+      $("#email-info").text("");
       signup.email_id=0;
       var isEmail=/^[A-Za-z\d]+([A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{3}$/;
       var email=$("#email").val();
@@ -126,7 +141,7 @@ export class SignupComponent implements OnInit {
       }
       else if(isEmail.test(String(email).toLowerCase())){
         //send user{username:"?",email:"email.value",password:"?",_id:"",...}
-        //to back end, check if email exists.
+        //  to back end, check if email exists.
         signup.userService.sendToBackend(signup.usertoSend)
         .subscribe(data =>
         {
@@ -137,7 +152,6 @@ export class SignupComponent implements OnInit {
           }
           else{
             signup.email_valid=true;
-            $("#email-info").text("");
           }
         }); 
       }
@@ -163,6 +177,7 @@ export class SignupComponent implements OnInit {
     
     //blur
     $("#password").blur(function(){
+      $("#password-info").text("");
       signup.password_id=0;
       var isMoreThanSixChars=/^.{6,}$/;
       var password=$("#password").val();
@@ -171,7 +186,6 @@ export class SignupComponent implements OnInit {
       }
       else if(isMoreThanSixChars.test(String(password).toLowerCase())){
         signup.password_valid=true;
-        $("#password-info").text("");
       }
       else{
         $("#password-info").text("Please enter a valid password");

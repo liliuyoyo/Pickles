@@ -156,13 +156,47 @@ router.get("/user/profile/:id", (req, res, next) => {
 //     ).catch(err => console.log(err));
 // });
 /*************************************************************************************************
+ * test status: no
+ * description: check username if valid
+***************************************************************************************************/
+router.post("/user/register/username", (req, res, next) => {
+    const username = req.body.username;
+    if(username == null) {
+        res.status(200).json("false");
+    }else {
+        User.find({"userName": username}).exec().then(docs => {
+            if(Object.keys(docs).length == 0) {
+                res.status(200).json("true");
+            }else {
+                res.status(200).json("false");
+            }
+        }).catch(err => console.log(err));       
+    }
+});
+/*************************************************************************************************
+ * test status: no
+ * description: check email if valid
+***************************************************************************************************/
+router.post("/user/register/email", (req, res, next) => {
+    const email = req.body.email;
+    if(email == null) {
+        res.status(200).json("false");
+    }else {
+        User.find({"userEmail": email}).exec().then(docs => {
+            if(Object.keys(docs).length == 0) {
+                res.status(200).json("true");
+            }else {
+                res.status(200).json("false");
+            }
+        }).catch(err => console.log(err));       
+    }
+});
+/*************************************************************************************************
  * test status: yes
  * description: add user
 ***************************************************************************************************/
 router.post("/user/register", (req, res, next) => {
-
     console.log(req.body);
-
     const name = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
