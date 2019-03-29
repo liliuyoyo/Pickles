@@ -4,6 +4,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const pagination = require("express-paginate");
+const passport = require("passport");
+const passportLocalStrategy= require("passport-local").Strategy;
 
 //requiring routes
 const moviesRoute = require("./routes/movie");
