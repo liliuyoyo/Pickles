@@ -14,10 +14,6 @@ export interface UserDetails {
     isUser: boolean;
     expire: number;
 }
-  
-export interface TokenResponse {
-    token: string;
-}
 
 @Injectable()
 export class UserService {
@@ -40,33 +36,14 @@ export class UserService {
         return this.token;
     }
 
-    //get decode payload
-    public getUserDetails(): UserDetails {
-        const token = this.getToken();
-        let payload;
-
-        if (token) {
-            payload = token.split('.')[1];
-            payload = window.atob(payload);
-            return JSON.parse(payload);
-        } else {
-            return null;
-        }
-    }
-
     // check whether user is loggedIn
-    public isLoggedIn(): boolean {
-        const user = this.getUserDetails();
-        if (user) {
-            return user.expire > Date.now() / 1000;
-        } else {
-            return false;
-        }
+    public isLoggedIn(): Observable<boolean> {
+        return this.http.post<boolean>(this.serverUrl+"comment",this.token);
     }
 
     //login user and get TokenResponse
-    public getLoginedUser(user: User):Observable<TokenResponse>{
-        return this.http.post<TokenResponse>(this.serverUrl+"user/profile", user);
+    public getLoginedUser(user: User):Observable<any>{
+        return this.http.post<any>(this.serverUrl+"user/profile", user);
     }
     
     public userLogout(): void {

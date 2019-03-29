@@ -12,6 +12,7 @@ import { User } from 'src/app/models/user.model';
 export class LoginComponent implements OnInit {
 
   user : User = new User("","","","","",true);
+  isAdmin: boolean = false;
   tokenResponse: string;
 
   constructor(private userService: UserService,
@@ -23,12 +24,13 @@ export class LoginComponent implements OnInit {
     // get logined user
     this.userService.getLoginedUser(this.user)
     .subscribe((data)=>{
-      if(data[0] == 1){
-        this.tokenResponse = data[1];
+      if(data !== false){
+        this.tokenResponse = data.token;
         this.userService.saveToken(this.tokenResponse);
-        console.log(this.tokenResponse);
+        this.isAdmin = data.isuser;
         this.location.back();
       }else{
+        // wrong user;
         console.log(data[1]);
       }
       
