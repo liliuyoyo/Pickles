@@ -18,16 +18,19 @@ router.get("/movie/comment", (req, res, next) => {
  * note: need to check if loggin
 ***************************************************************************************************/
 router.post("/status", (req, res, next) => {
-    const token = req.body;
- 
-    if(Object.keys(token).length == 0) {
-        res.status(200).json("false");
+    const token = req.body.token;
+    if(token == null) {
+        res.json("false");
     }else {
-        const legit = jwt.verify(token, 'secret');
-        if(Date.now()/1000 > legit.exp) {
-             res.status(200).json("false");s
+        if(Object.keys(token).length == 0) {
+            res.status(200).json("false");
         }else {
-            res.status(200).json("true");
+            const legit = jwt.verify(token, 'secret');
+            if(Date.now()/1000 > legit.exp) {
+                 res.status(200).json("false");s
+            }else {
+                res.status(200).json("true");
+            }
         }
     }
 });
