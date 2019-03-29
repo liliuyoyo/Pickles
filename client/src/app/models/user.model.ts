@@ -17,9 +17,3 @@ export class User {
         
     }
 }
-
-export class signupUser{
-    public username: string;
-    public email?: string;
-    public password?: string;
-}

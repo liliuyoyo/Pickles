@@ -97,7 +97,7 @@
 import { Component, OnInit,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User,signupUser } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 
 @Component({
