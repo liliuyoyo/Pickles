@@ -42,6 +42,7 @@ export class SignupComponent implements OnInit {
     ){}
 
   ngOnInit() {
+    $('#username').focus();
     //start listeners when page is loaded, param is SignupComponent
     this.listeners(this);
   }
@@ -69,6 +70,9 @@ export class SignupComponent implements OnInit {
       this.username_valid=false;
       this.email_valid=false;
       this.password_valid=false;
+    }
+    else{
+      this.router.navigateByUrl("welcome");
     }
   }
   
