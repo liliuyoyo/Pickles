@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
-
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { MoviesService } from 'src/app/services/movies.service';
+import { UserService } from '../services/user.service';
 import { Movie } from 'src/app/models/movie.model';
 import { Subscription } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { AddCommentComponent } from './add-comment/add-comment.component';
+import { LoginComponent } from '../users/login/login.component';
+
 
 
 @Component({
@@ -18,6 +21,7 @@ export class MovieDetailComponent implements OnInit {
   movieToShow: Movie;
   isLoggedin: boolean = false;
   id: string;
+  modalRef: BsModalRef;
   private stars ={
     fullStars:0,
     halfStar:0,
@@ -26,6 +30,7 @@ export class MovieDetailComponent implements OnInit {
   
   constructor(private moviesService : MoviesService,
               private userService:UserService,
+              private modalService: BsModalService,
               private route: ActivatedRoute,
               private location: Location) { }
 
@@ -53,7 +58,14 @@ export class MovieDetailComponent implements OnInit {
   public addNewComment(){
     this.userService.isLoggedIn()
     .subscribe((res)=>{
-      console.log(res);
+      if(res=="true"){
+        this.modalRef = this.modalService.show(AddCommentComponent);
+        this.modalRef.content.addCommentEvent.subscribe((commentTxt) => {
+          console.log(commentTxt);
+          });
+      }else{
+        //this.modalRef = this.modalService.show(LoginComponent);
+      }
     });  
   }
 

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CustomFormsModule} from "ng2-validation";
+import { ModalModule } from 'ngx-bootstrap';
 
 // Components
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { PolicyComponent } from './policy/policy.component';
+import { AddCommentComponent } from './movie-detail/add-comment/add-comment.component';
 
 // Services
 import { MoviesService } from './services/movies.service';
@@ -37,7 +39,8 @@ import { AppRoutingModule } from './app-routing.module';
     SignupComponent,
     LoginComponent,
     StarRatingComponent,
-    PolicyComponent
+    PolicyComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule,
@@ -47,8 +50,10 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     NgxPaginationModule,
     CustomFormsModule,
+    ModalModule.forRoot()
   ],
   providers: [ MoviesService,UserService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[AddCommentComponent]
 })
 export class AppModule { }

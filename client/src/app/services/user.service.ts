@@ -38,8 +38,8 @@ export class UserService {
     }
 
     // check whether user is loggedIn
-    public isLoggedIn(): Observable<boolean>{
-        return this.http.post<boolean>(this.serverUrl+"status", { token: this.token });
+    public isLoggedIn(): Observable<string>{
+        return this.http.post<string>(this.serverUrl+"status", { token: this.token });
     }
 
     //login user and get TokenResponse

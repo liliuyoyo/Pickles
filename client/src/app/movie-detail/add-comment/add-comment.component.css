@@ -1,0 +1,22 @@
+.container{
+    text-align: center;
+    align-items: center;
+    align-self: center;
+}
+
+h4{
+    margin-top:20px;
+}
+textarea {
+    width: 90%;
+    margin: 20px auto;
+}
+
+button{
+    width:30%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+#submit{
+    margin-left:50px;
+}

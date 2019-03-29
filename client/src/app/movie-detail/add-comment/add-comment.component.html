@@ -1,0 +1,10 @@
+
+<div>
+  <div class="container">
+      <h4>Add a new comment</h4>
+      <hr>
+      <textarea [(ngModel)]="commentText" name="newComment" id="commentFiled" cols="100" rows="10" placeholder="Add your comment here..."></textarea>
+      <button class="btn btn-outline-danger" (click)="bsModalRef.hide()">Cancel</button>
+      <button class="btn btn-outline-primary" id="submit" (click)="addNewComment()">Submit</button>
+  </div>
+</div>
