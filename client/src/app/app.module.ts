@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {CustomFormsModule} from "ng2-validation";
+import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 
 // Components
 import { AppComponent } from './app.component';
@@ -47,6 +48,7 @@ import { AppRoutingModule } from './app-routing.module';
     ReactiveFormsModule,
     NgxPaginationModule,
     CustomFormsModule,
+    PasswordStrengthBarModule,
   ],
   providers: [ MoviesService,UserService],
   bootstrap: [AppComponent]

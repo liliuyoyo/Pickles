@@ -1,4 +1,4 @@
-/*Control the whole signup panel*/
+/* Control the whole signup panel */
 #signupscreen{
     margin: 8% auto 22% auto ;
 	width: 35%;
@@ -7,31 +7,37 @@
     min-height:380px;
 	border-style: ridge;
 }
+
+/* Control the whole signup form */
 .signup{
 	padding: 15%;
 }
+
 #signup-btn{
     padding-bottom: 5%; 
 }
+
+/* for there input tag */
 .txt{
     padding-bottom: 7%;
 }
-#username{
+
+/**/
+#username #email #password{
 	border-color:#ccc
 }
-#email{
-	border-color:#ccc
-}
-#password{
-	border-color:#ccc
-}
+
+/**/
 .login-tag{
    margin-left:18%;
 }
+
+/*password rules and policy*/
 #prmpt{
     margin-top: 10%;
     color:slategray;
     text-align: left;
+    display: block;
 }
 
 .ok {
@@ -39,6 +45,7 @@
 	border: 2px solid #9c9;
 }
 
+/*prompt msgs & validation msgs*/
 .info {
     color:slategray;
     border: ridge;
@@ -47,28 +54,17 @@
     background: white;
     border-radius: 5px;
 }
-
 .error {
     Font-size:75%;
     float:left;
 	color:rgb(226, 52, 52);
 }
-meter {
-    /* Reset the default appearance */
-    -webkit-appearance: none;
-        -moz-appearance: none;
-            appearance: none;
-
-    margin: 0 0 1em 0;
-    width: 100%;
-    height: 0.5em;
-
-    /* Applicable only to Firefox */
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1);
+#password-info{
+    margin-top: 1.6%;
+    margin-left: 0.6%;
 }
 
-meter::-webkit-meter-bar {
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1);
+/*password strength */
+.password-strength-bar{
+    float:left;
 }
