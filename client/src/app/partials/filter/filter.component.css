@@ -30,11 +30,11 @@ li label {
 }
 
 li label:hover {
-    background:#b3fff0;
+    background:#8ee6d1a9;
 }
 
 input:checked + label {
-    background:#b3fff0;
+    background:#8ee6d1a9;
 }
 
 .filterLabel{
