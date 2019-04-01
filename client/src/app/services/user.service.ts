@@ -60,17 +60,22 @@ export class UserService {
     public getUserByUsername(searchString : any): Observable<User[]>{
         return this.http.get<User[]>(this.serverUrl+"user/register="+searchString);
     }
-    //Just for test, to be deleted
-    // public sendToBackend(signupString : User): Observable<User>{
-    //     return this.http.post<User>( this.serverUrl+"user/register",
-    //         signupString,
-    //          {});
-    // }
+    
     //username or email already exists when return false
     //signup successfully when return true
-    public sendToBackend(signupString : User): Observable<boolean>{
+    public signup(user: User): Observable<boolean>{
         return this.http.post<boolean>( this.serverUrl+"user/register",
-            signupString,
-             {});
+            user,
+            {});
+    }
+    public checkUsername(user: User): Observable<string>{
+        return this.http.post<string>( this.serverUrl+"user/register/username",
+            user,
+            {});
+    }
+    public checkEmail(user: User): Observable<string>{
+        return this.http.post<string>( this.serverUrl+"user/register/email",
+            user,
+            {});
     }
 }

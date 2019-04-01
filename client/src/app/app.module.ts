@@ -27,6 +27,7 @@ import { UserService } from 'src/app/services/user.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
+import { WelcomeComponent } from './users/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AppRoutingModule } from './app-routing.module';
     LoginComponent,
     StarRatingComponent,
     PolicyComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
