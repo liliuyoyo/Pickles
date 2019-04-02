@@ -16,7 +16,6 @@ import * as $ from 'jquery';
 
 export class SignupComponent implements OnInit {
   usertoSend: User=new User("","","","","",true);
-
   //for switch the class of prompt spans
   username_id:number;
   email_id:number;
@@ -36,7 +35,8 @@ export class SignupComponent implements OnInit {
 
   private subscription : Subscription;
 
-  constructor(private userService : UserService,
+  constructor(
+    private userService : UserService,
     private router: Router,
     private elementRef:ElementRef
     ){}
@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit {
     //start listeners when page is loaded, param is SignupComponent
     this.listeners(this);
   }
-  
+
   signup() {
     if(!$('#agree').is(':checked')){
       console.log('1');
@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
       this.router.navigateByUrl("welcome");
     }
   }
-  
+
   listeners(signup:any){
     //hide the prompt spans firstly
     $("span").hide();
