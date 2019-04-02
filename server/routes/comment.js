@@ -82,7 +82,6 @@ router.post("/movie/update", (req, res, next) => {
               status: "true",
               message: movie
             };
-            console.log(output);
           } else if (type == "watched") {
             movie.watched = value;
             movie.save();
@@ -122,7 +121,7 @@ router.post("/movie/update", (req, res, next) => {
         });
     }
   }
-  console.log(output);
+  // console.log(output);
   res.status(200).json(output);
 });
 /*************************************************************************************************
