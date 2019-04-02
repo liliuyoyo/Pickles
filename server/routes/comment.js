@@ -58,8 +58,8 @@ router.post("/movie/update", (req, res, next) => {
   const type = req.body.type;
   const value = req.body.value;
   var output;
+  //console.log(id);
 
-  //console.log("update");
   if (token.length == 0) {
     output = {
       status: "false",
@@ -101,6 +101,12 @@ router.post("/movie/update", (req, res, next) => {
               comments.author.id = legit._id;
               comments.author.username = legit.userName;
               comments.text = value;
+              const currentDate = new Date();
+              const date = currentDate.getDate();
+              const month = currentDate.getMonth(); //Be careful! January is 0 not 1
+              const year = currentDate.getFullYear();
+              const dateString = month + 1 + "-" + date + "-" + year;
+              comments.date = dateString;
               Comment.create(comments, function(err, comment) {
                 if (err) {
                   output = {
@@ -112,11 +118,17 @@ router.post("/movie/update", (req, res, next) => {
                   comment.save();
                   movie.comments.push(comment);
                   movie.save();
-                  //  console.log(comment);
+                  const returncomment = new Object();
+                  returncomment.userid = comments.author.id;
+                  returncomment.username = comments.author.username;
+                  returncomment.text = comments.text;
+                  returncomment.date = comments.date;
+                  //  console.log(returncomment);
                   output = {
                     status: "true",
-                    message: movie
+                    message: returncomment
                   };
+                  console.log(output);
                   res.status(200).json(output);
                 }
               });
@@ -130,14 +142,15 @@ router.post("/movie/update", (req, res, next) => {
                     status: "true",
                     message: "add to user wishlist"
                   };
+                  res.status(200).json(output);
                 })
                 .catch(err => {
                   output = {
                     status: "false",
                     message: "failure to add user wishlist"
                   };
+                  res.status(200).json(output);
                 });
-              res.status(200).json(output);
             }
           })
           .catch(err => {

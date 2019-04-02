@@ -4,6 +4,7 @@
 const express = require("express");
 const router = express.Router();
 const Movie = require("../models/movies");
+const Comment = require("../models/comments");
 const mongoose = require("mongoose");
 const sw = require("stopword");
 const pagination = require("express-paginate");
@@ -390,14 +391,58 @@ router.get("/search", function(req, res) {
  * test status: yes
  * description: Using image id seach specify image
  ***************************************************************************************************/
+// router.get("/:id", (req, res, next) => {
+//   Movie.findById(req.params.id)
+//     .polulate("comments")
+//     .exec()
+//     .then(docs => {
+//       // const movieinfo = new Object();
+//       // movieinfo._id = docs.id;
+//       // movieinfo.title = docs.title;
+//       // movieinfo.description = docs.description;
+//       // movieinfo.smallImagePath = docs.smallImagePath;
+//       // movieinfo.imagePath = docs.imagePath;
+//       // movieinfo.year = docs.year;
+//       // movieinfo.director = docs.director;
+//       // movieinfo.actors = docs.actors;
+//       // movieinfo.geners = docs.geners;
+//       // movieinfo.area = docs.area;
+//       // movieinfo.length = docs.length;
+//       // movieinfo.rating = docs.rating;
+//       // movieinfo.likes = docs.likes;
+//       // movieinfo.watched = docs.watched;
+//       // movieinfo.comments = new Object();
+
+//       // const getcomment = new Object();
+//       // const commentslist = docs.comments;
+//       // commentslist.forEach(function(list) {
+//       //   Comment.findById(list, function(err, result) {
+//       //     //  console.log(result);
+//       //     if (result != null) {
+//       //       getcomment.username = result.author.username;
+//       //       getcomment.text = result.text;
+//       //       getcomment.date = result.date;
+//       //       movieinfo.comments[list] = getcomment;
+//       //     }
+//       //     console.log(getcomment);
+//       //   });
+//       // });
+//       // res.status(200).json(movieinfo);
+//       console.log(docs);
+//     })
+//     .catch(err => console.log(err));
+// });
 router.get("/:id", (req, res, next) => {
   Movie.findById(req.params.id)
-    .exec()
-    .then(docs => {
-      docs.id = String(docs.id);
-      res.status(200).json(docs);
-    })
-    .catch(err => console.log(err));
+    .populate("comments")
+    .exec(function(err, movie) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(movie);
+        res.status(200).json(movie);
+      }
+    });
 });
 
 // /*************************************************************************************************
