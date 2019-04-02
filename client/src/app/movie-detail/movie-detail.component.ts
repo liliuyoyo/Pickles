@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { Movie } from 'src/app/models/movie.model';
 import { Subscription } from 'rxjs';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { LoginComponent } from '../users/login/login.component';
 
 
 @Component({
@@ -73,7 +74,6 @@ export class MovieDetailComponent implements OnInit {
           updateData.value = this.movieToShow.watched + 1;
         }
         
-        //console.log(updateData);
         this.moviesService.updateMoiveById(updateData)
         .subscribe((updatedRes)=>{
           if(updatedRes['status'] == "true"){
@@ -100,10 +100,31 @@ export class MovieDetailComponent implements OnInit {
       if(res=="true"){
         this.modalRef = this.modalService.show(AddCommentComponent);
         this.modalRef.content.addCommentEvent.subscribe((commentTxt) => {
-          console.log(commentTxt);
-          });
+          if(commentTxt != undefined){
+            console.log(commentTxt);
+            this.token = this.userService.getToken();
+            const updateData = {
+              id : this.movieToShow._id,
+              token : this.token,
+              type: "comments",
+              value: commentTxt
+            }
+            this.moviesService.updateMoiveById(updateData)
+            .subscribe((updatedRes)=>{
+              console.log(updatedRes);
+              if(updatedRes['status'] == "true"){
+                console.log("comment added!!");
+              }else{
+                //show error message;   updatedRes['message'];
+              }
+            });
+          }else{
+            // error message: comment can not be empty;
+            console.log("hah? Nothing to say?");
+          }
+        });
       }else{
-        //this.modalRef = this.modalService.show(LoginComponent);
+        this.modalRef = this.modalService.show(LoginComponent);
       }
     });  
   }
