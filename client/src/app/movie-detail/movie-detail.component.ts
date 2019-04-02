@@ -56,58 +56,18 @@ export class MovieDetailComponent implements OnInit {
     this.location.back();
   }
 
-  // public increaseLike(){
-  //   //this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
-  //   this.userService.isLoggedIn()
-  //   .subscribe((res)=>{
-  //     if(res=="true"){
-  //       //console.log("loggedIn");
-  //       this.token = this.userService.getToken();
-  //       //console.log(this.token);
-  //       const updateData = {
-  //         id : this.movieToShow._id,
-  //         token : this.token,
-  //         type: "likes",
-  //         value: this.movieToShow.likes + 1
-  //       }
-  //       //console.log(updateData);
-  //       this.moviesService.updateMoiveById(updateData)
-  //       .subscribe((updatedRes)=>{
-  //         console.log(updatedRes);
-  //         if(updatedRes['status'] == "true"){
-  //           this.movieToShow.likes = updatedRes['message'].likes;
-  //           this.elementRef.nativeElement.querySelector('#likeBtn').setAttributes("disabled","true");
-  //         }else{
-  //           //show error message;   updatedRes['message'];
-  //         }
-  //       });
-  //     }else{
-  //       //this.modalRef = this.modalService.show(LoginComponent);
-  //     }
-  //   });  
-  // }
-
-  public increaseLikeWatched(type:string){
-    // console.log(type);
-    // if(type == "likes"){
-    //   this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
-    // }else{
-    //   this.elementRef.nativeElement.querySelector('#watchedBtn').setAttribute('disabled',"true");
-    // }
+  public increaseLikeWatched(updateType:string){
     this.userService.isLoggedIn()
     .subscribe((res)=>{
       if(res=="true"){
-        //console.log("loggedIn");
         this.token = this.userService.getToken();
-        //console.log(this.token);
-        
         const updateData = {
           id : this.movieToShow._id,
           token : this.token,
-          type: type,
+          type: updateType,
           value: 0
         }
-        if(type == 'likes'){
+        if(updateType == 'likes'){
           updateData.value = this.movieToShow.likes + 1;
         }else{
           updateData.value = this.movieToShow.watched + 1;
@@ -116,14 +76,13 @@ export class MovieDetailComponent implements OnInit {
         //console.log(updateData);
         this.moviesService.updateMoiveById(updateData)
         .subscribe((updatedRes)=>{
-          console.log(updatedRes);
           if(updatedRes['status'] == "true"){
-            if(type == "likes"){
+            if(updateType == "likes"){
               this.movieToShow.likes = updatedRes['message'].likes;
-              this.elementRef.nativeElement.querySelector('#likeBtn').setAttributes("disabled","true");
+              this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
             }else{
               this.movieToShow.watched = updatedRes['message'].watched;
-              this.elementRef.nativeElement.querySelector('#watchedBtn').setAttributes("disabled","true");
+              this.elementRef.nativeElement.querySelector('#watchedBtn').setAttribute("disabled","true");
             }
           }else{
             //show error message;   updatedRes['message'];
