@@ -12,7 +12,7 @@
 }
 
 /* Movie Title Style */
-.movie-title {
+.movie-title{
 	display: flex;
 	flex-basis: 100%;
 	align-items: center;
@@ -36,6 +36,33 @@
 .movie-title::after{
     margin-left: 20px;
 }
+
+.comments{
+    display: flex;
+	flex-basis: 100%;
+	align-items: center;
+    color: #504f4ff9;
+    margin: 10px 0px;
+    font-size: 1.5em;
+}
+.comments::before,
+.comments::after {
+	content: "";
+	background: #8ee6d1a9;
+	height: 10px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 0px;
+}
+.comments::before{
+    width:5%;
+    margin-right: 20px;
+}
+.comments::after{
+    width:95%;
+    margin-left: 20px;
+}
+
 
 .movie-desc{
     text-align: center;
@@ -100,6 +127,3 @@ app-star-rating{
     margin-left: 10px;
 }
 
-.liked{
-    background-color: red;
-}

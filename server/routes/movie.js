@@ -4,6 +4,7 @@
 const express = require("express");
 const router = express.Router();
 const Movie = require("../models/movies");
+const Comment = require("../models/comments");
 const mongoose = require("mongoose");
 const sw = require("stopword");
 const pagination = require("express-paginate");
@@ -392,27 +393,16 @@ router.get("/search", function(req, res) {
  ***************************************************************************************************/
 router.get("/:id", (req, res, next) => {
   Movie.findById(req.params.id)
-    .exec()
-    .then(docs => {
-      docs.id = String(docs.id);
-      res.status(200).json(docs);
-    })
-    .catch(err => console.log(err));
+    .populate("comments")
+    .exec(function(err, movie) {
+      if (err) {
+        console.log(err);
+      } else {
+        // console.log(movie);
+        res.status(200).json(movie);
+      }
+    });
 });
-
-// /*************************************************************************************************
-//  * test status: no
-//  * description: Show comments
-// ***************************************************************************************************/
-// router.get("/movies/:id", (req, res, next) => {
-//     Movie.findById(req.params.id).populate("comments").exec(function(err, image) {
-//         if(err) {
-//             console.log(err);
-//         }else {
-//             res.status(200).json(image);
-//         }
-//     });
-// });
 
 /*************************************************************************************************
  * test status: no
