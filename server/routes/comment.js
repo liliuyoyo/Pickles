@@ -49,6 +49,34 @@ router.post("/status", (req, res, next) => {
 });
 /*************************************************************************************************
  * test status: no
+ * description: likes add
+ * note: need to check if loggin
+ ***************************************************************************************************/
+router.post("/likes", (req, res, next) => {
+  const token = String(req.body.token);
+  var output;
+  if (token.length == 0) {
+    output = "false";
+  } else {
+    const legit = jwt.verify(token, "secret");
+    if (Date.now() / 1000 > legit.exp) {
+      output = "false";
+    } else {
+      Movie.findById(req.body.id)
+        .exec()
+        .then(movie => {
+          movie.likes += 1;
+          movie.save();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    res.status(200).json(output);
+  }
+});
+/*************************************************************************************************
+ * test status: no
  * description: create new comments
  * note: need to check if loggin
  ***************************************************************************************************/

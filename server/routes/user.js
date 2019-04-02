@@ -189,7 +189,7 @@ router.get("/user/profile/:id", (req, res, next) => {
 //     ).catch(err => console.log(err));
 // });
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: check username if valid
  ***************************************************************************************************/
 router.post("/user/register/username", (req, res, next) => {
@@ -215,7 +215,7 @@ router.post("/user/register/username", (req, res, next) => {
   }
 });
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: check email if valid
  ***************************************************************************************************/
 router.post("/user/register/email", (req, res, next) => {
