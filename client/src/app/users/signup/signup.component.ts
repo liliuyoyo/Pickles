@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
+// import Button from 'react-bootstrap-button-loader';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,6 @@ import * as $ from 'jquery';
 
 export class SignupComponent implements OnInit {
   usertoSend: User=new User("","","","","",true);
-
   //for switch the class of prompt spans
   username_id:number;
   email_id:number;

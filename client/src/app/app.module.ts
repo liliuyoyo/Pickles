@@ -54,7 +54,7 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
     NgxPaginationModule,
     CustomFormsModule,
     PasswordStrengthBarModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
   ],
   providers: [ MoviesService,UserService],
   bootstrap: [AppComponent],

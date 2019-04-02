@@ -28,6 +28,7 @@
     "ngx-bootstrap": "^3.3.0",
     "ngx-pagination": "^3.2.1",
     "popper.js": "^1.14.7",
+    "react-bootstrap-button-loader": "^1.0.12",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.4.0",
     "tslib": "^1.9.0",
