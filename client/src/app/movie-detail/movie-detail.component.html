@@ -37,7 +37,7 @@
   <hr>
   <div class="row">
     <button id="likeBtn" class="btn btn-outline-primary btn-sm" (click)="increaseLikeWatched('likes')"><i class="far fa-heart"></i> Like {{ movieToShow?.likes }}</button>
-    <button id="watchedBtn" class="btn btn-outline-secondary btn-sm" (click)="increaseLikeWatched('watched')"><i class="far fa-check-circle"></i> Watched</button>
+    <button id="watchedBtn" class="btn btn-outline-info btn-sm" (click)="increaseLikeWatched('watched')"><i class="far fa-check-circle"></i> Watched {{ movieToShow?.watched }}</button>
     <button class="btn btn-outline-success btn-sm"><i class="fas fa-plus"></i> Add to Wishlist</button>
   </div>
 </div>
