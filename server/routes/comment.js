@@ -49,31 +49,80 @@ router.post("/status", (req, res, next) => {
 });
 /*************************************************************************************************
  * test status: no
- * description: likes add
+ * description: moive update
  * note: need to check if loggin
  ***************************************************************************************************/
-router.post("/likes", (req, res, next) => {
+router.post("/movie/update", (req, res, next) => {
+  const id = req.body.id;
   const token = String(req.body.token);
+  const type = req.body.type;
+  const value = req.body.value;
   var output;
+
   if (token.length == 0) {
-    output = "false";
+    output = {
+      status: "false",
+      message: "not login"
+    };
   } else {
     const legit = jwt.verify(token, "secret");
     if (Date.now() / 1000 > legit.exp) {
-      output = "false";
+      output = {
+        status: "false",
+        message: "login timeout"
+      };
     } else {
-      Movie.findById(req.body.id)
+      Movie.findById(id)
         .exec()
         .then(movie => {
-          movie.likes += 1;
-          movie.save();
+          if (type == "likes") {
+            movie.likes = value;
+            movie.save();
+            output = {
+              status: "true",
+              message: movie
+            };
+          } else if (type == "watched") {
+            movie.watched = value;
+            movie.save();
+            output = {
+              status: "true",
+              message: movie
+            };
+          } else if (type == "comments") {
+            const comments = new Comment();
+            comments.author.id = legit._id;
+            comments.author.username = legit.userName;
+            comments.text = req.body.comment;
+            Comment.create(comments, function(err, comment) {
+              if (err) {
+                output = {
+                  status: "false",
+                  message: "update failure"
+                };
+              } else {
+                comment.save();
+                movie.comments.push(comment);
+                movie.save();
+                console.log(comment);
+                output = {
+                  status: "true",
+                  message: message
+                };
+              }
+            });
+          }
         })
         .catch(err => {
-          console.log(err);
+          output = {
+            status: "false",
+            message: "update failure"
+          };
         });
     }
-    res.status(200).json(output);
   }
+  // console.log(output);
+  res.status(200).json(output);
 });
 /*************************************************************************************************
  * test status: no

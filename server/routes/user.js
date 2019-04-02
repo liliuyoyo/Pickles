@@ -98,7 +98,7 @@ router.post("/user/profile", (req, res, next) => {
             const token = jwt.sign(currentuserinfo, "secret", {
               expiresIn: 60 * 5
             });
-
+            console.log(token);
             result = {
               isuser: doc[1].isUser,
               token: token
