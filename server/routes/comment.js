@@ -59,11 +59,13 @@ router.post("/movie/update", (req, res, next) => {
   const value = req.body.value;
   var output;
 
+  //console.log("update");
   if (token.length == 0) {
     output = {
       status: "false",
       message: "not login"
     };
+    res.status(200).json(output);
   } else {
     jwt.verify(token, "secret", function(err, legit) {
       if (err) {
@@ -71,6 +73,7 @@ router.post("/movie/update", (req, res, next) => {
           status: "false",
           message: "login timeout"
         };
+        res.status(200).json(output);
       } else {
         Movie.findById(id)
           .exec()
@@ -93,28 +96,30 @@ router.post("/movie/update", (req, res, next) => {
               };
               res.status(200).json(output);
             } else if (type == "comments") {
+              console.log("comments");
               const comments = new Comment();
               comments.author.id = legit._id;
               comments.author.username = legit.userName;
-              comments.text = req.body.comment;
+              comments.text = value;
               Comment.create(comments, function(err, comment) {
                 if (err) {
                   output = {
                     status: "false",
-                    message: "update failure"
+                    message: "add comments failure"
                   };
+                  res.status(200).json(output);
                 } else {
                   comment.save();
                   movie.comments.push(comment);
                   movie.save();
-                  console.log(comment);
+                  //  console.log(comment);
                   output = {
                     status: "true",
-                    message: message
+                    message: movie
                   };
+                  res.status(200).json(output);
                 }
               });
-              res.status(200).json(output);
             } else if ((type = "wishlist")) {
               User.findById(legit._id)
                 .exec()
@@ -144,51 +149,6 @@ router.post("/movie/update", (req, res, next) => {
           });
       }
     });
-  }
-  // console.log(output);
-});
-/*************************************************************************************************
- * test status: no
- * description: create new comments
- * note: need to check if loggin
- ***************************************************************************************************/
-router.post("/comment", (req, res, next) => {
-  const token = String(req.body.token);
-  var output;
-  // console.log(req.body);
-  if (token.length == 0) {
-    output = "false";
-    // res.status(200).json("false");
-  } else {
-    const legit = jwt.verify(token, "secret");
-    // console.log(legit);
-    if (Date.now() / 1000 > legit.exp) {
-      output = "false";
-      //res.status(200).json("false");
-    } else {
-      Movie.findById(req.body.id)
-        .exec()
-        .then(movie => {
-          const comments = new Comment();
-          comments.author.id = legit._id;
-          comments.author.username = legit.userName;
-          comments.text = req.body.comment;
-          Comment.create(comments, function(err, comment) {
-            if (err) {
-              console.log(err);
-            } else {
-              comment.save();
-              movie.comments.push(comment);
-              movie.save();
-              console.log(comment);
-            }
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-    res.status(200).json(output);
   }
 });
 
