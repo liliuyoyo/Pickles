@@ -13,12 +13,13 @@ export class Movie {
     public rating: number;
     public likes: number;
     public watched: number;
+    public comments: any;
 
 
 
     constructor(id: string, title:string, desc: string, smallImagePath:string, imagePath: string, year:number,
                 director: string[], actors:string[], gener:string[], area:string, length:number, rating: number,
-                likes: number, watched: number){
+                likes: number, watched: number, comments:any){
 
         this._id = id;
         this.title = title;
@@ -34,5 +35,6 @@ export class Movie {
         this.rating = rating;
         this.likes = likes;
         this.watched = watched;
+        this.comments = comments;
     }
 }
