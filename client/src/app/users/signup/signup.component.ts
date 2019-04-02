@@ -7,7 +7,6 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
-// import Button from 'react-bootstrap-button-loader';
 
 @Component({
   selector: 'app-signup',
@@ -36,7 +35,8 @@ export class SignupComponent implements OnInit {
 
   private subscription : Subscription;
 
-  constructor(private userService : UserService,
+  constructor(
+    private userService : UserService,
     private router: Router,
     private elementRef:ElementRef
     ){}
@@ -46,7 +46,7 @@ export class SignupComponent implements OnInit {
     //start listeners when page is loaded, param is SignupComponent
     this.listeners(this);
   }
-  
+
   signup() {
     if(!$('#agree').is(':checked')){
       console.log('1');
@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
       this.router.navigateByUrl("welcome");
     }
   }
-  
+
   listeners(signup:any){
     //hide the prompt spans firstly
     $("span").hide();
