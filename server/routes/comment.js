@@ -106,15 +106,15 @@ router.post("/movie/update", (req, res, next) => {
                   comment.save();
                   movie.comments.push(comment);
                   movie.save();
-                  const returncomment = new Object();
-                  returncomment.userid = comments.author.id;
-                  returncomment.username = comments.author.username;
-                  returncomment.text = comments.text;
-                  returncomment.date = comments.date;
+                  // const returncomment = new Object();
+                  // returncomment.userid = comments.author.id;
+                  // returncomment.username = comments.author.username;
+                  // returncomment.text = comments.text;
+                  // returncomment.date = comments.date;
                   //  console.log(returncomment);
                   output = {
                     status: "true",
-                    message: returncomment
+                    message: comment
                   };
                   // console.log(output);
                   res.status(200).json(output);
