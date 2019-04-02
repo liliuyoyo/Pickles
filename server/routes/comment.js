@@ -65,64 +65,87 @@ router.post("/movie/update", (req, res, next) => {
       message: "not login"
     };
   } else {
-    const legit = jwt.verify(token, "secret");
-    if (Date.now() / 1000 > legit.exp) {
-      output = {
-        status: "false",
-        message: "login timeout"
-      };
-    } else {
-      Movie.findById(id)
-        .exec()
-        .then(movie => {
-          if (type == "likes") {
-            movie.likes = value;
-            movie.save();
+    jwt.verify(token, "secret", function(err, legit) {
+      if (err) {
+        output = {
+          status: "false",
+          message: "login timeout"
+        };
+      } else {
+        Movie.findById(id)
+          .exec()
+          .then(movie => {
+            if (type == "likes") {
+              console.log("likes");
+              movie.likes = value;
+              movie.save();
+              output = {
+                status: "true",
+                message: movie
+              };
+              res.status(200).json(output);
+            } else if (type == "watched") {
+              movie.watched = value;
+              movie.save();
+              output = {
+                status: "true",
+                message: movie
+              };
+              res.status(200).json(output);
+            } else if (type == "comments") {
+              const comments = new Comment();
+              comments.author.id = legit._id;
+              comments.author.username = legit.userName;
+              comments.text = req.body.comment;
+              Comment.create(comments, function(err, comment) {
+                if (err) {
+                  output = {
+                    status: "false",
+                    message: "update failure"
+                  };
+                } else {
+                  comment.save();
+                  movie.comments.push(comment);
+                  movie.save();
+                  console.log(comment);
+                  output = {
+                    status: "true",
+                    message: message
+                  };
+                }
+              });
+              res.status(200).json(output);
+            } else if ((type = "wishlist")) {
+              User.findById(legit._id)
+                .exec()
+                .then(user => {
+                  user.userList.push(movie);
+                  user.save();
+                  output = {
+                    status: "true",
+                    message: "add to user wishlist"
+                  };
+                })
+                .catch(err => {
+                  output = {
+                    status: "false",
+                    message: "failure to add user wishlist"
+                  };
+                });
+              res.status(200).json(output);
+            }
+          })
+          .catch(err => {
             output = {
-              status: "true",
-              message: movie
+              status: "false",
+              message: "update failure"
             };
-          } else if (type == "watched") {
-            movie.watched = value;
-            movie.save();
-            output = {
-              status: "true",
-              message: movie
-            };
-          } else if (type == "comments") {
-            const comments = new Comment();
-            comments.author.id = legit._id;
-            comments.author.username = legit.userName;
-            comments.text = req.body.comment;
-            Comment.create(comments, function(err, comment) {
-              if (err) {
-                output = {
-                  status: "false",
-                  message: "update failure"
-                };
-              } else {
-                comment.save();
-                movie.comments.push(comment);
-                movie.save();
-                console.log(comment);
-                output = {
-                  status: "true",
-                  message: message
-                };
-              }
-            });
-          }
-        })
-        .catch(err => {
-          output = {
-            status: "false",
-            message: "update failure"
-          };
-        });
-    }
+            res.status(200).json(output);
+          });
+      }
+    });
   }
   // console.log(output);
-  res.status(200).json(output);
 });
 /*************************************************************************************************
  * test status: no

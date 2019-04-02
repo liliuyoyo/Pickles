@@ -433,7 +433,8 @@ router.post("/", (req, res, next) => {
     length: req.body.length,
     likes: 0,
     watched: 0,
-    rating: req.body.rating
+    rating: req.body.rating,
+    comments: []
   });
   movie
     .save()
