@@ -7,7 +7,6 @@ import { UserService } from '../services/user.service';
 import { Movie } from 'src/app/models/movie.model';
 import { Subscription } from 'rxjs';
 import { AddCommentComponent } from './add-comment/add-comment.component';
-import { LoginComponent } from '../users/login/login.component';
 
 
 @Component({
@@ -23,6 +22,7 @@ export class MovieDetailComponent implements OnInit {
   isLoggedin: boolean = false;
   id: string;
   modalRef: BsModalRef;
+
   private stars ={
     fullStars:0,
     halfStar:0,
@@ -42,7 +42,6 @@ export class MovieDetailComponent implements OnInit {
         this.id = params['id']; // get movie-id from current url
         this.moviesService.getMovieById(this.id) // search the movie from serve by movie-id
         .subscribe(data => { 
-          console.log(data);
           this.movieToShow = data; 
           var totalS = +(this.movieToShow.rating).toFixed();
           this.stars.fullStars = Math.floor(totalS/2);
@@ -102,7 +101,7 @@ export class MovieDetailComponent implements OnInit {
         this.modalRef = this.modalService.show(AddCommentComponent);
         this.modalRef.content.addCommentEvent.subscribe((commentTxt) => {
           if(commentTxt != undefined){
-            console.log(commentTxt);
+            //console.log(commentTxt);
             this.token = this.userService.getToken();
             const updateData = {
               id : this.movieToShow._id,
@@ -112,9 +111,8 @@ export class MovieDetailComponent implements OnInit {
             }
             this.moviesService.updateMoiveById(updateData)
             .subscribe((updatedRes)=>{
-              console.log(updatedRes);
               if(updatedRes['status'] == "true"){
-                console.log("comment added!!");
+                this.movieToShow.comments.unshift(updatedRes['message']);
               }else{
                 //show error message;   updatedRes['message'];
               }
@@ -125,7 +123,7 @@ export class MovieDetailComponent implements OnInit {
           }
         });
       }else{
-        this.modalRef = this.modalService.show(LoginComponent);
+        // this.modalRef = this.modalService.show(LoginComponent);
       }
     });  
   }
