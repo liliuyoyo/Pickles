@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" (click)="getMoiveDetail()">
     <a (click)="getMoiveDetail()"><img src="{{ movie.smallImagePath }}" class="card-img-top" alt="{{ movie.title }}"></a>
     <div class="card-body">
       <p class="card-text">{{ movie.title }} <span>{{ movie.rating }}</span></p>

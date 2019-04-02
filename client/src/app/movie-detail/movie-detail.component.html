@@ -52,8 +52,12 @@
     <p>Oops ！No comment for this movie yet.</p> 
   </div>
   <div *ngIf="movieToShow?.comments.length > 0">
-    <div class="comment" *ngFor="let commentEl of movieToShow?.comments">
-      <p>a comment</p>
+    <div  class="comment" *ngFor="let commentEl of movieToShow?.comments">
+      <div>
+          <span class="commentAuthor"><i class="far fa-user"></i> {{ commentEl.author.username }}</span> 
+          <span class="commentDate"><i class="far fa-calendar-alt"></i> {{ commentEl.date }}</span>
+          <p class="commentText">{{ commentEl.text }}</p>
+      </div>
     </div>
   </div>
 </div>
