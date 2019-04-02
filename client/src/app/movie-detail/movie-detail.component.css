@@ -127,7 +127,7 @@ app-star-rating{
     margin-left: 10px;
 }
 
-.commentAuthor, .commentDate {
+/* .commentAuthor, .commentDate {
     font-style: italic;
 }
 
@@ -158,8 +158,24 @@ app-star-rating{
     border: solid 8px;
     border-color: transparent transparent #8ee6d1a9;
     font-size: 0;
-  }
+  } */
 
   .comment{
       margin-top:30px;
+      padding-left:70px;
+      padding-right:70px;
+  } 
+
+  .commentAuthor, .commentDate{
+      font-size: 0.9em;
+      font-style: italic;
+  }
+
+  .commentDate{
+      color: gray;
+      margin-left: 50px;
+  }
+  .commentText{
+      margin-top:15px;
+      font-size: 1.1em;
   }
