@@ -24,14 +24,14 @@ export class LoginComponent implements OnInit {
     // get logined user
     this.userService.getLoginedUser(this.user)
     .subscribe((data)=>{
-      if(data !== false){
+      if(data !== 'false'){
         this.tokenResponse = data.token;
         this.userService.saveToken(this.tokenResponse);
         this.isAdmin = data.isuser;
         this.location.back();
       }else{
         // wrong user;
-        console.log(data[1]);
+        console.log(data);
       }
       
     });

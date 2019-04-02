@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -7,8 +7,6 @@ import { UserService } from '../services/user.service';
 import { Movie } from 'src/app/models/movie.model';
 import { Subscription } from 'rxjs';
 import { AddCommentComponent } from './add-comment/add-comment.component';
-import { LoginComponent } from '../users/login/login.component';
-
 
 
 @Component({
@@ -17,8 +15,10 @@ import { LoginComponent } from '../users/login/login.component';
   styleUrls: ['./movie-detail.component.css']
 })
 export class MovieDetailComponent implements OnInit {
+
   private subscription : Subscription;
   movieToShow: Movie;
+  token: string;
   isLoggedin: boolean = false;
   id: string;
   modalRef: BsModalRef;
@@ -32,7 +32,8 @@ export class MovieDetailComponent implements OnInit {
               private userService:UserService,
               private modalService: BsModalService,
               private route: ActivatedRoute,
-              private location: Location) { }
+              private location: Location,
+              private elementRef : ElementRef) { }
 
   ngOnInit(){
     this.subscription = this.route.params
@@ -53,6 +54,33 @@ export class MovieDetailComponent implements OnInit {
   // Back to the last page.
   goBack(){
     this.location.back();
+  }
+
+  public increaseLike(){
+    //this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      if(res=="true"){
+        this.token = this.userService.getToken();
+        const updateData = {
+          id : this.movieToShow._id,
+          token : this.token,
+          type: "likes",
+          value: this.movieToShow.likes + 1
+        }
+        this.moviesService.updateMoiveById(updateData)
+        .subscribe((updatedRes)=>{
+          if(updatedRes['status'] == "true"){
+            this.movieToShow.likes = updatedRes['message'].likes;
+            this.elementRef.nativeElement.querySelector('#likeBtn').setAttributes("disabled","true");
+          }else{
+            //show error message;   updatedRes['message'];
+          }
+        });
+      }else{
+        //this.modalRef = this.modalService.show(LoginComponent);
+      }
+    });  
   }
 
   public addNewComment(){

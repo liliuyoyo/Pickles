@@ -100,3 +100,6 @@ app-star-rating{
     margin-left: 10px;
 }
 
+.liked{
+    background-color: red;
+}

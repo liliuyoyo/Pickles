@@ -11,11 +11,14 @@ export class Movie {
     public area: string;
     public length: number;
     public rating: number;
+    public likes: number;
+    public watched: number;
 
 
 
     constructor(id: string, title:string, desc: string, smallImagePath:string, imagePath: string, year:number,
-                director: string[], actors:string[], gener:string[], area:string, length:number, rating: number){
+                director: string[], actors:string[], gener:string[], area:string, length:number, rating: number,
+                likes: number, watched: number){
 
         this._id = id;
         this.title = title;
@@ -29,5 +32,7 @@ export class Movie {
         this.area = area;
         this.length = length;
         this.rating = rating;
+        this.likes = likes;
+        this.watched = watched;
     }
 }
