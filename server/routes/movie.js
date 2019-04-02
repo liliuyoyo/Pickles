@@ -432,6 +432,7 @@ router.post("/", (req, res, next) => {
     area: req.body.area,
     length: req.body.length,
     likes: 0,
+    watched: 0,
     rating: req.body.rating
   });
   movie

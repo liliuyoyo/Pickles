@@ -17,6 +17,7 @@ const movieSchema = new mongoose.Schema({
   length: Number,
   rating: Number,
   likes: Number,
+  watched: Number,
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
