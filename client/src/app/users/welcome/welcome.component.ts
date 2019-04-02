@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, timer } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-welcome',
@@ -6,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-  private second: number;
-  
-  constructor() { }
+  countDown;
+  countInSec = 6;
+  constructor(private router:Router) {}
 
-  ngOnInit() {
+  ngOnInit() {  
+    this.countDown = timer(0,1000).pipe(
+      take(this.countInSec),
+      map(()=> --this.countInSec)
+   );
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 5000); 
   }
-
 }
