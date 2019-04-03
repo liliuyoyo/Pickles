@@ -7,7 +7,7 @@
     </div>
     <div id="user">Username</div>
     <div id="prmpt">
-        <p>Go back to <a [routerLink]="['/movies']">Home Page</a> in {{second}} seconds...... or, <a [routerLink]="['/login']">Login</a></p>
+        <p>Go back to <a [routerLink]="['/login']">Login</a> in {{countDown | async}} seconds...... or, <a [routerLink]="['/movies']">Home Page</a></p>
     </div>
     </div>
   </div>
