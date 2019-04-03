@@ -39,25 +39,25 @@
     <button *ngIf="!isClickLike" 
             id="likeBtn" 
             class="btn btn-outline-primary btn-sm" 
-            (click)="increaseLikeWatched('likes')">
+            (click)="updateLikeWatched('likes','up')">
       <i class="far fa-thumbs-up"></i> Like {{ movieToShow?.likes }}
     </button>
     <button *ngIf="isClickLike" 
             id="likeBtn" 
             class="btn btn-primary btn-sm" 
-            (click)="decreaseLikeWatched('likes')">
+            (click)="updateLikeWatched('likes','down')">
       <i class="fas fa-thumbs-up"></i> Like {{ movieToShow?.likes }}
     </button>
     <button *ngIf="!isClickWatched" 
             id="watchedBtn" 
             class="btn btn-outline-info btn-sm" 
-            (click)="increaseLikeWatched('watched')">
+            (click)="updateLikeWatched('watched','up')">
       <i class="far fa-check-circle"></i> Watched {{ movieToShow?.watched }}
     </button>
     <button *ngIf="isClickWatched" 
             id="watchedBtn" 
             class="btn btn-info btn-sm" 
-            (click)="decreaseLikeWatched('watched')">
+            (click)="updateLikeWatched('watched','down')">
       <i class="far fa-check-circle"></i> Watched {{ movieToShow?.watched }}
     </button>    
     <button class="btn btn-outline-success btn-sm"><i class="fas fa-plus"></i> Add to Wishlist</button>

@@ -59,7 +59,8 @@ export class MovieDetailComponent implements OnInit {
     this.location.back();
   }
 
-  public increaseLikeWatched(updateType:string){
+
+  public updateLikeWatched(updateType:string,upDown:string){
     this.userService.isLoggedIn()
     .subscribe((res)=>{
       if(res=="true"){
@@ -71,9 +72,21 @@ export class MovieDetailComponent implements OnInit {
           value: 0
         }
         if(updateType == 'likes'){
-          updateData.value = this.movieToShow.likes + 1;
+          if(upDown == "up"){
+            updateData.value = this.movieToShow.likes + 1;
+            this.isClickLike = true;
+          }else{
+            updateData.value = this.movieToShow.likes - 1;
+            this.isClickLike = false;
+          }
         }else{
-          updateData.value = this.movieToShow.watched + 1;
+          if(upDown == "up"){
+            updateData.value = this.movieToShow.watched + 1;
+            this.isClickWatched = true;
+          }else{
+            updateData.value = this.movieToShow.watched - 1;
+            this.isClickWatched = false;
+          }
         }
         
         this.moviesService.updateMoiveById(updateData)
@@ -81,49 +94,10 @@ export class MovieDetailComponent implements OnInit {
           if(updatedRes['status'] == "true"){
             if(updateType == "likes"){
               this.movieToShow.likes = updatedRes['message'].likes;
-              this.isClickLike = true;
               //this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
             }else{
               this.movieToShow.watched = updatedRes['message'].watched;
-              this.isClickWatched = true;
               //this.elementRef.nativeElement.querySelector('#watchedBtn').setAttribute("disabled","true");
-            }
-          }else{
-            //show error message;   updatedRes['message'];
-          }
-        });
-      }else{
-        //this.modalRef = this.modalService.show(LoginComponent);
-      }
-    });  
-  }
-
-  public decreaseLikeWatched(updateType:string){
-    this.userService.isLoggedIn()
-    .subscribe((res)=>{
-      if(res=="true"){
-        this.token = this.userService.getToken();
-        const updateData = {
-          id : this.movieToShow._id,
-          token : this.token,
-          type: updateType,
-          value: 0
-        }
-        if(updateType == 'likes'){
-          updateData.value = this.movieToShow.likes - 1;
-        }else{
-          updateData.value = this.movieToShow.watched - 1;
-        }
-        
-        this.moviesService.updateMoiveById(updateData)
-        .subscribe((updatedRes)=>{
-          if(updatedRes['status'] == "true"){
-            if(updateType == "likes"){
-              this.movieToShow.likes = updatedRes['message'].likes;
-              this.isClickLike = false;
-            }else{
-              this.movieToShow.watched = updatedRes['message'].watched;
-              this.isClickWatched =false;
             }
           }else{
             //show error message;   updatedRes['message'];
