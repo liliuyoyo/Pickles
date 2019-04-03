@@ -17,11 +17,13 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 export class MovieDetailComponent implements OnInit {
 
   private subscription : Subscription;
+  modalRef: BsModalRef;
   movieToShow: Movie;
   token: string;
   isLoggedin: boolean = false;
-  id: string;
-  modalRef: BsModalRef;
+  movieId: string;
+  isClickLike: boolean = false;
+  isClickWatched: boolean = false;
 
   private stars ={
     fullStars:0,
@@ -39,8 +41,8 @@ export class MovieDetailComponent implements OnInit {
   ngOnInit(){
     this.subscription = this.route.params
     .subscribe((params:Params)=>{ 
-        this.id = params['id']; // get movie-id from current url
-        this.moviesService.getMovieById(this.id) // search the movie from serve by movie-id
+        this.movieId = params['id']; // get movie-id from current url
+        this.moviesService.getMovieById(this.movieId) // search the movie from serve by movie-id
         .subscribe(data => { 
           this.movieToShow = data; 
           var totalS = +(this.movieToShow.rating).toFixed();
@@ -79,10 +81,49 @@ export class MovieDetailComponent implements OnInit {
           if(updatedRes['status'] == "true"){
             if(updateType == "likes"){
               this.movieToShow.likes = updatedRes['message'].likes;
-              this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
+              this.isClickLike = true;
+              //this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
             }else{
               this.movieToShow.watched = updatedRes['message'].watched;
-              this.elementRef.nativeElement.querySelector('#watchedBtn').setAttribute("disabled","true");
+              this.isClickWatched = true;
+              //this.elementRef.nativeElement.querySelector('#watchedBtn').setAttribute("disabled","true");
+            }
+          }else{
+            //show error message;   updatedRes['message'];
+          }
+        });
+      }else{
+        //this.modalRef = this.modalService.show(LoginComponent);
+      }
+    });  
+  }
+
+  public decreaseLikeWatched(updateType:string){
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      if(res=="true"){
+        this.token = this.userService.getToken();
+        const updateData = {
+          id : this.movieToShow._id,
+          token : this.token,
+          type: updateType,
+          value: 0
+        }
+        if(updateType == 'likes'){
+          updateData.value = this.movieToShow.likes - 1;
+        }else{
+          updateData.value = this.movieToShow.watched - 1;
+        }
+        
+        this.moviesService.updateMoiveById(updateData)
+        .subscribe((updatedRes)=>{
+          if(updatedRes['status'] == "true"){
+            if(updateType == "likes"){
+              this.movieToShow.likes = updatedRes['message'].likes;
+              this.isClickLike = false;
+            }else{
+              this.movieToShow.watched = updatedRes['message'].watched;
+              this.isClickWatched =false;
             }
           }else{
             //show error message;   updatedRes['message'];
