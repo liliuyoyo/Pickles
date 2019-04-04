@@ -1,0 +1,9 @@
+{
+    "editor.useTabStops": false,
+    "jake.autoDetect": "off",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.detectIndentation": false,
+    "editor.lineNumbers": "off",
+    "workbench.settings.openDefaultKeybindings": true,
+    "workbench.settings.openDefaultSettings": true
+}

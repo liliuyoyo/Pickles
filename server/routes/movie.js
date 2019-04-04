@@ -404,6 +404,8 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
+router.delete("/movie/delete", (req, res, next) => {});
+
 /*************************************************************************************************
  * test status: no
  * description: add a new image info into database

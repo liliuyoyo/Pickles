@@ -1,45 +1,36 @@
-const Comment = require("../models/comments");
-const Movie = require("../models/movies");
-const User = require("../modles/users");
+const jwt = require("jsonwebtoken");
 
-// module.exports = {
-//     isLoggedIn: function(req, res, next){
-//         if(req.isAuthenticated()){
-//             return next();
-//         }
-//         req.flash("error", "You must be signed in to do that!");
-//        // res.redirect("/login");
-//     },
-//     checkUserMovie: function(req, res, next){
-//         if(req.isAuthenticated()){
-//             Movie.findById(req.params.id, function(err, movie){
-//                if(movie.author.id.equals(req.user._id)){
-//                    next();
-//                } else {
-//                    req.flash("error", "You don't have permission to do that!");
-//                    console.log("BADD!!!");
-//                  //  res.redirect("/campgrounds/" + req.params.id);
-//                }
-//             });
-//         } else {
-//             req.flash("error", "You need to be signed in to do that!");
-//            // res.redirect("/login");
-//         }
-//     },
-//     checkUserComment: function(req, res, next){
-//         console.log("YOU MADE IT!");
-//         if(req.isAuthenticated()){
-//             Comment.findById(req.params.commentId, function(err, comment){
-//                if(comment.author.id.equals(req.user._id)){
-//                    next();
-//                } else {
-//                    req.flash("error", "You don't have permission to do that!");
-//                   // res.redirect("/campgrounds/" + req.params.id);
-//                }
-//             });
-//         } else {
-//             req.flash("error", "You need to be signed in to do that!");
-//            // res.redirect("login");
-//         }
-//     }
-// }
+module.exports = {
+    isLoggedIn: function(req, res, next) {
+        const token = req.body.token;
+        //   console.log(token);
+        if (token == null) {
+            const output = {
+                status: "false",
+                message: "not login"
+            };
+            return res.status(200).json(output);
+        }
+
+        if (token.length == 0) {
+            const output = {
+                status: "false",
+                message: "not login"
+            };
+            return res.status(200).json(output);
+        }
+
+        jwt.verify(token, "secret", function(err, legit) {
+            if (err) {
+                const output = {
+                    status: "false",
+                    message: "logint timeout"
+                };
+                return res.status(200).json(output);
+            }
+            req.legit = legit;
+        });
+
+        next();
+    }
+};
