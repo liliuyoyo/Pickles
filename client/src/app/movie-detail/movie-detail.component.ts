@@ -160,6 +160,38 @@ export class MovieDetailComponent implements OnInit {
     });  
   }
 
+  /*******************************************************
+   *  Add the movie to user's wishlist
+   *******************************************************/
+  public addToWishList(){
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      // if user is logged in
+      if(res=="true"){
+        this.token = this.userService.getToken();
+        const updateData = {
+          id : this.movieToShow._id,
+          token : this.token,
+          type: "wishlist",
+          value:""
+        }
+        this.moviesService.updateMoiveById(updateData)
+        .subscribe((updatedRes)=>{
+          if(updatedRes['status'] == "true"){
+            console.log("Successfully add to user's movie list")
+          }else{
+            console.log("Fail to add new comment");
+          }
+        });
+
+      }else{
+        // if user is not loggedin , show popup login page
+        this.modalRef = this.modalService.show(LoginPopupComponent);
+      }
+
+    });  
+  }
+
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
