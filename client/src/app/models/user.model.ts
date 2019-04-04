@@ -5,8 +5,10 @@ export class User {
     public password?: string;
     public image?: string;
     public isUser: boolean;
+    public wishList?: object[];
 
-    constructor(id: string, username:string, email:string, password:string, image:string, isUser:boolean){
+    constructor(id: string, username:string, email:string, password:string, 
+                image:string, isUser:boolean, list:object[]){
 
         this._id = id;
         this.username = username;
@@ -14,6 +16,6 @@ export class User {
         this.password = password;
         this.image = image;
         this.isUser = isUser;
-        
+        this.wishList = list;
     }
 }

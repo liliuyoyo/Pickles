@@ -1,10 +1,9 @@
-import { Component, OnInit,TemplateRef  } from '@angular/core';
+import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
-import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +12,7 @@ import { ViewChild } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  user : User = new User("","","","","",true);
+  user : User = new User("","","","","",true,[]);
   isAdmin: boolean = false;
   tokenResponse: string;
 
@@ -22,22 +21,23 @@ export class LoginComponent implements OnInit {
   password_id:number;
 
   constructor(private userService: UserService,
-    private location: Location,
-    private modalService: NgbModal,
-    ) {}
+              private location: Location,
+              private modalService: NgbModal){}
   
   ngOnInit(){
     // $('#username').focus();
     this.listeners(this);
   }
   @ViewChild('content') private content:TemplateRef <any>;
-  onSubmit(){
+  
+  public onSubmit(){
     // get logined user
-    this.userService.getLoginedUser(this.user)
+    this.userService.userLogin(this.user)
     .subscribe((data)=>{
       if(data !== 'false'){
         this.tokenResponse = data.token;
         this.userService.saveToken(this.tokenResponse);
+        this.userService.saveUsername(this.user.username);
         this.isAdmin = data.isuser;
 
         //这里有问题需要改￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
@@ -51,6 +51,11 @@ export class LoginComponent implements OnInit {
       
     });
   }
+
+
+
+
+
   listeners(login:any){
     //hide the prompt spans firstly
     $("span").hide();
