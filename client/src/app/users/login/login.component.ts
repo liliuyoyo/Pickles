@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
       if(data !== 'false'){
         this.tokenResponse = data.token;
         this.userService.saveToken(this.tokenResponse);
+        this.userService.saveUsername(this.user.username);
         this.isAdmin = data.isuser;
         this.location.back();
       }else{
@@ -51,7 +52,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  
+
   listeners(login:any){
     //hide the prompt spans firstly
     $("span").hide();

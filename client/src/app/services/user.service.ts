@@ -20,21 +20,37 @@ export class UserService {
     serverUrl: string = "http://localhost:4600/";
     headers:HttpHeaders;
     token: string;
+    username: string;
     loggedin:boolean = false;
 
     constructor(private http: HttpClient,
                 private router: Router){};
 
     public saveToken(token: string): void {
-        localStorage.setItem('mean-token', token);
+        //localStorage.setItem('mean-token', token);
+        sessionStorage.setItem('mean-token', token);        
         this.token = token;
     }
     
     public getToken(): string {
         if (!this.token) {
-            this.token = localStorage.getItem('mean-token');
+            //this.token = localStorage.getItem('mean-token');
+            this.token = sessionStorage.getItem('mean-token');
+
         }
         return this.token;
+    }
+
+    public saveUsername(username: string): void {
+        sessionStorage.setItem('mean-username', username); 
+        this.username = username;       
+    }
+    
+    public getUsername(): string {
+        if (!this.username) {
+            this.username = sessionStorage.getItem('mean-username');
+        }
+        return this.username;
     }
 
     // check whether user is loggedIn
@@ -54,7 +70,9 @@ export class UserService {
     
     public userLogout(): void {
         this.token = '';
-        window.localStorage.removeItem('mean-token');
+        this.username = '';
+        window.sessionStorage.removeItem('mean-token');   
+        window.sessionStorage.removeItem('mean-username');     
         this.router.navigateByUrl('/movies');
     }
 
