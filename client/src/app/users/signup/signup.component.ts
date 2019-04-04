@@ -15,7 +15,7 @@ import * as $ from 'jquery';
 })
 
 export class SignupComponent implements OnInit {
-  usertoSend: User=new User("","","","","",true);
+  usertoSend: User=new User("","","","","",true,[]);
   //for switch the class of prompt spans
   username_id:number;
   email_id:number;
@@ -27,8 +27,8 @@ export class SignupComponent implements OnInit {
   password_valid:boolean=false;
 
   //for check exist
-  userToCheckUsername: User=new User("","","","","",true);
-  userToCheckEmail: User=new User("","","","","",true);
+  userToCheckUsername: User=new User("","","","","",true,[]);
+  userToCheckEmail: User=new User("","","","","",true,[]);
 
   //for password strength
   public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];

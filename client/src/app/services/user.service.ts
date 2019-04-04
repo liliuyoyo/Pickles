@@ -43,8 +43,13 @@ export class UserService {
     }
 
     //login user and get TokenResponse
-    public getLoginedUser(user: User):Observable<any>{
-        return this.http.post<any>(this.serverUrl+"user/profile", user);
+    public userLogin(user: User):Observable<any>{
+        return this.http.post<any>(this.serverUrl+"user/login", user);
+    }
+
+    // get logined user profile
+    public getLoginedUser(token: string):Observable<any>{
+        return this.http.post<any>(this.serverUrl+"user/profile", { token: token });
     }
     
     public userLogout(): void {

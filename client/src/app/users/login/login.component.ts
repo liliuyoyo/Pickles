@@ -13,7 +13,7 @@ import { ViewChild } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  user : User = new User("","","","","",true);
+  user : User = new User("","","","","",true,[]);
   isAdmin: boolean = false;
   tokenResponse: string;
 
@@ -22,18 +22,18 @@ export class LoginComponent implements OnInit {
   password_id:number;
 
   constructor(private userService: UserService,
-    private location: Location,
-    private modalService: NgbModal,
-    ) {}
+              private location: Location,
+              private modalService: NgbModal){}
   
   ngOnInit(){
     // $('#username').focus();
     this.listeners(this);
   }
   @ViewChild('content') private content:TemplateRef <any>;
-  onSubmit(){
+  
+  public onSubmit(){
     // get logined user
-    this.userService.getLoginedUser(this.user)
+    this.userService.userLogin(this.user)
     .subscribe((data)=>{
       if(data !== 'false'){
         this.tokenResponse = data.token;

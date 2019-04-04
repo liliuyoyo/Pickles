@@ -70,56 +70,103 @@ router.get("/user/register", (req, res, next) => {
 });
 
 /*************************************************************************************************
+ * test status: no
+ * description: login personal interface
+ * note: only use username to check user
+ ***************************************************************************************************/
+router.post("/user/profile", (req, res, next) => {
+  const token = req.body.token;
+
+  if (token == null) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  if (token.length == 0) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  jwt.verify(token, "secret", function(err, legit) {
+    if (err) {
+      const output = {
+        status: "false",
+        message: "login timeout"
+      };
+      return res.status(200).json(output);
+    }
+
+    User.findById(legit._id)
+      .populate("userList")
+      .exec(function(err, user) {
+        if (err) {
+          const output = {
+            status: "false",
+            message: "not find"
+          };
+          return res.status(200).json(output);
+        }
+
+        const userobject = new Object();
+        userobject.status = "true";
+        userobject.id = user._id;
+        userobject.name = user.userName;
+        userobject.email = user.userEmail;
+        userobject.isuser = user.isUser;
+        userobject.image = user.userImage;
+        userobject.list = user.userList;
+
+        return res.status(200).json(userobject);
+      });
+  });
+});
+
+/*************************************************************************************************
  * test status: yes
  * description: login
  * note: only use username to check user
  ***************************************************************************************************/
-router.post("/user/profile", (req, res, next) => {
+router.post("/user/login", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   var result;
-  // console.log(username);
-  // console.log(password);
 
   User.find({ userName: username })
     .exec()
     .then(docs => {
       if (Object.keys(docs).length === 0) {
         console.log("empty");
-        result = "false";
-        // res.status(200).json("false");
-      } else {
-        Object.entries(docs).forEach(doc => {
-          const hashpassword = sha512(password, doc[1].userPassword[0]);
-          if (doc[1].userPassword[1] == hashpassword.passwordHash) {
-            const currentuserinfo = new Object();
-            currentuserinfo._id = doc[1]._id;
-            currentuserinfo.userName = doc[1].userName;
-            const token = jwt.sign(currentuserinfo, "secret", {
-              expiresIn: 60 * 30
-            });
-            console.log(token);
-            result = {
-              isuser: doc[1].isUser,
-              token: token
-            };
-            // console.log(token);
-
-            // res.status(200).json({
-            //   isuser: doc[1].isUser,
-            //   token: token
-            // });
-          } else {
-            // console.log("else");
-            result = "false";
-            // res.status(200).json("false");
-          }
-        });
+        return res.status(200).json("false");
       }
-      // console.log(result);
-      res.status(200).json(result);
+      Object.entries(docs).forEach(doc => {
+        const hashpassword = sha512(password, doc[1].userPassword[0]);
+        if (doc[1].userPassword[1] == hashpassword.passwordHash) {
+          const currentuserinfo = new Object();
+          currentuserinfo._id = doc[1]._id;
+          currentuserinfo.userName = doc[1].userName;
+          const token = jwt.sign(currentuserinfo, "secret", {
+            expiresIn: 60 * 30
+          });
+          console.log(token);
+          result = {
+            isuser: doc[1].isUser,
+            token: token
+          };
+          return res.status(200).json(result);
+        }
+        return res.status(200).json("false");
+      });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      return res.status(200).json("false");
+    });
 });
 
 /*************************************************************************************************
