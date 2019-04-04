@@ -3,7 +3,6 @@
     <a href="#" class="brandImg"><img src="https://image.flaticon.com/icons/svg/170/170328.svg"></a> 
     <a href="#" class="brandTextImg"><img src="../../../assets/images/brandTxtImg.png"></a> 
   </div> 
-<!-- http://tu.027cgb.com/618498/2019322193154520.png -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -33,7 +32,7 @@
       <li class="nav-item active">
         <a *ngIf="!isLoggedin()" class="nav-link" routerLink="signup">SignUp</a> 
       </li>
-      <label *ngIf="isLoggedin()" id="hi">Hi, {{ username }}</label>
+      <a *ngIf="isLoggedin()" class="nav-link" id="hi" routerLink="user-management">Hi, {{ username }}</a>
       <li class="nav-item">
         <a *ngIf="!isLoggedin()" class="nav-link" routerLink="login">Login</a>
         <a *ngIf="isLoggedin()" class="nav-link" (click)="logout()">Logout</a>
