@@ -44,6 +44,7 @@ function saltHashPassword(userpassword) {
 /*************************************************************************************************
  * test status: yes
  * description: generate token ootion
+ * note: unused
  ***************************************************************************************************/
 var signOptions = {
   expiresIn: "1h",
@@ -52,6 +53,7 @@ var signOptions = {
 /*************************************************************************************************
  * test status: yes
  * description: signup get all users
+ * note: unused
  ***************************************************************************************************/
 router.get("/user/register", (req, res, next) => {
   User.find()
@@ -72,7 +74,7 @@ router.get("/user/register", (req, res, next) => {
 /*************************************************************************************************
  * test status: no
  * description: login personal interface
- * note: only use username to check user
+ * note:
  ***************************************************************************************************/
 router.post("/user/profile", (req, res, next) => {
   const token = req.body.token;
@@ -113,6 +115,14 @@ router.post("/user/profile", (req, res, next) => {
           return res.status(200).json(output);
         }
 
+        if (user.deleted == false) {
+          const output = {
+            status: "false",
+            message: "user is not exist"
+          };
+          return res.status(200).json(output);
+        }
+
         const userobject = new Object();
         userobject.status = "true";
         userobject.id = user._id;
@@ -130,13 +140,14 @@ router.post("/user/profile", (req, res, next) => {
 /*************************************************************************************************
  * test status: yes
  * description: login
- * note: only use username to check user
+ * note:
  ***************************************************************************************************/
 router.post("/user/login", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   var result;
 
+  //User.find({ userName: username }, { deleted: true })
   User.find({ userName: username })
     .exec()
     .then(docs => {
@@ -144,6 +155,7 @@ router.post("/user/login", (req, res, next) => {
         console.log("empty");
         return res.status(200).json("false");
       }
+
       Object.entries(docs).forEach(doc => {
         const hashpassword = sha512(password, doc[1].userPassword[0]);
         if (doc[1].userPassword[1] == hashpassword.passwordHash) {
@@ -151,7 +163,7 @@ router.post("/user/login", (req, res, next) => {
           currentuserinfo._id = doc[1]._id;
           currentuserinfo.userName = doc[1].userName;
           const token = jwt.sign(currentuserinfo, "secret", {
-            expiresIn: 60 * 30
+            expiresIn: 60 * 60
           });
           console.log(token);
           result = {
@@ -164,7 +176,6 @@ router.post("/user/login", (req, res, next) => {
       });
     })
     .catch(err => {
-      console.log(err);
       return res.status(200).json("false");
     });
 });
@@ -172,45 +183,165 @@ router.post("/user/login", (req, res, next) => {
 /*************************************************************************************************
  * test status: no
  * description: edit image
- * note: /:id/edit/image?image=
+ * note:
  ***************************************************************************************************/
-router.get("/user/profile/:id/edit/image", (req, res, next) => {
-  User.findById(req.params.id)
-    .exec()
-    .then(docs => {
-      const image = req.query.image;
-      docs.userImage = image;
-      res.status(200).json(docs);
-    })
-    .catch(err => console.log(err));
-});
-/*************************************************************************************************
- * test status: no
- * description: edit name
- * note: /:id/edit/image?name=
- ***************************************************************************************************/
-router.get("/user/profile/:id/edit/username", (req, res, next) => {
-  User.findById(req.params.id)
-    .exec()
-    .then(docs => {
-      const name = req.query.name;
-      docs.userName = name;
-      res.status(200).json(docs);
-    })
-    .catch(err => console.log(err));
+router.get("/user/profile/edit/image", (req, res, next) => {
+  const token = req.body.token;
+  if (token == null) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  if (token.length == 0) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  jwt.verify(token, "secret", function(err, legit) {
+    if (err) {
+      const output = {
+        status: "false",
+        message: "logint timeout"
+      };
+      return res.status(200).json(output);
+    }
+
+    User.findByIdAndUpdate(legit._id, { userImage: res.body.image }, function(
+      err,
+      image
+    ) {
+      if (err) {
+        const output = {
+          status: "false",
+          message: "failure to update"
+        };
+        return res.status(200).json(output);
+      }
+
+      const output = {
+        status: "true",
+        message: ""
+      };
+      return res.status(200).json(output);
+    });
+  });
 });
 
 /*************************************************************************************************
  * test status: no
- * description: user homepage
+ * description: edit name
+ * note:
  ***************************************************************************************************/
-router.get("/user/profile/:id", (req, res, next) => {
-  User.findById(req.params.id)
-    .exec()
-    .then(docs => {
-      res.status(200).json(docs);
-    })
-    .catch(err => console.log(err));
+router.get("/user/profile/edit/name", (req, res, next) => {
+  const token = req.body.token;
+  if (token == null) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  if (token.length == 0) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  jwt.verify(token, "secret", function(err, legit) {
+    if (err) {
+      const output = {
+        status: "false",
+        message: "logint timeout"
+      };
+      return res.status(200).json(output);
+    }
+
+    User.findByIdAndUpdate(legit._id, { userName: res.body.name }, function(
+      err,
+      user
+    ) {
+      if (err) {
+        const output = {
+          status: "false",
+          message: "failure to update"
+        };
+        return res.status(200).json(output);
+      }
+
+      const output = {
+        status: "true",
+        message: ""
+      };
+      return res.status(200).json(output);
+    });
+  });
+});
+
+/*************************************************************************************************
+ * test status: no
+ * description: user delete
+ ***************************************************************************************************/
+router.delete("/user/profile/delete", (req, res, next) => {
+  const token = req.body.token;
+  if (token == null) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  if (token.length == 0) {
+    const output = {
+      status: "false",
+      message: "not login"
+    };
+    return res.status(200).json(output);
+  }
+
+  jwt.verify(token, "secret", function(err, legit) {
+    if (err) {
+      const output = {
+        status: "false",
+        message: "logint timeout"
+      };
+      return res.status(200).json(output);
+    }
+
+    User.findById(legit._id, function(err, image) {
+      if (err) {
+        const output = {
+          status: "false",
+          message: "failure to find user"
+        };
+        return res.status(200).json(output);
+      }
+
+      image.softdelete(function(err) {
+        if (err) {
+          const output = {
+            status: "false",
+            message: "failure to delete"
+          };
+          return res.status(200).json(output);
+        }
+        const output = {
+          status: "true",
+          message: ""
+        };
+        return res.status(200).json(output);
+      });
+    });
+  });
 });
 /*************************************************************************************************
  * test status: no
