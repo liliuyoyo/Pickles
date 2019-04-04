@@ -27,14 +27,12 @@ export class UserService {
                 private router: Router){};
 
     public saveToken(token: string): void {
-        //localStorage.setItem('mean-token', token);
         sessionStorage.setItem('mean-token', token);        
         this.token = token;
     }
     
     public getToken(): string {
         if (!this.token) {
-            //this.token = localStorage.getItem('mean-token');
             this.token = sessionStorage.getItem('mean-token');
 
         }
