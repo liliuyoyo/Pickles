@@ -47,6 +47,11 @@ export class LoginComponent implements OnInit {
       
     });
   }
+
+
+
+
+  
   listeners(login:any){
     //hide the prompt spans firstly
     $("span").hide();

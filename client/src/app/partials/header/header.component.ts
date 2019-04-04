@@ -29,20 +29,7 @@ export class HeaderComponent implements OnInit {
 
   public isLoggedin(){
     // get username from server
-    this.userService.getLoginedUser(this.userService.getToken())
-    .subscribe((res)=>{
-        if(res['status']=="true"){
-          this.user._id = res['id'];
-          this.user.username = res['name'];
-          this.user.email = res['email'];
-          this.user.image = res['image'];
-          this.user.isUser = res['isuser'];
-          this.user.wishList = res['list'];
-          return true;
-        }else{
-          return false;
-        }
-    });
+    return this.userService.getToken() !== null;
   }
 
   public logout(): void{
