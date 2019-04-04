@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CustomFormsModule } from "ng2-validation";
 import { ModalModule } from 'ngx-bootstrap';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Components
 import { AppComponent } from './app.component';
@@ -43,7 +44,7 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
     StarRatingComponent,
     PolicyComponent,
     AddCommentComponent,
-    WelcomeComponent
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,9 +56,10 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
     CustomFormsModule,
     PasswordStrengthBarModule,
     ModalModule.forRoot(),
+    NgbModule.forRoot(),
   ],
   providers: [ MoviesService,UserService],
   bootstrap: [AppComponent],
-  entryComponents:[AddCommentComponent]
+  entryComponents:[AddCommentComponent,]
 })
 export class AppModule { }

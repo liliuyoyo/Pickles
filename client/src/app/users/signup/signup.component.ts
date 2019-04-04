@@ -1,17 +1,19 @@
 //need to install these below:
 //  npm install --save jquery @types/jquery --save ng2-password-strength-bar --save
 
-import { Component, OnInit,ElementRef } from '@angular/core';
+import { Component, OnInit,ElementRef,ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 
 export class SignupComponent implements OnInit {
@@ -38,7 +40,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private userService : UserService,
     private router: Router,
-    private elementRef:ElementRef
+    private elementRef:ElementRef,
+    private modalService: NgbModal,
     ){}
 
   ngOnInit() {
@@ -200,8 +203,12 @@ export class SignupComponent implements OnInit {
         signup.password_id=2;
        }
     });
-
-    //--->if continue, add code here
-
   }
+
+  //policy popup window
+  openLg(content) {
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  //--->if continue, add code here
 }
