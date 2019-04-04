@@ -6,6 +6,7 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { WelcomeComponent } from './users/welcome/welcome.component';
+import { UserManagementComponent } from './users/user-management/user-management.component';
 
 const appRoutes:Routes = [
     { path: "", redirectTo:"/movies", pathMatch: "full" },
@@ -14,6 +15,7 @@ const appRoutes:Routes = [
     { path: 'signup', component: SignupComponent},
     { path: 'login', component: LoginComponent},
     { path: 'welcome', component: WelcomeComponent},
+    { path: 'user-management', component: UserManagementComponent},
 ];
 
 @NgModule({
