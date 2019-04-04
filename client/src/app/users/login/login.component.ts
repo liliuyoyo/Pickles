@@ -1,9 +1,9 @@
 import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
-import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   password_id:number;
 
   constructor(private userService: UserService,
-              private location: Location,
+              private router: Router,
               private modalService: NgbModal){}
   
   ngOnInit(){
@@ -30,6 +30,28 @@ export class LoginComponent implements OnInit {
   }
   @ViewChild('content') private content:TemplateRef <any>;
   
+  // public onSubmit(){
+  //   // get logined user
+  //   this.userService.userLogin(this.user)
+  //   .subscribe((data)=>{
+  //     if(data !== 'false'){
+  //       this.tokenResponse = data.token;
+  //       this.userService.saveToken(this.tokenResponse);
+  //       this.userService.saveUsername(this.user.username);
+  //       this.isAdmin = data.isuser;
+
+  //       //这里有问题需要改￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
+  //       //想法一：将login改为弹窗
+  //       //想法二：跳转login之前，记录当前页面id，login之后再跳回id页面
+  //       this.location.back();
+  //     }else{
+  //       // wrong user;
+  //       this.modalService.open(this.content, { size: 'sm' });
+  //     }
+      
+  //   });
+  // }
+
   public onSubmit(){
     // get logined user
     this.userService.userLogin(this.user)
@@ -39,11 +61,7 @@ export class LoginComponent implements OnInit {
         this.userService.saveToken(this.tokenResponse);
         this.userService.saveUsername(this.user.username);
         this.isAdmin = data.isuser;
-
-        //这里有问题需要改￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
-        //想法一：将login改为弹窗
-        //想法二：跳转login之前，记录当前页面id，login之后再跳回id页面
-        this.location.back();
+        this.router.navigateByUrl('/movies');  
       }else{
         // wrong user;
         this.modalService.open(this.content, { size: 'sm' });
