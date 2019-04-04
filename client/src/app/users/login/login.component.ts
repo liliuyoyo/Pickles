@@ -1,10 +1,9 @@
-import { Component, OnInit,TemplateRef  } from '@angular/core';
+import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
 import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
-import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-login',
