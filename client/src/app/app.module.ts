@@ -28,12 +28,8 @@ import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { AddCommentComponent } from './movie-detail/add-comment/add-comment.component';
 import { WelcomeComponent } from './users/welcome/welcome.component';
-<<<<<<< HEAD
 import { LoginPopupComponent } from './users/login-popup/login-popup.component';
-||||||| merged common ancestors
-=======
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
->>>>>>> 4995dd6d4829bed0cfd743ee9fa01c39abdb373e
 
 
 @NgModule({
@@ -50,12 +46,8 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     StarRatingComponent,
     AddCommentComponent,
     WelcomeComponent,
-<<<<<<< HEAD
     LoginPopupComponent,
-||||||| merged common ancestors
-=======
     UserProfileComponent,
->>>>>>> 4995dd6d4829bed0cfd743ee9fa01c39abdb373e
   ],
   imports: [
     BrowserModule,
