@@ -63,7 +63,7 @@ export class SignupComponent implements OnInit {
           //--->jump to signup loading page and then jump to singup successful page.
         }
         else{
-          //--->jump to signup loading page(prompt something is wrong!)
+          //--->popup something wrong page
         }
       }); 
       this.username_valid=false;
