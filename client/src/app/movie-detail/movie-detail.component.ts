@@ -7,6 +7,8 @@ import { UserService } from '../services/user.service';
 import { Movie } from 'src/app/models/movie.model';
 import { Subscription } from 'rxjs';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { LoginPopupComponent } from '../users/login-popup/login-popup.component';
+
 
 
 @Component({
@@ -104,7 +106,7 @@ export class MovieDetailComponent implements OnInit {
           }
         });
       }else{
-        //this.modalRef = this.modalService.show(LoginComponent);
+        this.modalRef = this.modalService.show(LoginPopupComponent);
       }
     });  
   }
@@ -138,7 +140,7 @@ export class MovieDetailComponent implements OnInit {
           }
         });
       }else{
-        // this.modalRef = this.modalService.show(LoginComponent);
+        this.modalRef = this.modalService.show(LoginPopupComponent);
       }
     });  
   }

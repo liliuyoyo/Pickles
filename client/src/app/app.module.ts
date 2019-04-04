@@ -28,6 +28,7 @@ import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { AddCommentComponent } from './movie-detail/add-comment/add-comment.component';
 import { WelcomeComponent } from './users/welcome/welcome.component';
+import { LoginPopupComponent } from './users/login-popup/login-popup.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
     StarRatingComponent,
     AddCommentComponent,
     WelcomeComponent,
+    LoginPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +61,7 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
   ],
   providers: [ MoviesService,UserService],
   bootstrap: [AppComponent],
-  entryComponents:[AddCommentComponent,]
+  entryComponents:[AddCommentComponent,
+                   LoginPopupComponent ]
 })
 export class AppModule { }

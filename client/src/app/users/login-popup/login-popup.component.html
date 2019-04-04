@@ -1,0 +1,20 @@
+<div>
+  <img class="img" src="https://image.flaticon.com/icons/svg/149/149071.svg">
+    <form class="login" onsubmit="return false">
+        <h4>Login</h4>
+        <div class="form-group" class = "txt">
+            <input type="text" [(ngModel)]="user.username"
+                class="form-control"
+                name="username" id="username" placeholder="Username"/>
+        </div>
+        <div class="form-group" class = "txt">
+            <input type="password" [(ngModel)]="user.password"
+                class="form-control"
+                name="password" id="password" placeholder="Password"/>
+        </div>
+        <div id="login-btn">
+            <button type="submit" class="btn btn-outline-secondary btn-block">Login</button>
+            <button type="button" class="btn btn-outline-danger btn-block">Cancle</button>
+        </div> 
+    </form>
+</div>
