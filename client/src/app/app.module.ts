@@ -19,7 +19,6 @@ import { MovieItemComponent } from './movies-list/movie-item/movie-item.componen
 import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
-import { PolicyComponent } from './policy/policy.component';
 import { AddCommentComponent } from './movie-detail/add-comment/add-comment.component';
 
 // Services
@@ -42,7 +41,6 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
     SignupComponent,
     LoginComponent,
     StarRatingComponent,
-    PolicyComponent,
     AddCommentComponent,
     WelcomeComponent,
   ],

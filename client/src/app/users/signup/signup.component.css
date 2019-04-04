@@ -46,13 +46,40 @@
 }
 
 /*prompt msgs & validation msgs*/
-.info {
+.info, .agree-info{
     color:slategray;
-    border: ridge;
     position: absolute;
     width: 17%;
-    background: white;
+    background: #efefef;
     border-radius: 5px;
+}
+.info:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 15%;
+	width: 0;
+	height: 0;
+	border: 8px solid transparent;
+	border-right-color: #efefef;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -4px;
+	margin-left: -8px;
+}
+.agree-info:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 8%;
+	width: 0;
+	height: 0;
+	border: 8px solid transparent;
+	border-top-color: #efefef;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -4px;
+	margin-bottom: -8px;
 }
 .error {
     Font-size:75%;
