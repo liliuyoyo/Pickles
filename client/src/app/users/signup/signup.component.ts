@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
   username_id:number;
   email_id:number;
   password_id:number;
+  agree_id:number;
 
   //for check valiation
   username_valid:boolean=false;
@@ -48,7 +49,13 @@ export class SignupComponent implements OnInit {
 
   signup() {
     if(!$('#agree').is(':checked')){
-      console.log('1');
+      $("#agree-info").text("Please agree to the privacy policy.");
+      this.agree_id=1;
+      $("#agree-info").css({
+        "left":$("#agree").offset().left - 1.12*$("#agree").width(),
+        "top":$("#agree").offset().top - 4.5*$("#agree").width(),
+        "display":"inline","text-align":"center",});
+      $("#agree-info").show();
     }
     if(this.username_valid==true&&
       this.email_valid==true&&
@@ -58,9 +65,9 @@ export class SignupComponent implements OnInit {
       this.userService.signup(this.usertoSend)
       .subscribe(data =>
       {
-        console.log(data);
-        if(data==true){
+        if(data=="true"){
           //--->jump to signup loading page and then jump to singup successful page.
+          this.router.navigateByUrl("welcome");
         }
         else{
           //--->popup something wrong page
@@ -69,9 +76,6 @@ export class SignupComponent implements OnInit {
       this.username_valid=false;
       this.email_valid=false;
       this.password_valid=false;
-    }
-    else{
-      this.router.navigateByUrl("welcome");
     }
   }
 
@@ -129,11 +133,11 @@ export class SignupComponent implements OnInit {
     //focus
     $("#email").focus(function(){
       $("#email-info").text("The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.");
+      signup.email_id=1;
       $("#email-info").css({
         "left":$("#email").offset().left + 1.12*$("#email").width(),
-        "top":$("#email").offset().top ,
+        "top":$("#email").offset().top,
         "display":"inline"});
-      signup.email_id=1;
       $("#email-info").show();
     });
 
@@ -175,7 +179,7 @@ export class SignupComponent implements OnInit {
     $("#password").focus(function(){
       $("#password-info").text("The password field should be at least 6 characters long.");
       $("#password-info").css({
-        "left":$("#password").offset().left + 1.12*$("#password").width(),
+        "left":$("#password").offset().left + 0.94*$("#password").width(),
         "top":$("#password").offset().top ,
         "display":"inline"});
       signup.password_id=1;
@@ -199,8 +203,18 @@ export class SignupComponent implements OnInit {
         signup.password_id=2;
        }
     });
+
+    //********Agree box Events********
+    
+    //click
+    $("#agree").click(function(){
+      $("#agree-info").text("");
+      signup.agree_id=0;
+      $("#agree-info").hide();
+    });
   }
 
+ 
   //policy popup window
   openLg(content:any) {
     this.modalService.open(content, { size: 'lg' });

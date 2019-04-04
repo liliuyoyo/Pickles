@@ -39,6 +39,10 @@ export class LoginComponent implements OnInit {
         this.userService.saveToken(this.tokenResponse);
         this.userService.saveUsername(this.user.username);
         this.isAdmin = data.isuser;
+
+        //这里有问题需要改￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
+        //想法一：将login改为弹窗
+        //想法二：跳转login之前，记录当前页面id，login之后再跳回id页面
         this.location.back();
       }else{
         // wrong user;

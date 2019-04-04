@@ -86,8 +86,8 @@ export class UserService {
     
     //username or email already exists when return false
     //signup successfully when return true
-    public signup(user: User): Observable<boolean>{
-        return this.http.post<boolean>( this.serverUrl+"user/register",
+    public signup(user: User): Observable<string>{
+        return this.http.post<string>( this.serverUrl+"user/register",
             user,
             {});
     }

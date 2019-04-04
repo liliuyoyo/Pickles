@@ -47,6 +47,7 @@
             <li>Is not a member of this list of common passwords</li>
           </ul>
           <p><input type="checkbox" id="agree"> Agree to the <a [routerLink]="" (click)="openLg(content)">Privacy Policy</a>.</p>
+          <span id="agree-info" [ngClass]="{'agree-info':agree_id === 1}"></span>
         </div>
       <div id="signup-btn">
           <button type="submit" class="btn btn-outline-secondary btn-block">Sign Up</button>
@@ -60,7 +61,7 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-title"></h4>
+        <h4 class="modal-title" id="modal-title">Privacy Policy</h4>
         <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
