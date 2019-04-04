@@ -8,6 +8,13 @@ import { ModalModule } from 'ngx-bootstrap';
 import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Services
+import { MoviesService } from './services/movies.service';
+import { UserService } from 'src/app/services/user.service';
+
+// Routes
+import { AppRoutingModule } from './app-routing.module';
+
 // Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './partials/header/header.component';
@@ -20,15 +27,8 @@ import { MovieDetailComponent } from './movie-detail/movie-detail.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { AddCommentComponent } from './movie-detail/add-comment/add-comment.component';
-
-// Services
-import { MoviesService } from './services/movies.service';
-import { UserService } from 'src/app/services/user.service';
-
-// Routes
-import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './users/welcome/welcome.component';
-import { UserManagementComponent } from './users/user-management/user-management.component';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import { UserManagementComponent } from './users/user-management/user-management
     StarRatingComponent,
     AddCommentComponent,
     WelcomeComponent,
-    UserManagementComponent,
   ],
   imports: [
     BrowserModule,

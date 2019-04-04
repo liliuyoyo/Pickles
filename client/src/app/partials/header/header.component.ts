@@ -16,20 +16,13 @@ export class HeaderComponent implements OnInit {
               private userService: UserService,
               private router: Router) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 
   public onSubmit(){
     this.moviesService.searchEvent.emit(this.searchString);
     this.searchString="";
     this.router.navigateByUrl('/movies');  
   }
-
-  // public isLoggedin(){
-  //   // get username from server
-  //   return this.userService.getToken() !== null;
-  // }
 
   public isLoggedin(){
     this.username = this.userService.getUsername();
