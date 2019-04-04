@@ -2,12 +2,13 @@ import { Component, OnInit,ElementRef} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Subscription } from 'rxjs';
+
+import { AddCommentComponent } from './add-comment/add-comment.component';
+import { LoginPopupComponent } from '../users/login-popup/login-popup.component';
 import { MoviesService } from 'src/app/services/movies.service';
 import { UserService } from '../services/user.service';
 import { Movie } from 'src/app/models/movie.model';
-import { Subscription } from 'rxjs';
-import { AddCommentComponent } from './add-comment/add-comment.component';
-import { LoginPopupComponent } from '../users/login-popup/login-popup.component';
 
 
 
@@ -46,7 +47,9 @@ export class MovieDetailComponent implements OnInit {
         this.movieId = params['id']; // get movie-id from current url
         this.moviesService.getMovieById(this.movieId) // search the movie from serve by movie-id
         .subscribe(data => { 
-          this.movieToShow = data; 
+          this.movieToShow = data; // get movie detailed information
+
+          // show the movie rating by stars
           var totalS = +(this.movieToShow.rating).toFixed();
           this.stars.fullStars = Math.floor(totalS/2);
           this.stars.halfStar = totalS%2;
@@ -61,10 +64,13 @@ export class MovieDetailComponent implements OnInit {
     this.location.back();
   }
 
-
+  /*******************************************************
+   *  Increase / Descrease 'likes' or 'watched' numbers
+   *******************************************************/
   public updateLikeWatched(updateType:string,upDown:string){
     this.userService.isLoggedIn()
     .subscribe((res)=>{
+      // if user is loggedin
       if(res=="true"){
         this.token = this.userService.getToken();
         const updateData = {
@@ -73,6 +79,7 @@ export class MovieDetailComponent implements OnInit {
           type: updateType,
           value: 0
         }
+        // check the update Type : likes / watched
         if(updateType == 'likes'){
           if(upDown == "up"){
             updateData.value = this.movieToShow.likes + 1;
@@ -81,7 +88,7 @@ export class MovieDetailComponent implements OnInit {
             updateData.value = this.movieToShow.likes - 1;
             this.isClickLike = false;
           }
-        }else{
+        }else{ // check is operation: increase / decrease
           if(upDown == "up"){
             updateData.value = this.movieToShow.watched + 1;
             this.isClickWatched = true;
@@ -91,34 +98,41 @@ export class MovieDetailComponent implements OnInit {
           }
         }
         
+        // update movie data by pass the new value to server
         this.moviesService.updateMoiveById(updateData)
         .subscribe((updatedRes)=>{
+          // check the server response
           if(updatedRes['status'] == "true"){
             if(updateType == "likes"){
               this.movieToShow.likes = updatedRes['message'].likes;
-              //this.elementRef.nativeElement.querySelector('#likeBtn').setAttribute('disabled',"true");
             }else{
               this.movieToShow.watched = updatedRes['message'].watched;
-              //this.elementRef.nativeElement.querySelector('#watchedBtn').setAttribute("disabled","true");
             }
           }else{
-            //show error message;   updatedRes['message'];
+            console.log("Fail to update.");
           }
         });
       }else{
+        // if user is not loggedin , show popup login page
         this.modalRef = this.modalService.show(LoginPopupComponent);
       }
     });  
   }
 
+  /*******************************************************
+   *  Add a new comment to current movie
+   *******************************************************/
   public addNewComment(){
     this.userService.isLoggedIn()
     .subscribe((res)=>{
+      // if user is logged in
       if(res=="true"){
+
+        // show the add comment window
         this.modalRef = this.modalService.show(AddCommentComponent);
         this.modalRef.content.addCommentEvent.subscribe((commentTxt) => {
+          // if user entered comment text
           if(commentTxt != undefined){
-            //console.log(commentTxt);
             this.token = this.userService.getToken();
             const updateData = {
               id : this.movieToShow._id,
@@ -131,15 +145,16 @@ export class MovieDetailComponent implements OnInit {
               if(updatedRes['status'] == "true"){
                 this.movieToShow.comments.unshift(updatedRes['message']);
               }else{
-                //show error message;   updatedRes['message'];
+                console.log("Fail to add new comment");
               }
             });
           }else{
-            // error message: comment can not be empty;
+            // if the comment text is empty or undefined
             console.log("hah? Nothing to say?");
           }
         });
       }else{
+        // if user is not loggedin , show popup login page
         this.modalRef = this.modalService.show(LoginPopupComponent);
       }
     });  
