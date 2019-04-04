@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const softdelete = require("mongoose-softdelete");
 
 const userSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -14,5 +15,7 @@ const userSchema = mongoose.Schema({
     }
   ]
 });
+
+userSchema.plugin(softdelete);
 
 module.exports = mongoose.model("User", userSchema);
