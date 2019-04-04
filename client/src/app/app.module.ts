@@ -28,6 +28,7 @@ import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { AddCommentComponent } from './movie-detail/add-comment/add-comment.component';
 import { WelcomeComponent } from './users/welcome/welcome.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
     StarRatingComponent,
     AddCommentComponent,
     WelcomeComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
