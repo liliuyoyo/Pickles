@@ -29,28 +29,6 @@ export class LoginComponent implements OnInit {
     this.listeners(this);
   }
   @ViewChild('content') private content:TemplateRef <any>;
-  
-  // public onSubmit(){
-  //   // get logined user
-  //   this.userService.userLogin(this.user)
-  //   .subscribe((data)=>{
-  //     if(data !== 'false'){
-  //       this.tokenResponse = data.token;
-  //       this.userService.saveToken(this.tokenResponse);
-  //       this.userService.saveUsername(this.user.username);
-  //       this.isAdmin = data.isuser;
-
-  //       //这里有问题需要改￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥
-  //       //想法一：将login改为弹窗
-  //       //想法二：跳转login之前，记录当前页面id，login之后再跳回id页面
-  //       this.location.back();
-  //     }else{
-  //       // wrong user;
-  //       this.modalService.open(this.content, { size: 'sm' });
-  //     }
-      
-  //   });
-  // }
 
   public onSubmit(){
     // get logined user

@@ -19,21 +19,22 @@ h4{
     padding: 7%;
     padding-top:5%;
 }
-#login-btn{
-    padding-top:5%;
-    padding-bottom: 5%; 
-}
+
 .txt{
     padding-bottom: 10%;
 }
-#username{
+#username,#email,#password{
 	border-color:#ccc
 }
-#email{
-	border-color:#ccc
+
+.btn {
+    width: 30%;
+    margin: 0 auto;
+    margin-left:10%;
 }
-#password{
-	border-color:#ccc
+
+.submit{
+    margin-left:20%;
 }
 
 /*prompt msgs & validation msgs*/
