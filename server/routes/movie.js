@@ -424,7 +424,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
  *   message:
  * }
  ***************************************************************************************************/
-router.update("/movie/update", middleware.isLoggedIn, (req, res, next) => {
+router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
     if (legit.isUser == "true") {
         return res.status(200).json({

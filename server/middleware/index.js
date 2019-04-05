@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
 
 module.exports = {
     isLoggedIn: function(req, res, next) {
