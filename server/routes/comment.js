@@ -5,146 +5,159 @@ const Movie = require("../models/movies");
 const User = require("../models/users");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-
+const middleware = require("../middleware");
 /*************************************************************************************************
  * test status: yes
  * description: check if user loggin
  * note: need to check if loggin
+ * input: {
+ *  token:
+ * }
+ * output: String => true or false
  ***************************************************************************************************/
 router.post("/status", (req, res, next) => {
-  const token = req.body.token;
-  var output;
+    const token = req.body.token;
 
-  if (token == null) {
-    res.status(200).json("false");
-  } else {
-    if (Object.keys(token).length == 0) {
-      res.status(200).json("false");
-    } else {
-      jwt.verify(token, "secret", function(err, legit) {
-        if (err) {
-          res.status(200).json("false");
-        } else {
-          res.status(200).json("true");
-        }
-      });
+    if (token == null) {
+        return res.status(200).json("false");
     }
-  }
+    if (Object.keys(token).length == 0) {
+        return res.status(200).json("false");
+    }
+    jwt.verify(token, "secret", function(err, legit) {
+        if (err) {
+            return res.status(200).json("false");
+        }
+        return res.status(200).json("true");
+    });
 });
 /*************************************************************************************************
  * test status: yes
  * description: moive update
  * note: need to check if loggin
+ * input: {
+ *  id:(movie)
+ *  token:
+ *  type:
+ *  value:
+ * }
+ * output: {
+ *  status:
+ *  message:
+ * }
  ***************************************************************************************************/
-router.post("/movie/update", (req, res, next) => {
-  const id = req.body.id;
-  const token = String(req.body.token);
-  const type = req.body.type;
-  const value = req.body.value;
-  var output;
+router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
+    const id = req.body.id;
+    const type = req.body.type;
+    const value = req.body.value;
+    var output;
+    const legit = req.legit;
 
-  if (token.length == 0) {
-    output = {
-      status: "false",
-      message: "not login"
-    };
-    res.status(200).json(output);
-  } else {
-    jwt.verify(token, "secret", function(err, legit) {
-      if (err) {
-        output = {
-          status: "false",
-          message: "login timeout"
-        };
-        res.status(200).json(output);
-      } else {
-        Movie.findById(id).exec(function(err, movie) {
-          if (err) {
+    Movie.findById(id).exec(function(err, movie) {
+        if (err) {
             output = {
-              status: "false",
-              message: "update failure"
+                status: "false",
+                message: "update failure"
             };
-            res.status(200).json(output);
-          } else {
-            if (type == "likes") {
-              //console.log("likes");
-              movie.likes = value;
-              movie.save();
-              output = {
+            return res.status(200).json(output);
+        }
+        if (type == "likes") {
+            movie.likes = value;
+            movie.save();
+            output = {
                 status: "true",
                 message: movie
-              };
-              res.status(200).json(output);
-            } else if (type == "watched") {
-              movie.watched = value;
-              movie.save();
-              output = {
+            };
+            return res.status(200).json(output);
+        }
+        if (type == "watched") {
+            movie.watched = value;
+            movie.save();
+            output = {
                 status: "true",
                 message: movie
-              };
-              res.status(200).json(output);
-            } else if (type == "comments") {
-              //console.log("comments");
-              const comments = new Comment();
-              comments.author.id = legit._id;
-              comments.author.username = legit.userName;
-              comments.text = value;
-              const currentDate = new Date();
-              const date = currentDate.getDate();
-              const month = currentDate.getMonth(); //Be careful! January is 0 not 1
-              const year = currentDate.getFullYear();
-              const dateString = month + 1 + "-" + date + "-" + year;
-              comments.date = dateString;
-              Comment.create(comments, function(err, comment) {
+            };
+            return res.status(200).json(output);
+        }
+
+        if (type == "comments") {
+            const comments = new Comment();
+            comments.author.id = legit._id;
+            comments.author.username = legit.userName;
+            comments.text = value;
+            const currentDate = new Date();
+            const date = currentDate.getDate();
+            const month = currentDate.getMonth(); //Be careful! January is 0 not 1
+            const year = currentDate.getFullYear();
+            const dateString = month + 1 + "-" + date + "-" + year;
+            comments.date = dateString;
+            Comment.create(comments, function(err, comment) {
                 if (err) {
-                  output = {
-                    status: "false",
-                    message: "add comments failure"
-                  };
-                  res.status(200).json(output);
+                    output = {
+                        status: "false",
+                        message: "add comments failure"
+                    };
+                    return res.status(200).json(output);
                 } else {
-                  comment.save();
-                  movie.comments.push(comment);
-                  movie.save();
-                  // const returncomment = new Object();
-                  // returncomment.userid = comments.author.id;
-                  // returncomment.username = comments.author.username;
-                  // returncomment.text = comments.text;
-                  // returncomment.date = comments.date;
-                  //  console.log(returncomment);
-                  output = {
-                    status: "true",
-                    message: comment
-                  };
-                  // console.log(output);
-                  res.status(200).json(output);
+                    comment.save();
+                    movie.comments.push(comment);
+                    movie.save();
+                    output = {
+                        status: "true",
+                        message: comment
+                    };
+                    return res.status(200).json(output);
                 }
-              });
-            } else if (type == "wishlist") {
-              // console.log(legit._id);
-              User.findById(legit._id).exec(function(err, user) {
+            });
+        }
+
+        if (type == "wishlist") {
+            User.findById(legit._id).exec(function(err, user) {
                 if (err) {
-                  output = {
-                    status: "false",
-                    message: "failure to add wish list"
-                  };
-                  res.status(200).json(output);
+                    output = {
+                        status: "false",
+                        message: "failure to add wish list"
+                    };
+                    return res.status(200).json(output);
                 } else {
-                  user.userList.push(movie);
-                  user.save();
-                  output = {
-                    status: "true",
-                    message: "success add to wish list"
-                  };
-                  res.status(200).json(output);
+                    const userMovieList = user.userList.map(String);
+                    if (!userMovieList.includes(id) && value == "true") {
+                        user.userList.push(movie);
+                        output = {
+                            status: "true",
+                            message: "success add to wish list"
+                        };
+                    } else if (userMovieList.includes(id) && value == "false") {
+                        user.userList.splice(userMovieList.indexOf(id), 1);
+                        output = {
+                            status: "true",
+                            message: "success remove from wish list"
+                        };
+                    } else if (userMovieList.includes(id) && value == "true") {
+                        output = {
+                            status: "false",
+                            message: "already in the wishlist"
+                        };
+                        return res.status(200).json(output);
+                    } else if (!userMovieList.includes(id) && value == "false") {
+                        output = {
+                            status: "false",
+                            message: "movie is not in the list"
+                        };
+                        return res.status(200).json(output);
+                    } else {
+                        output = {
+                            status: "false",
+                            message: "failure to add wish list"
+                        };
+                        return res.status(200).json(output);
+                    }
+                    user.save();
+                    return res.status(200).json(output);
                 }
-              });
-            }
-          }
-        });
-      }
+            });
+        }
     });
-  }
 });
 
 module.exports = router;

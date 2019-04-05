@@ -7,7 +7,7 @@ const User = require("../models/users");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
-var middleware = require("../middleware");
+const middleware = require("../middleware");
 /*************************************************************************************************
  * test status: yes
  * description: generate saltpassword
@@ -41,41 +41,47 @@ function saltHashPassword(userpassword) {
 
     return result;
 }
-
-/*************************************************************************************************
- * test status: yes
- * description: generate token ootion
- * note: unused
- ***************************************************************************************************/
-var signOptions = {
-    expiresIn: "1h",
-    algorithm: "RS256"
-};
 /*************************************************************************************************
  * test status: yes
  * description: signup get all users
  * note: unused
  ***************************************************************************************************/
-router.get("/user/register", (req, res, next) => {
-    User.find()
-        .exec()
-        .then(docs => {
-            const output = new Array();
-            Object.entries(docs).forEach(doc => {
-                const currentDoc = new Object();
-                currentDoc.userName = doc[1].userName;
-                currentDoc.userEmail = doc[1].userEmail;
-                output.push(currentDoc);
-            });
-            res.status(200).json(output);
-        })
-        .catch(err => console.log(err));
-});
+// router.get("/user/register", (req, res, next) => {
+//     User.find()
+//         .exec()
+//         .then(docs => {
+//             const output = new Array();
+//             Object.entries(docs).forEach(doc => {
+//                 const currentDoc = new Object();
+//                 currentDoc.userName = doc[1].userName;
+//                 currentDoc.userEmail = doc[1].userEmail;
+//                 output.push(currentDoc);
+//             });
+//             res.status(200).json(output);
+//         })
+//         .catch(err => console.log(err));
+// });
 
 /*************************************************************************************************
  * test status: no
  * description: login personal interface
  * note:
+ * input schema{
+ *  token:
+ * }
+ * output schema {
+ *  status:
+ *  id:
+ *  name:
+ *  email:
+ *  isuser:
+ *  list: array
+ * }
+ * element in list schema {
+ *  id:
+ *  image:
+ *  name:
+ * }
  ***************************************************************************************************/
 router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
@@ -112,6 +118,14 @@ router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
  * test status: yes
  * description: login
  * note:
+ * input: {
+ *  username:
+ *  password:
+ * }
+ * output: {
+ *  isuser:
+ *  token:
+ * }
  ***************************************************************************************************/
 router.post("/user/login", (req, res, next) => {
     const username = req.body.username;
@@ -133,6 +147,7 @@ router.post("/user/login", (req, res, next) => {
                     const currentuserinfo = new Object();
                     currentuserinfo._id = doc[1]._id;
                     currentuserinfo.userName = doc[1].userName;
+                    currentuserinfo.isUser = doc[1].isUser;
                     const token = jwt.sign(currentuserinfo, "secret", {
                         expiresIn: 60 * 60
                     });
@@ -154,109 +169,86 @@ router.post("/user/login", (req, res, next) => {
 /*************************************************************************************************
  * test status: no
  * description: edit image
- * note:
+ * input: {
+ *  token:
+ *  image:
+ * }
+ * output: {
+ *  status:
+ *  message:
+ * }
  ***************************************************************************************************/
-router.get("/user/profile/edit/image", (req, res, next) => {
-    const token = req.body.token;
-    if (token == null) {
-        const output = {
-            status: "false",
-            message: "not login"
-        };
-        return res.status(200).json(output);
-    }
+router.post("/user/profile/edit/image", middleware.isLoggedIn, (req, res, next) => {
+    // console.log(req.body);
+    const legit = req.legit;
+    // console.log(req.body);
 
-    if (token.length == 0) {
-        const output = {
-            status: "false",
-            message: "not login"
-        };
-        return res.status(200).json(output);
-    }
-
-    jwt.verify(token, "secret", function(err, legit) {
+    User.findOneAndUpdate({ _id: legit._id }, { userImage: req.body.image }, function(err, user) {
         if (err) {
             const output = {
                 status: "false",
-                message: "logint timeout"
+                message: "failure to update"
             };
             return res.status(200).json(output);
         }
 
-        User.findByIdAndUpdate(legit._id, { userImage: res.body.image }, function(err, image) {
-            if (err) {
-                const output = {
-                    status: "false",
-                    message: "failure to update"
-                };
-                return res.status(200).json(output);
-            }
-
-            const output = {
-                status: "true",
-                message: ""
-            };
-            return res.status(200).json(output);
-        });
+        const output = {
+            status: "true",
+            message: ""
+        };
+        return res.status(200).json(output);
     });
 });
 
 /*************************************************************************************************
  * test status: no
  * description: edit name
- * note:
+ * input: {
+ *  token:
+ *  name:
+ * }
+ * output: {
+ *  status:
+ *  message:
+ * }
  ***************************************************************************************************/
-router.get("/user/profile/edit/name", (req, res, next) => {
-    const token = req.body.token;
-    if (token == null) {
-        const output = {
-            status: "false",
-            message: "not login"
-        };
-        return res.status(200).json(output);
-    }
+router.post("/user/profile/edit/name", (req, res, next) => {
+    console.log(req.body);
+    const legit = req.legit;
+    console.log(req.body);
 
-    if (token.length == 0) {
-        const output = {
-            status: "false",
-            message: "not login"
-        };
-        return res.status(200).json(output);
-    }
-
-    jwt.verify(token, "secret", function(err, legit) {
+    User.findOneAndUpdate({ _id: legit._id }, { userName: res.body.name }, function(err, user) {
         if (err) {
             const output = {
                 status: "false",
-                message: "logint timeout"
+                message: "failure to update"
             };
             return res.status(200).json(output);
         }
 
-        User.findByIdAndUpdate(legit._id, { userName: res.body.name }, function(err, user) {
-            if (err) {
-                const output = {
-                    status: "false",
-                    message: "failure to update"
-                };
-                return res.status(200).json(output);
-            }
-
-            const output = {
-                status: "true",
-                message: ""
-            };
-            return res.status(200).json(output);
-        });
+        const output = {
+            status: "true",
+            message: ""
+        };
+        return res.status(200).json(output);
     });
 });
 
 /*************************************************************************************************
  * test status: no
  * description: user delete
+ * note: soft delete
+ * input: {
+ *  token:
+ * }
+ * output: {
+ *  status:
+ *  message:
+ * }
  ***************************************************************************************************/
 router.delete("/user/profile/delete", middleware.isLoggedIn, (req, res, next) => {
-    User.findById(legit._id, function(err, image) {
+    const legit = req.legit;
+    User.findById(legit._id, function(err, user) {
         if (err) {
             const output = {
                 status: "false",
@@ -264,7 +256,7 @@ router.delete("/user/profile/delete", middleware.isLoggedIn, (req, res, next) =>
             };
             return res.status(200).json(output);
         }
-        image.softdelete(function(err) {
+        user.softdelete(function(err) {
             if (err) {
                 const output = {
                     status: "false",
@@ -306,25 +298,24 @@ router.delete("/user/profile/delete", middleware.isLoggedIn, (req, res, next) =>
 /*************************************************************************************************
  * test status: yes
  * description: check username if valid
+ * input: {
+ *  username:
+ * }
+ * output: String => true or false
  ***************************************************************************************************/
 router.post("/user/register/username", (req, res, next) => {
     const username = req.body.username;
     var output;
     if (username == null) {
-        output = "false";
-        //res.status(200).json("false");
+        return res.status(200).json("false");
     } else {
         User.find({ userName: username })
             .exec()
             .then(docs => {
                 if (Object.keys(docs).length == 0) {
-                    output = "true";
-                    //res.status(200).json("true");
-                } else {
-                    output = "false";
-                    //res.status(200).json("false");
+                    return res.status(200).json("true");
                 }
-                res.status(200).json(output);
+                return res.status(200).json("false");
             })
             .catch(err => console.log(err));
     }
@@ -332,32 +323,37 @@ router.post("/user/register/username", (req, res, next) => {
 /*************************************************************************************************
  * test status: yes
  * description: check email if valid
+ * input: {
+ *  email:
+ * }
+ * output: String => true or false
  ***************************************************************************************************/
 router.post("/user/register/email", (req, res, next) => {
     const email = req.body.email;
-    var output;
     if (email == null) {
-        output = "false";
-        //res.status(200).json("false");
+        return res.status(200).json("false");
     } else {
         User.find({ userEmail: email })
             .exec()
             .then(docs => {
                 if (Object.keys(docs).length == 0) {
-                    output = "true";
-                    //res.status(200).json("true");
-                } else {
-                    output = "false";
-                    //res.status(200).json("false");
+                    return res.status(200).json("true");
                 }
-                res.status(200).json(output);
+                return res.status(200).json("false");
             })
             .catch(err => console.log(err));
     }
 });
 /*************************************************************************************************
  * test status: yes
- * description: add user
+ * description: add user in database
+ * input: {
+ *  name:
+ *  email:
+ *  password:
+ *  status:
+ * }
+ * output: String => true or false
  ***************************************************************************************************/
 router.post("/user/register", (req, res, next) => {
     //  console.log(req.body);
@@ -379,7 +375,6 @@ router.post("/user/register", (req, res, next) => {
 
     user.save()
         .then(result => {
-            // console.log(result);
             res.status(200).json("true");
         })
         .catch(err => {

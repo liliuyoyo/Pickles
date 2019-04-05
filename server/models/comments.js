@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const softdelete = require("mongoose-softdelete");
 
 const commentSchema = mongoose.Schema({
     author: {
@@ -12,4 +13,5 @@ const commentSchema = mongoose.Schema({
     date: String
 });
 
+commentSchema.plugin(softdelete);
 module.exports = mongoose.model("Comment", commentSchema);

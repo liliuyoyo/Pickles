@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 module.exports = {
     isLoggedIn: function(req, res, next) {
         const token = req.body.token;
-        //   console.log(token);
         if (token == null) {
             const output = {
                 status: "false",

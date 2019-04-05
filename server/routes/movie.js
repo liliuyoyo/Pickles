@@ -8,6 +8,7 @@ const Comment = require("../models/comments");
 const mongoose = require("mongoose");
 const sw = require("stopword");
 const pagination = require("express-paginate");
+const middleware = require("../middleware");
 /*************************************************************************************************
  * test status: yes
  * description: send all the schema to client. Showing on the main page
@@ -166,198 +167,151 @@ const pagination = require("express-paginate");
  * test status: yes
  * description: filter + global search
  * note: need to optimize
+ * input schema{
+ *  year:
+ *  geners:
+ *  area:
+ *  gloablstring:
+ * }
+ * output: a list of movie
  ***************************************************************************************************/
 router.get("/search", function(req, res) {
-  const year = req.query.year;
-  const geners = req.query.genres;
-  const area = req.query.area;
-  const gloablstring = String(req.query.str);
+    const year = req.query.year;
+    const geners = req.query.genres;
+    const area = req.query.area;
+    const gloablstring = String(req.query.str);
 
-  //   console.log(req.query);
-
-  if (gloablstring.length != 0) {
-    //   console.log("gloablstring");
-    const queryVar = sw.removeStopwords(gloablstring.split(" "));
-    //   console.log(queryVar);
-    const regexNumberQuery = new Array();
-    queryVar.forEach(element => {
-      if (!isNaN(parseInt(element))) {
-        regexNumberQuery.push(element);
-      }
-    });
-    const regexQuery = queryVar.join("|");
-    //   console.log(regexQuery);
-
-    query = {
-      $or: [
-        { title: { $regex: regexQuery, $options: "$i" } },
-        { geners: { $regex: regexQuery, $options: "$i" } },
-        { area: { $regex: regexQuery, $options: "$i" } },
-        { actors: { $regex: regexQuery, $options: "$i" } },
-        { year: { $in: regexNumberQuery } }
-      ]
-    };
-
-    Movie.find(query)
-      .exec()
-      .then(docs => {
-        res.status(200).json(docs);
-      })
-      .catch(err => console.log(err));
-  } else {
-    // console.log("filterSearch")
-    if (year == "*" && geners == "*" && area == "*") {
-      query = {};
-    } else if (year != "*" && geners != "*" && area != "*") {
-      if (year == "other" && area != "Other") {
-        query = {
-          $and: [
-            {
-              $nor: [
-                { year: 2019 },
-                { year: 2018 },
-                { year: 2017 },
-                { year: 2016 },
-                { year: 2015 }
-              ]
-            },
-            { geners: geners },
-            { area: area }
-          ]
-        };
-      } else if (year != "other" && area == "Other") {
-        query = {
-          $and: [
-            { year: year },
-            { geners: geners },
-            {
-              $nor: [
-                { area: USA },
-                { area: China },
-                { area: Europe },
-                { area: India },
-                { area: Korea },
-                { area: Japan }
-              ]
+    if (gloablstring.length != 0) {
+        //   console.log("gloablstring");
+        const queryVar = sw.removeStopwords(gloablstring.split(" "));
+        //   console.log(queryVar);
+        const regexNumberQuery = new Array();
+        queryVar.forEach(element => {
+            if (!isNaN(parseInt(element))) {
+                regexNumberQuery.push(element);
             }
-          ]
-        };
-      } else {
-        query = { year: year, geners: geners, area: area };
-      }
-    } else if (year == "*" && geners != "*" && area != "*") {
-      if (area == "Other") {
+        });
+        const regexQuery = queryVar.join("|");
+        //   console.log(regexQuery);
+
         query = {
-          $and: [
-            { geners: geners },
-            {
-              $nor: [
-                { area: USA },
-                { area: China },
-                { area: Europe },
-                { area: India },
-                { area: Korea },
-                { area: Japan }
-              ]
+            $or: [
+                { title: { $regex: regexQuery, $options: "$i" } },
+                { geners: { $regex: regexQuery, $options: "$i" } },
+                { area: { $regex: regexQuery, $options: "$i" } },
+                { actors: { $regex: regexQuery, $options: "$i" } },
+                { year: { $in: regexNumberQuery } }
+            ]
+        };
+
+        Movie.find(query)
+            .exec()
+            .then(docs => {
+                res.status(200).json(docs);
+            })
+            .catch(err => console.log(err));
+    } else {
+        // console.log("filterSearch")
+        if (year == "*" && geners == "*" && area == "*") {
+            query = {};
+        } else if (year != "*" && geners != "*" && area != "*") {
+            if (year == "other" && area != "Other") {
+                query = {
+                    $and: [
+                        {
+                            $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
+                        },
+                        { geners: geners },
+                        { area: area }
+                    ]
+                };
+            } else if (year != "other" && area == "Other") {
+                query = {
+                    $and: [
+                        { year: year },
+                        { geners: geners },
+                        {
+                            $nor: [{ area: USA }, { area: China }, { area: Europe }, { area: India }, { area: Korea }, { area: Japan }]
+                        }
+                    ]
+                };
+            } else {
+                query = { year: year, geners: geners, area: area };
             }
-          ]
-        };
-      } else {
-        query = { geners: geners, area: area };
-      }
-    } else if (year != "*" && geners == "*" && area != "*") {
-      if (year == "other" && area != "Other") {
-        query = {
-          $and: [
-            {
-              $nor: [
-                { year: 2019 },
-                { year: 2018 },
-                { year: 2017 },
-                { year: 2016 },
-                { year: 2015 }
-              ]
-            },
-            { area: area }
-          ]
-        };
-      } else if (year != "other" && area == "Other") {
-        query = {
-          $and: [
-            { year: year },
-            ,
-            {
-              $nor: [
-                { area: USA },
-                { area: China },
-                { area: Europe },
-                { area: India },
-                { area: Korea },
-                { area: Japan }
-              ]
+        } else if (year == "*" && geners != "*" && area != "*") {
+            if (area == "Other") {
+                query = {
+                    $and: [
+                        { geners: geners },
+                        {
+                            $nor: [{ area: USA }, { area: China }, { area: Europe }, { area: India }, { area: Korea }, { area: Japan }]
+                        }
+                    ]
+                };
+            } else {
+                query = { geners: geners, area: area };
             }
-          ]
-        };
-      } else {
-        query = { year: year, area: area };
-      }
-    } else if (year != "*" && geners != "*" && area == "*") {
-      if (year == "other") {
-        query = {
-          $and: [
-            {
-              $nor: [
-                { year: 2019 },
-                { year: 2018 },
-                { year: 2017 },
-                { year: 2016 },
-                { year: 2015 }
-              ]
-            },
-            { geners: geners }
-          ]
-        };
-      } else {
-        query = { year: year, geners: geners };
-      }
-    } else if (year == "*" && geners == "*" && area != "*") {
-      if (area == "Other") {
-        query = {
-          $nor: [
-            { area: "USA" },
-            { area: "China" },
-            { area: "Europe" },
-            { area: "India" },
-            { area: "Korea" },
-            { area: "Japan" }
-          ]
-        };
-      } else {
-        query = { area: area };
-      }
-    } else if (year == "*" && geners != "*" && area == "*") {
-      query = { geners: geners };
-    } else if (year != "*" && geners == "*" && area == "*") {
-      if (year == "other") {
-        query = {
-          $nor: [
-            { year: 2019 },
-            { year: 2018 },
-            { year: 2017 },
-            { year: 2016 },
-            { year: 2015 }
-          ]
-        };
-      } else query = { year: year };
+        } else if (year != "*" && geners == "*" && area != "*") {
+            if (year == "other" && area != "Other") {
+                query = {
+                    $and: [
+                        {
+                            $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
+                        },
+                        { area: area }
+                    ]
+                };
+            } else if (year != "other" && area == "Other") {
+                query = {
+                    $and: [
+                        { year: year },
+                        ,
+                        {
+                            $nor: [{ area: USA }, { area: China }, { area: Europe }, { area: India }, { area: Korea }, { area: Japan }]
+                        }
+                    ]
+                };
+            } else {
+                query = { year: year, area: area };
+            }
+        } else if (year != "*" && geners != "*" && area == "*") {
+            if (year == "other") {
+                query = {
+                    $and: [
+                        {
+                            $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
+                        },
+                        { geners: geners }
+                    ]
+                };
+            } else {
+                query = { year: year, geners: geners };
+            }
+        } else if (year == "*" && geners == "*" && area != "*") {
+            if (area == "Other") {
+                query = {
+                    $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
+                };
+            } else {
+                query = { area: area };
+            }
+        } else if (year == "*" && geners != "*" && area == "*") {
+            query = { geners: geners };
+        } else if (year != "*" && geners == "*" && area == "*") {
+            if (year == "other") {
+                query = {
+                    $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
+                };
+            } else query = { year: year };
+        }
+        //  console.log(query);
+        Movie.find(query)
+            .exec()
+            .then(docs => {
+                res.status(200).json(docs);
+            })
+            .catch(err => console.log(err));
     }
-    //  console.log(query);
-    Movie.find(query)
-      .exec()
-      .then(docs => {
-        res.status(200).json(docs);
-      })
-      .catch(err => console.log(err));
-  }
 });
 
 /*************************************************************************************************
@@ -390,50 +344,182 @@ router.get("/search", function(req, res) {
 /*************************************************************************************************
  * test status: yes
  * description: Using image id seach specify image
+ * input schema{
+ *  id:
+ * }
+ * output: movie object
  ***************************************************************************************************/
 router.get("/:id", (req, res, next) => {
-  Movie.findById(req.params.id)
-    .populate("comments")
-    .exec(function(err, movie) {
-      if (err) {
-        console.log(err);
-      } else {
-        // console.log(movie);
-        res.status(200).json(movie);
-      }
+    Movie.findById(req.params.id)
+        .populate("comments")
+        .exec(function(err, movie) {
+            if (err) {
+                console.log(err);
+            } else {
+                // console.log(movie);
+                res.status(200).json(movie);
+            }
+        });
+});
+
+/*************************************************************************************************
+ * test status: no
+ * description: delete a movie
+ * note: soft delete
+ * note: only admin could delete movie
+ * input: {
+ *  movieid:
+ *  token:
+ * }
+ * output: {
+ *   status:
+ *   message:
+ * }
+ ***************************************************************************************************/
+router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
+    const legit = req.legit;
+    if (legit.isUser == "true") {
+        return res.status(200).json({
+            status: "false",
+            message: "no permit"
+        });
+    }
+
+    Movie.findById(req.body._id, function(err, movie) {
+        if (err) {
+            const output = {
+                status: "false",
+                message: "failure to find movie"
+            };
+            return res.status(200).json(output);
+        }
+
+        movie.softdelete(function(err) {
+            if (err) {
+                const output = {
+                    status: "false",
+                    message: "failure to delete"
+                };
+                return res.status(200).json(output);
+            }
+            const output = {
+                status: "true",
+                message: ""
+            };
+            return res.status(200).json(output);
+        });
     });
 });
 
-router.delete("/movie/delete", (req, res, next) => {});
+/*************************************************************************************************
+ * test status: no
+ * description: update a movie
+ * note: only admin could delete movie
+ * input: {
+ *  token:
+ *  movieinfo:
+ * }
+ * output: {
+ *   status:
+ *   message:
+ * }
+ ***************************************************************************************************/
+router.update("/movie/update", middleware.isLoggedIn, (req, res, next) => {
+    const legit = req.legit;
+    if (legit.isUser == "true") {
+        return res.status(200).json({
+            status: "false",
+            message: "no permit"
+        });
+    }
+
+    Movie.findById(req.body._id, function(err, movie) {
+        if (err) {
+            const output = {
+                status: "false",
+                message: "failure to find movie"
+            };
+            return res.status(200).json(output);
+        }
+        const query = {
+            title: req.body.title,
+            description: req.body.description,
+            smallImagePath: req.body.smallImagePath,
+            imagePath: req.body.imagePath,
+            year: req.body.year,
+            director: req.body.director,
+            actors: req.body.actors,
+            geners: req.body.geners,
+            area: req.body.area,
+            length: req.body.length,
+            rating: req.body.rating
+        };
+        movie.updateOne({ query }, function(err) {
+            if (err) {
+                const output = {
+                    status: "false",
+                    message: "failure to update"
+                };
+                return res.status(200).json(output);
+            }
+            const output = {
+                status: "true",
+                message: ""
+            };
+            return res.status(200).json(output);
+        });
+    });
+});
 
 /*************************************************************************************************
  * test status: no
  * description: add a new image info into database
+ * note: only admin could add movie
+ * input: {
+ *  token:
+ *  movieinfo:
+ * }
+ * output: {
+ *   status:
+ *   message:
+ * }
  ***************************************************************************************************/
-router.post("/", (req, res, next) => {
-  const movie = new Movie({
-    _id: new mongoose.Types.ObjectId(),
-    title: req.body.title,
-    description: req.body.description,
-    smallImagePath: req.body.smallImagePath,
-    imagePath: req.body.imagePath,
-    year: req.body.year,
-    director: req.body.director,
-    actors: req.body.actors,
-    geners: req.body.geners,
-    area: req.body.area,
-    length: req.body.length,
-    likes: 0,
-    watched: 0,
-    rating: req.body.rating,
-    comments: []
-  });
-  movie
-    .save()
-    .then(result => {
-      console.log(result);
-    })
-    .catch(err => console.log(err));
+router.post("/movie/add", middleware.isLoggedIn, (req, res, next) => {
+    const legit = req.legit;
+    if (legit.isUser == "true") {
+        return res.status(200).json({
+            status: "false",
+            message: "no permit"
+        });
+    }
+
+    const movie = new Movie({
+        _id: new mongoose.Types.ObjectId(),
+        title: req.body.title,
+        description: req.body.description,
+        smallImagePath: req.body.smallImagePath,
+        imagePath: req.body.imagePath,
+        year: req.body.year,
+        director: req.body.director,
+        actors: req.body.actors,
+        geners: req.body.geners,
+        area: req.body.area,
+        length: req.body.length,
+        likes: 0,
+        watched: 0,
+        rating: req.body.rating,
+        comments: []
+    });
+
+    movie
+        .save()
+        .then(result => {
+            //console.log(result);
+            return result.status(200).json("true");
+        })
+        .catch(err => {
+            return result.status(200).json("false");
+        });
 });
 
 module.exports = router;
