@@ -53,6 +53,8 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
     var output;
     const legit = req.legit;
 
+    console.log(req.body);
+
     Movie.findById(id).exec(function(err, movie) {
         if (err) {
             output = {
