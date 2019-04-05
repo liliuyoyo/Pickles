@@ -30,6 +30,7 @@ import { AddCommentComponent } from './movie-detail/add-comment/add-comment.comp
 import { WelcomeComponent } from './users/welcome/welcome.component';
 import { LoginPopupComponent } from './users/login-popup/login-popup.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { MovieEditComponent } from './movie-edit/movie-edit.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     WelcomeComponent,
     LoginPopupComponent,
     UserProfileComponent,
+    MovieEditComponent,
   ],
   imports: [
     BrowserModule,

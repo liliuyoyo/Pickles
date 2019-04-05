@@ -25,4 +25,13 @@ export class MovieItemComponent implements OnInit {
     this.router.navigateByUrl('/movies/'+ this.movie._id);
   }
 
+  // direct to the movie-edit page
+  onEditMovie(){
+    this.router.navigateByUrl('/moives/edit/'+this.movie._id);
+  }
+
+  onDeleteMovie(){
+    
+  }
+
 }

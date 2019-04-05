@@ -7,11 +7,14 @@ import { SignupComponent } from './users/signup/signup.component';
 import { LoginComponent } from './users/login/login.component';
 import { WelcomeComponent } from './users/welcome/welcome.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { MovieEditComponent } from './movie-edit/movie-edit.component';
+
 
 const appRoutes:Routes = [
     { path: "", redirectTo:"/movies", pathMatch: "full" },
     { path: "movies", component: MoviesListComponent }, 
     { path: "movies/:id", component: MovieDetailComponent },
+    { path: "moives/edit/:id", component: MovieEditComponent},
     { path: 'signup', component: SignupComponent},
     { path: 'login', component: LoginComponent},
     { path: 'welcome', component: WelcomeComponent},
