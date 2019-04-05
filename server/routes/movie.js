@@ -424,7 +424,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
  *   message:
  * }
  ***************************************************************************************************/
-router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
+router.post("/moviemovie/update", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
     if (legit.isUser == "true") {
         return res.status(200).json({
@@ -454,20 +454,20 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
             length: req.body.length,
             rating: req.body.rating
         };
-        movie.updateOne({ query }, function(err) {
-            if (err) {
-                const output = {
-                    status: "false",
-                    message: "failure to update"
-                };
-                return res.status(200).json(output);
-            }
-            const output = {
-                status: "true",
-                message: ""
-            };
-            return res.status(200).json(output);
-        });
+        // movie.updateOne({ query }, function(err) {
+        //     if (err) {
+        //         const output = {
+        //             status: "false",
+        //             message: "failure to update"
+        //         };
+        //         return res.status(200).json(output);
+        //     }
+        //     const output = {
+        //         status: "true",
+        //         message: ""
+        //     };
+        //     return res.status(200).json(output);
+        // });
     });
 });
 
