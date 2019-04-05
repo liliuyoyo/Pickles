@@ -60,9 +60,17 @@
             (click)="updateLikeWatched('watched','down')">
       <i class="far fa-check-circle"></i> Watched {{ movieToShow?.watched }}
     </button>    
-    <button class="btn btn-outline-success btn-sm"
-            (click)="addToWishList()">
-      <i class="fas fa-plus"></i> Add to Wishlist</button>
+    <button *ngIf="!isClickWishList" 
+            class="btn btn-outline-success btn-sm"
+            (click)="updateUserWishList('add')">
+      <i class="fas fa-plus"></i> Add to Wishlist
+    </button>
+    <button *ngIf="isClickWishList" 
+            class="btn btn-outline-warning btn-sm"
+            (click)="updateUserWishList('remove')">
+      <i class="fas fa-minus"></i> Remove from Wishlist
+    </button>
+
   </div>
 </div>
 <div class="container">

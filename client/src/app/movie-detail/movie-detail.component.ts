@@ -27,6 +27,7 @@ export class MovieDetailComponent implements OnInit {
   movieId: string;
   isClickLike: boolean = false;
   isClickWatched: boolean = false;
+  isClickWishList: boolean = false;
 
   private stars ={
     fullStars:0,
@@ -46,7 +47,7 @@ export class MovieDetailComponent implements OnInit {
     .subscribe((params:Params)=>{ 
         this.movieId = params['id']; // get movie-id from current url
         this.moviesService.getMovieById(this.movieId) // search the movie from serve by movie-id
-        .subscribe(data => { 
+        .subscribe((data) => { 
           this.movieToShow = data; // get movie detailed information
 
           // show the movie rating by stars
@@ -54,6 +55,27 @@ export class MovieDetailComponent implements OnInit {
           this.stars.fullStars = Math.floor(totalS/2);
           this.stars.halfStar = totalS%2;
           this.stars.emptyStars = 5 - this.stars.fullStars - this.stars.halfStar;
+
+          /*******************************************************
+           *  check whether the movie is in user's wishlist
+           *******************************************************/
+          this.token = this.userService.getToken();
+          console.log(this.token);
+          if(this.token != null){
+              this.userService.getLoginedUser(this.token)
+              .subscribe((res)=>{
+                  if(res['status']=='true'){
+                     const wishlist = res['list'];
+                     wishlist.forEach(movie => {
+                         if(movie.id == this.movieToShow._id){
+                             this.isClickWishList = true;
+                         }
+                     });
+                  }else{
+                      console.log("error");
+                  }
+              });
+            }
         });
       }
     );
@@ -163,7 +185,37 @@ export class MovieDetailComponent implements OnInit {
   /*******************************************************
    *  Add the movie to user's wishlist
    *******************************************************/
-  public addToWishList(){
+  // public addToWishList(){
+  //   this.userService.isLoggedIn()
+  //   .subscribe((res)=>{
+  //     // if user is logged in
+  //     if(res=="true"){
+  //       this.token = this.userService.getToken();
+  //       const updateData = {
+  //         id : this.movieToShow._id,
+  //         token : this.token,
+  //         type: "wishlist",
+  //         value:""
+  //       }
+  //       this.isClickWishList = true;
+  //       this.moviesService.updateMoiveById(updateData)
+  //       .subscribe((updatedRes)=>{
+  //         if(updatedRes['status'] == "true"){
+  //           console.log("Successfully add to user's movie list")
+  //         }else{
+  //           console.log("Fail to add new comment");
+  //         }
+  //       });
+
+  //     }else{
+  //       // if user is not loggedin , show popup login page
+  //       this.modalRef = this.modalService.show(LoginPopupComponent);
+  //     }
+
+  //   });  
+  // }
+
+  public updateUserWishList(type:string){
     this.userService.isLoggedIn()
     .subscribe((res)=>{
       // if user is logged in
@@ -173,12 +225,23 @@ export class MovieDetailComponent implements OnInit {
           id : this.movieToShow._id,
           token : this.token,
           type: "wishlist",
-          value:""
+          value: "false"
         }
+
+        if(type == "add"){
+            updateData.value = "true";
+        }
+
         this.moviesService.updateMoiveById(updateData)
         .subscribe((updatedRes)=>{
           if(updatedRes['status'] == "true"){
-            console.log("Successfully add to user's movie list")
+            if(type == 'add'){
+              console.log("Successfully add to user's movie list");
+              this.isClickWishList= true;  
+            }else{
+              console.log("Successfully remove to user's movie list");
+              this.isClickWishList= false;
+            }
           }else{
             console.log("Fail to add new comment");
           }
@@ -188,7 +251,6 @@ export class MovieDetailComponent implements OnInit {
         // if user is not loggedin , show popup login page
         this.modalRef = this.modalService.show(LoginPopupComponent);
       }
-
     });  
   }
 
