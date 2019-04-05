@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Movie } from 'src/app/models/movie.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-movie-item',
@@ -11,6 +12,7 @@ import { Movie } from 'src/app/models/movie.model';
 export class MovieItemComponent implements OnInit {
   
   @Input() movie:Movie;
+  @Input() isAdmin:boolean;
 
   constructor(private router: Router) { }
 

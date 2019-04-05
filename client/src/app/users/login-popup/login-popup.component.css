@@ -1,11 +1,8 @@
-#loginscreen{
-    margin: 5% auto 22% auto ;
-	width: 26%;
-    height: 30%;
-    min-width:350px;
-    min-height:380px;
-	border-style: ridge;
+#popup{
+    
+    margin: 30px 30px;
 }
+
 h4{
     float:left;
     padding-bottom: 3%;
@@ -13,8 +10,10 @@ h4{
 .img{
     margin: 10% auto 0 auto ;
     display:block;
-    width: 38%;
+    width: 25%;
 }
+
+
 .login{
     padding: 7%;
     padding-top:5%;
