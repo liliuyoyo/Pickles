@@ -1,10 +1,75 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 col-md-3 sider">
-      111
+    <!-- *************************** -->
+    <!-- ** add or something else ** -->
+    <!-- *************************** -->
+    <div class="col-12 col-md-1 sider-1">
     </div>
-    <div class="col-12 col-md-9 main">
-      111
+
+    <!-- ***************************** -->
+    <!-- ** username and user photo ** -->
+    <!-- ***************************** -->
+    <div class="col-12 col-md-2 sider">
+      <img class="user-photo" src="{{curUser.image}}" alt="User Photo">
+      <h6>{{curUser.username}}</h6>
     </div>
-  </div>
+
+    <!-- **************************** -->
+    <!-- ** userinfo and wish list ** -->
+    <!-- **************************** -->
+    <div class="col-12 col-md-8 main">
+
+      <!-- user info -->
+      <div class="section">
+        <!-- title button -->
+        <button class="btn btn-primary btn-block" id="btn-user-info" type="button"
+          data-toggle="collapse" data-target="#collapseExample" 
+          aria-expanded="false" aria-controls="collapseExample">
+          User Information
+        </button>
+        <!-- popdown info -->
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+              <form>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label>Username</label>
+                    <input type="text" readonly class="form-control" placeholder="{{curUser.username}}">
+                    </div>
+                  <div class="col-md-6 mb-3">
+                    <label>Email</label>
+                    <input type="text" readonly class="form-control" placeholder="{{curUser.email}}">
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- wish list -->
+      <div class="section">
+        <!-- title button -->
+        <button class="btn btn-primary btn-block" id="btn-wish-list" type="button"
+          data-toggle="collapse" data-target="#collapseExample1" 
+          aria-expanded="false" aria-controls="collapseExample1">
+          Wish List
+        </button>
+        <!-- popdown info -->
+        <div class="collapse" id="collapseExample1">
+          <div class="card card-body">
+            Anim pariatur cliche reprehenderit,
+          </div>
+        </div>
+      </div>
+
+      <!-- *************************** -->
+      <!-- ** add or something else ** -->
+      <!-- *************************** -->
+      <div class="col-12 col-md-1 sider-2">
+      </div>
+
+    </div>
 </div>
+
+
+    

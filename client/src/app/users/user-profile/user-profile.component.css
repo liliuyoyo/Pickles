@@ -1,3 +1,31 @@
+/*main div style*/
 .main{
-    border-left:1px solid #2001010c; 
+    border-left:1px solid #0808080c; 
+}
+
+/*div with columns*/
+.row{
+    margin: 5% 0 5% 0;
+}
+
+/*sider and main column*/
+.sider, .main{
+    height:700px;
+}
+
+/*sider column elemnts*/
+.user-photo, h6{
+    display:block;
+    width: 55%;
+    margin:0 auto 10% auto;
+    
+}
+
+/*main column elemnts*/
+.section{
+    padding:0 5% 0 5%;
+    margin-bottom: 2%;
+}
+label{
+    float:left;
 }
