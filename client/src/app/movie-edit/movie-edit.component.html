@@ -1,3 +1,95 @@
-<p>
-  movie-edit works!
-</p>
+<div class="container" id="movieInfo">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="img-div">
+            <img src="{{ movieToShow?.imagePath }}" class="card-img-top" alt="{{ movieToShow?.title }}">
+            <div class="overlay"></div>
+            <div class="button">
+                <a class="overlay-item"><i class="far fa-image"></i></a>
+            </div>
+        </div>
+      </div>
+      <div id="movieDes" class="col-md-8" >
+        <div class="movie-title"> {{ movieToShow?.title }} </div>
+        <textarea class="movie-desc form-control" rows="4" value="{{ movieToShow?.description }}"></textarea>
+        <div class="movie-rating">
+          <span>{{ movieToShow?.rating }}</span>
+          <span class="star" *ngFor="let i of [].constructor(stars.fullStars)"><i class="fas fa-star"></i></span>
+          <span class="star" *ngIf="stars.halfStar === 1"><i class="fas fa-star-half-alt"></i></span>
+          <span class="star" *ngFor="let i of [].constructor(stars.emptyStars)"><i class="far fa-star"></i></span>
+        </div>
+        <div class="movie-title movie-info"> MOVIE INFO </div>
+        <form>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="director">Directors :</label>
+              <input class="form-control col-sm-10" name="director" type="text" value="{{ movieToShow?.director }}"> 
+          </div>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="actors">Casts :</label>
+              <input class="form-control col-sm-10" name="actors" type="text" value="{{ movieToShow?.actors }}"> 
+          </div>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="geners">Geners :</label>
+              <input class="form-control col-sm-10" name="geners" type="text" value="{{ movieToShow?.geners }}"> 
+          </div>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="year">In Theaters :</label>
+              <input class="form-control col-sm-10" name="year" type="text" value="{{ movieToShow?.year }}"> 
+          </div>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label" for="area">Area :</label>
+              <input class="form-control col-sm-10" name="area" type="text" value="{{ movieToShow?.area }}"> 
+          </div>
+          <div class="row mb-3 form-group">
+              <label class="col-sm-2 col-form-label" for="length">Runtime :</label>
+              <input class="form-control col-sm-2" name="length" type="number" value="{{ movieToShow?.length }}" aria-describedby="unit">
+              <div class="input-group-append">
+                <span class="input-group-text" id="unit">minutes</span>
+              </div>
+          </div>
+          <button class="btn btn-warning btn-sm float-right">
+            <i class="fas fa-pencil-alt"></i> Update
+          </button>
+          <button class="btn btn-danger btn-sm float-right">
+              <i class="far fa-trash-alt"></i> Delete this Movie
+          </button>
+        </form>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <button id="likeBtn" 
+              class="btn btn-outline-dark btn-sm" disabled>
+        <i class="far fa-thumbs-up"></i> Like {{ movieToShow?.likes }}
+      </button>
+      <button id="watchedBtn" 
+              class="btn btn-outline-dark btn-sm" disabled>
+        <i class="far fa-check-circle"></i> Watched {{ movieToShow?.watched }}
+      </button>   
+      <button class="btn btn-outline-dark btn-sm" disabled>
+        <i class="fas fa-plus"></i> Add to Wishlist
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <div>
+      <app-star-rating></app-star-rating>
+      <button class="btn btn-outline-primary float-right" (click)="goBack()"><i class="fas fa-arrow-left"></i> Go Back</button>
+      <button class="btn btn-outline-dark float-right" disabled><i class="fas fa-plus"></i> Add Comment</button> 
+    </div> 
+    <div class="comments">COMMENTS</div>
+    <div class= "noCommentDiv" *ngIf="movieToShow?.comments.length == 0"> 
+      <p>Oops ！No comment for this movie yet.</p> 
+    </div>
+    <div *ngIf="movieToShow?.comments.length > 0">
+      <div  class="comment" *ngFor="let commentEl of movieToShow?.comments">
+        <div>
+            <span class="commentAuthor"><i class="far fa-user"></i> {{ commentEl.author.username }}</span> 
+            <span class="commentDate"><i class="far fa-calendar-alt"></i> {{ commentEl.date }}</span>
+            <p class="commentText">{{ commentEl.text }}</p>
+            <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  

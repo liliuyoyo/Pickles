@@ -1,0 +1,168 @@
+.container {
+    margin-top: 50px;
+    text-align: left;
+}
+
+.btn{
+    margin-left: 10px;
+}
+
+.img-div{
+    margin: 0 0;
+    padding: 0 0;
+    overflow: hidden;
+}
+
+.img-div img{
+    position: absolute;
+    left:0;
+    margin: 0 0;
+    padding: 0 0;
+}
+
+.img-div:hover img{
+    opacity: 0.3;
+}
+
+.button {
+    position: absolute;
+    width: 100%;
+    left:0;
+    top: 30%;
+    text-align: center;
+    font-size: 7em;
+    opacity: 0;
+    transition: opacity .35s ease;
+  }
+
+  .button a {
+    cursor: pointer;
+    width: 200px;
+    padding: 12px 48px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.605);;
+    z-index: 1;
+  }
+  
+  .img-div:hover .button {
+    opacity: 1;
+  }
+
+#movieInfo{
+    text-align: left;
+}
+
+/* Movie Title Style */
+.movie-title{
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+    color: #504f4ff9;
+    margin: 10px 0px;
+    font-size: 1.5em;
+}
+.movie-title::before,
+.movie-title::after {
+	content: "";
+	flex-grow: 1;
+	background: #8ee6d1a9;
+	height: 20px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 0px;
+}
+.movie-title::before{
+    margin-right: 20px;
+}
+.movie-title::after{
+    margin-left: 20px;
+}
+
+.comments{
+    display: flex;
+	flex-basis: 100%;
+	align-items: center;
+    color: #504f4ff9;
+    margin: 10px 0px;
+    font-size: 1.5em;
+}
+.comments::before,
+.comments::after {
+	content: "";
+	background: #8ee6d1a9;
+	height: 10px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 0px;
+}
+.comments::before{
+    width:5%;
+    margin-right: 20px;
+}
+.comments::after{
+    width:95%;
+    margin-left: 20px;
+}
+
+.movie-desc{
+    widows: 100%;    
+}
+
+.movie-rating{
+    text-align: center;
+    padding: 0 auto;
+    margin-top: 25px;
+    
+}
+.movie-rating img{
+    width: 8%;
+}
+.movie-rating span{
+    margin-left:20px;
+    margin-right: 20px;
+    color:  #ff8000;
+    font-size: 1.5em;
+}
+.movie-rating .star {
+    margin: 0 0;
+    color: gold;
+}
+/* Movie INFO Style */
+.movie-info{
+    margin-top: 50px;
+    font-size: 1.2em;
+}
+.movie-info::before,
+.movie-info::after {
+	height: 5px;
+}
+.movie-info::before{
+    margin-right: 40px;
+}
+.movie-title::after{
+    margin-left: 40px;
+}
+
+app-star-rating{
+    margin-left: 10px;
+}
+
+  .comment{
+      margin-top:30px;
+      padding-left:70px;
+      padding-right:70px;
+  } 
+
+  .commentAuthor, .commentDate{
+      font-size: 0.9em;
+      font-style: italic;
+  }
+
+  .commentDate{
+      color: gray;
+      margin-left: 50px;
+  }
+  .commentText{
+      margin-top:15px;
+      font-size: 1.1em;
+  }

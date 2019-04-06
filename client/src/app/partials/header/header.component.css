@@ -40,7 +40,7 @@
 }
 
 .top-link a {
-    width: 90px;
+    min-width: 95px;
     font-size: 1.1em;
     color:black;
     border-radius: 10px;
