@@ -5,7 +5,8 @@
       <div class="form-group txt">
           <input type="text" class="form-control" 
           [(ngModel)]="usertoSend.username" 
-          name="username" id="username" placeholder="Username" required/>
+          name="username" id="username" placeholder="Username"
+          maxlength="15" required/>
           <span id="username-info" [ngClass]="{'info': username_id === 1,'error': username_id === 2}"></span>
       </div>
       
@@ -21,7 +22,7 @@
           <input type="password" class="form-control" 
           [(ngModel)]="usertoSend.password" #password="ngModel" 
           name="password" id="password" placeholder="Password" 
-          maxlength="50" required/>
+          maxlength="20" required/>
           <ng2-password-strength-bar
             class="password-strength-bar"
             [passwordToCheck]="usertoSend.password"

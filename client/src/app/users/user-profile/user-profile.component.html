@@ -23,12 +23,12 @@
       <div class="section">
         <!-- title button -->
         <button class="btn btn-primary btn-block" id="btn-user-info" type="button"
-          data-toggle="collapse" data-target="#collapseExample" 
-          aria-expanded="false" aria-controls="collapseExample">
+          data-toggle="collapse" data-target="#section-userinfo" 
+          aria-expanded="false" aria-controls="section-userinfo">
           User Information
         </button>
         <!-- popdown info -->
-        <div class="collapse" id="collapseExample">
+        <div class="collapse" id="section-userinfo">
           <div class="card card-body">
               <form>
                 <div class="form-row">
@@ -50,17 +50,44 @@
       <div class="section">
         <!-- title button -->
         <button class="btn btn-primary btn-block" id="btn-wish-list" type="button"
-          data-toggle="collapse" data-target="#collapseExample1" 
-          aria-expanded="false" aria-controls="collapseExample1">
+          data-toggle="collapse" data-target="#section-wishlist" 
+          aria-expanded="false" aria-controls="section-wishlist">
           Wish List
         </button>
         <!-- popdown info -->
-        <div class="collapse" id="collapseExample1">
+        <div class="collapse" id="section-wishlist">
+          <!--  -->
           <div class="card card-body">
-            Anim pariatur cliche reprehenderit,
+            <div class="row">
+              <div class="col-md-3 col-sm-6" *ngFor="let movie of wishList | paginate: { itemsPerPage: 8, currentPage: p }"> 
+                <div class="card wish-list-item">
+                  <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
+                  <div class="card-body">
+                    <p class="card-text">{{movie.name}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>
+
+      <!-- history -->
+      <div class="section">
+          <!-- title button -->
+          <button class="btn btn-primary btn-block" id="btn-history" type="button"
+            data-toggle="collapse" data-target="#section-history" 
+            aria-expanded="false" aria-controls="section-history">
+            History
+          </button>
+          <!-- popdown info -->
+          <div class="collapse" id="section-history">
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit,
+            </div>
+          </div>
+        </div>
 
       <!-- *************************** -->
       <!-- ** add or something else ** -->
