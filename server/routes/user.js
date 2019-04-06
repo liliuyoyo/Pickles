@@ -369,7 +369,7 @@ router.post("/user/register", (req, res, next) => {
         userEmail: email,
         userPassword: newPassword,
         isUser: status,
-        userImage: "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQ4MTY5NzU2M15BMl5BanBnXkFtZTgwNDc5NTgwMTI@._V1_SY100_SX100_.jpg",
+        userImage: "https://image.flaticon.com/icons/svg/149/149071.svg",
         userList: []
     });
 

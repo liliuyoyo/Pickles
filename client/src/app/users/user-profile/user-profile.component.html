@@ -58,7 +58,8 @@
         <div class="collapse" id="section-wishlist">
           <!--  -->
           <div class="card card-body">
-            <div class="row">
+            <div class = "empty-msg" *ngIf="!haveWishList">Wish list is empty.</div>
+            <div class="row" *ngIf="haveWishList">
               <div class="col-md-3 col-sm-6" *ngFor="let movie of wishList | paginate: { itemsPerPage: 8, currentPage: p }"> 
                 <div class="card wish-list-item">
                   <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
@@ -68,7 +69,8 @@
                 </div>
               </div>
             </div>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls *ngIf="havePaginate" (pageChange)="p = $event"></pagination-controls>
+            
           </div>
         </div>
       </div>
@@ -84,7 +86,7 @@
           <!-- popdown info -->
           <div class="collapse" id="section-history">
             <div class="card card-body">
-              Anim pariatur cliche reprehenderit,
+              Coming soon!
             </div>
           </div>
         </div>

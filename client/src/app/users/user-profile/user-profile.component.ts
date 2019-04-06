@@ -13,6 +13,8 @@ export class UserProfileComponent implements OnInit {
   curUser: User=new User("","","","","",true,[]);
   wishList: any;
   token: string;
+  havePaginate: boolean = true;
+  haveWishList: boolean = true;
 
   constructor(private userService : UserService,
 
@@ -34,6 +36,12 @@ export class UserProfileComponent implements OnInit {
         this.curUser.email=data['email'];
         this.curUser.image=data['image'];
         this.wishList=data['list'];
+        if(this.wishList.length<=8){
+          this.havePaginate=false;
+        }
+        if(this.wishList.length==0){
+          this.haveWishList=false;
+        }
       }); 
   }
 

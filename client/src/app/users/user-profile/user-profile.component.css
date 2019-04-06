@@ -45,3 +45,6 @@ label{
 .wish-list-item{
     height: 95%;
 }
+.empty-msg{
+    top: 50%;
+}
