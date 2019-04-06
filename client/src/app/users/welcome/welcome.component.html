@@ -5,7 +5,7 @@
     <div id="user-img">
         <img class="img" src="https://image.flaticon.com/icons/svg/149/149071.svg" alt="Default Photo">
     </div>
-    <div id="user">Username</div>
+    <div id="user">{{data.welcomeUserName}}</div>
     <div id="prmpt">
         <p>Go back to <a [routerLink]="['/login']">Login</a> in {{countDown | async}} seconds...... or, <a [routerLink]="['/movies']">Home Page</a></p>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit,TemplateRef,ViewChild} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, AfterViewInit} from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,15 +10,15 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
   user : User = new User("","","","","",true,[]);
   isAdmin: boolean = false;
   tokenResponse: string;
 
   //for switch the class of prompt spans
-  username_id:number;
-  password_id:number;
+  username_id:number=1;
+  password_id:number=1;
 
   constructor(private userService: UserService,
               private router: Router,
@@ -28,6 +28,12 @@ export class LoginComponent implements OnInit {
     // $('#username').focus();
     this.listeners(this);
   }
+
+  ngAfterViewInit() {
+    //focus on username input after loading page every time
+    $('#username').trigger("focus");
+  }
+
   @ViewChild('content') private content:TemplateRef <any>;
 
   public onSubmit(){

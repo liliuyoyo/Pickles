@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./login-popup.component.css'],
   providers: [BsModalService]
 })
-export class LoginPopupComponent implements OnInit {
+export class LoginPopupComponent implements OnInit, AfterViewInit {
   
   user:User = new User("","","","","",true,[]);;
 
@@ -18,6 +18,14 @@ export class LoginPopupComponent implements OnInit {
               private userService:UserService) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    //focus on username input after loading page every time
+    //下面是临时注释：
+    //此事件为每次 load 页面时生效，
+    //需要加入 focus() 才可以生效，
+    $('#username').trigger("focus");
   }
 
   public getUserLogin(){

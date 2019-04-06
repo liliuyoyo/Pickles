@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Services
 import { MoviesService } from './services/movies.service';
 import { UserService } from 'src/app/services/user.service';
+import { DataService } from 'src/app/services/data.service';
 
 // Routes
 import { AppRoutingModule } from './app-routing.module';
@@ -63,7 +64,7 @@ import { MovieEditComponent } from './movie-edit/movie-edit.component';
     ModalModule.forRoot(),
     NgbModule.forRoot(),
   ],
-  providers: [ MoviesService,UserService],
+  providers: [ MoviesService, UserService, DataService],
   bootstrap: [AppComponent],
   entryComponents:[AddCommentComponent,
                    LoginPopupComponent ]
