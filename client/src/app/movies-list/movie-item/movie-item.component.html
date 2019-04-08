@@ -1,5 +1,5 @@
 <div class="card" (click)="getMoiveDetail()">
-    <a (click)="getMoiveDetail()"><img src="{{ movie.smallImagePath }}" class="card-img-top" alt="{{ movie.title }}"></a>
+    <a ><img src="{{ movie.smallImagePath }}" class="card-img-top" alt="{{ movie.title }}"></a>
     <div class="overlay" *ngIf="isAdmin">
         <a class="overlay-item" 
            (click)="onEditMovie()"

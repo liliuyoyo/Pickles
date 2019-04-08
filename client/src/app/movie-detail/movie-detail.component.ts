@@ -24,6 +24,7 @@ export class MovieDetailComponent implements OnInit {
   movieToShow: Movie;
   token: string;
   isLoggedin: boolean = false;
+  isAdmin: boolean = true;
   movieId: string;
   isClickLike: boolean = false;
   isClickWatched: boolean = false;
@@ -76,6 +77,11 @@ export class MovieDetailComponent implements OnInit {
                   }
               });
             }
+        });
+
+        this.userService.getLoginedUser(this.userService.getToken())
+        .subscribe((res)=>{
+          this.isAdmin = !res.isuser;
         });
       }
     );
