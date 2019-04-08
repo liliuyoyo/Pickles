@@ -1,8 +1,3 @@
-/*main div style*/
-.main{
-    border-left:1px solid #0808080c; 
-}
-
 /*div with columns*/
 .row{
     margin: 5% 0 5% 0;
@@ -11,6 +6,9 @@
 /*sider and main column*/
 .sider, .main{
     height:100%;
+}
+.main{
+    border-left:1px solid #0808080c; 
 }
 
 /*sider column elemnts*/
@@ -25,6 +23,10 @@
 .section{
     padding:0 5% 0 5%;
     margin-bottom: 2%;
+}
+/* buttons */
+#btn-user-info, #btn-wish-list, #btn-history{
+    background-color: #8ee6d1a9;
 }
 
 /* maincolumn/user-info */

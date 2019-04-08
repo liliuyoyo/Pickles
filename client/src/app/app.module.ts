@@ -32,6 +32,7 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
 import { LoginPopupComponent } from './users/login-popup/login-popup.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { MovieEditComponent } from './movie-edit/movie-edit.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { MovieEditComponent } from './movie-edit/movie-edit.component';
     LoginPopupComponent,
     UserProfileComponent,
     MovieEditComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { LoginComponent } from './users/login/login.component';
 import { WelcomeComponent } from './users/welcome/welcome.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { MovieEditComponent } from './movie-edit/movie-edit.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 const appRoutes:Routes = [
@@ -19,6 +20,7 @@ const appRoutes:Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'welcome', component: WelcomeComponent},
     { path: 'userProfile', component: UserProfileComponent},
+    { path: 'contact', component: ContactComponent},
 ];
 
 @NgModule({
