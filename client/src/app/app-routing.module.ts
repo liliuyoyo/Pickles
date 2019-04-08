@@ -14,7 +14,7 @@ const appRoutes:Routes = [
     { path: "", redirectTo:"/movies", pathMatch: "full" },
     { path: "movies", component: MoviesListComponent }, 
     { path: "movies/:id", component: MovieDetailComponent },
-    { path: "moives/edit/:id", component: MovieEditComponent},
+    { path: "movies/edit/:id", component: MovieEditComponent},
     { path: 'signup', component: SignupComponent},
     { path: 'login', component: LoginComponent},
     { path: 'welcome', component: WelcomeComponent},
