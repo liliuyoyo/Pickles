@@ -7,6 +7,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
+import { DeleteConfirmComponent } from '../partials/delete-confirm/delete-confirm.component';
+
 
 @Component({
   selector: 'app-movie-edit',
@@ -30,7 +32,8 @@ export class MovieEditComponent implements OnInit {
   constructor(private moviesService : MoviesService,
               private userService:UserService,
               private route: ActivatedRoute,
-              private location:Location) { }
+              private location:Location,
+              private modalService:BsModalService) { }
 
   ngOnInit(){
     this.subscription = this.route.params
@@ -112,7 +115,18 @@ export class MovieEditComponent implements OnInit {
    * }
    ********************************************************/
   public deleteMovie(){
-  
+    
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      // if user is loggedin
+      if(res=="true"){
+        this.modalRef = this.modalService.show(DeleteConfirmComponent);
+        this.modalRef.content.deleteEvent
+        .subscribe((confirm)=>{
+          console.log(confirm);
+        });
+      }
+    });  
   }
 
   public goBack(){
