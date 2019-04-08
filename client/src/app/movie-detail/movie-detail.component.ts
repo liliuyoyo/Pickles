@@ -44,7 +44,7 @@ export class MovieDetailComponent implements OnInit {
 
   ngOnInit(){
     this.subscription = this.route.params
-    .subscribe((params:Params)=>{ 
+    .subscribe((params:Params)=>{
         this.movieId = params['id']; // get movie-id from current url
         this.moviesService.getMovieById(this.movieId) // search the movie from serve by movie-id
         .subscribe((data) => { 

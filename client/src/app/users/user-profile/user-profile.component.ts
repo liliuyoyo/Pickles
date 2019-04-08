@@ -3,6 +3,7 @@ import * as $ from 'jquery';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { MoviesService } from 'src/app/services/movies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -18,6 +19,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userService : UserService,
     private moviesService : MoviesService,
+    private router: Router,
     ) { }
 
   ngOnInit() {
@@ -28,36 +30,13 @@ export class UserProfileComponent implements OnInit {
 
     //send token to back end and get info of user
     this.token = this.userService.getToken()  
-    this.userService.getLoginedUser(this.token)
-      .subscribe(data =>
-      {
-        console.log(data);
-        if(data['status']=="true")
-        {
-          this.curUser.username=data['name'];
-          this.curUser.email=data['email'];
-          this.curUser.image=data['image'];
-          this.wishList=data['list'];
-          if(this.wishList.length<=8){
-            this.havePaginate=false;
-          }
-          if(this.wishList.length==0){
-            this.haveWishList=false;
-          }
-        }
-        else{
-          //to add a popup window
-        }
-      }); 
+    this.getUserInfo();
   }
 
   //delete movie from user wish list
-  public deleteFormUserWishList(event){
-    var target = event.target || event.srcElement || event.currentTarget;
-    var idAttr = target.attributes.id;
-    var movieId = idAttr.nodeValue;
+  public deleteFormUserWishList(id:any){
     const updateData = {
-      id : movieId,
+      id : id,
       token : this.token,
       type: "wishlist",
       value: "false"
@@ -66,27 +45,7 @@ export class UserProfileComponent implements OnInit {
     .subscribe((updatedRes)=>{
       if(updatedRes['status'] == "true"){
         console.log("Successfully remove to user's movie list");
-        this.userService.getLoginedUser(this.token)
-        .subscribe(data =>
-        {
-          console.log(data);
-          if(data['status']=="true")
-          {
-            this.curUser.username=data['name'];
-            this.curUser.email=data['email'];
-            this.curUser.image=data['image'];
-            this.wishList=data['list'];
-            if(this.wishList.length<=8){
-              this.havePaginate=false;
-            }
-            if(this.wishList.length==0){
-              this.haveWishList=false;
-            }
-          }
-          else{
-            //to add a popup window
-          }
-        }); 
+        this.getUserInfo();
       }
       else{
         //to be deleted
@@ -100,5 +59,36 @@ export class UserProfileComponent implements OnInit {
     return item["value"]
   }
 
+
+  //get user info
+  getUserInfo(){
+    this.userService.getLoginedUser(this.token)
+    .subscribe(data =>
+    {
+      console.log(data);
+      if(data['status']=="true")
+      {
+        this.curUser.username=data['name'];
+        this.curUser.email=data['email'];
+        this.curUser.image=data['image'];
+        this.wishList=data['list'];
+        if(this.wishList.length<=8){
+          this.havePaginate=false;
+        }
+        if(this.wishList.length==0){
+          this.haveWishList=false;
+        }
+      }
+      else{
+        //to add a popup window
+      }
+    }); 
+  }
+
+   // direct to the movie-detail page
+  getMoiveDetail(id:any){
+    this.router.navigateByUrl('/movies/'+ id);
+  }
+  
   //add new function here
 }

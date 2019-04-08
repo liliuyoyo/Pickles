@@ -62,13 +62,16 @@
             <div class="row" *ngIf="haveWishList">
               <div class="col-md-3 col-sm-6" *ngFor="let movie of wishList | paginate: { itemsPerPage: 8, currentPage: p } ; trackBy: trackingFunction"> 
                 <div class="card wish-list-item">
-                  <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
-                  <div class="card-body">
+                  <a (click)="getMoiveDetail(movie.id)">
+                    <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
+                  </a>
+                  <div class="card-body"  (click)="getMoiveDetail(movie.id)">
                     <p class="card-text">{{movie.name}}</p>
                     <button class="btn btn-warning btn-xs remove-btn"
-                      id="{{movie.id}}"
-                      (click)="deleteFormUserWishList($event)">
-                      <i class="fas fa-minus"></i></button>
+                      (click)="deleteFormUserWishList(movie.id)"
+                      onClick="event.cancelBubble = true">
+                      <i class="fas fa-minus"></i>
+                    </button>
                   </div>
                 </div>
               </div>
