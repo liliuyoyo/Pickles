@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -19,7 +19,7 @@ export class MovieEditComponent implements OnInit {
   private subscription : Subscription;
   modalRef: BsModalRef;
   movieToEdit: Movie = new Movie("","","","","",0,[],[],[],"",0,0,0,0,[]);
-  token: string;
+  token: string = "";
   isLoggedin: boolean = false;
   movieId: string;
 
@@ -33,7 +33,8 @@ export class MovieEditComponent implements OnInit {
               private userService:UserService,
               private route: ActivatedRoute,
               private location:Location,
-              private modalService:BsModalService) { }
+              private modalService:BsModalService,
+              private router:Router) { }
 
   ngOnInit(){
     this.subscription = this.route.params
@@ -123,7 +124,23 @@ export class MovieEditComponent implements OnInit {
         this.modalRef = this.modalService.show(DeleteConfirmComponent);
         this.modalRef.content.deleteEvent
         .subscribe((confirm)=>{
-          console.log(confirm);
+          if(confirm == 'true'){
+            const deleteData = {
+              id : this.movieToEdit._id,
+              token : this.userService.getToken(),
+            }
+            this.moviesService.deleteMoiveById(deleteData)
+            .subscribe((deleteRes)=>{
+              if(deleteRes['status'] == "true"){
+                // Delete successfully
+                console.log("delete successfull!");
+                // redirct to home page
+                this.router.navigateByUrl('/movies');
+              }else{
+                console.log("Fail to delete.");
+              }
+            });
+          }
         });
       }
     });  

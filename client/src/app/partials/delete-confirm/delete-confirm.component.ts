@@ -12,8 +12,7 @@ export class DeleteConfirmComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   public deleteConfirm(){
     this.deleteEvent.emit("true");

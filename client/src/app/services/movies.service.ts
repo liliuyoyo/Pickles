@@ -37,6 +37,13 @@ export class MoviesService {
         return this.http.post<any>(this.serverUrl+"movie/update",updateData);
     }
 
+    /*******************************************************
+     * Delete the movie with specific ID
+     ********************************************************/
+    public deleteMoiveById( deleteData:any ): Observable<any>{
+        console.log(deleteData);
+        return this.http.post<any>(this.serverUrl+"movie/delete",deleteData);
+    }
 
 
 
