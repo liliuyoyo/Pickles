@@ -4,6 +4,10 @@
     align-content: center;
     border-radius: 20px;
 }
+h5 {
+    margin-top:10px;
+    font-style: italic;
+}
 
 .title-img {
     font-size:5em;

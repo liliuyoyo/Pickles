@@ -2,6 +2,10 @@
   <div class="title-img"><i class="fas fa-exclamation-circle"></i></div>
   <div class="content">
       <h4>DELETE MOVIE?</h4>
+      <hr>
+      <img src="{{ imgPath }}" alt="{{ title }}">
+      <h5>{{ title }}</h5>
+      <hr>
       <p>By DELETING operation, this movie will be permantently removed from database.</p>
       <button class="cancle-btn" (click)="bsModalRef.hide()">Cancle</button>
       <button class="delete-btn" (click)="deleteConfirm()">Delete</button>

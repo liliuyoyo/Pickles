@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -9,10 +9,14 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class DeleteConfirmComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter<string>();
+  @Input() title: string = "";
+  @Input() imgPath:string ="";
 
   constructor(public bsModalRef: BsModalRef) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   public deleteConfirm(){
     this.deleteEvent.emit("true");

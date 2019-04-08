@@ -121,7 +121,11 @@ export class MovieEditComponent implements OnInit {
     .subscribe((res)=>{
       // if user is loggedin
       if(res=="true"){
-        this.modalRef = this.modalService.show(DeleteConfirmComponent);
+        const initialState = {
+          title: this.movieToEdit.title,
+          imgPath: this.movieToEdit.smallImagePath
+        }
+        this.modalRef = this.modalService.show(DeleteConfirmComponent,{initialState});
         this.modalRef.content.deleteEvent
         .subscribe((confirm)=>{
           if(confirm == 'true'){
