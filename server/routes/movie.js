@@ -385,7 +385,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
         });
     }
 
-    Movie.findById(req.body._id, function(err, movie) {
+    Movie.findById(req.body.id, function(err, movie) {
         if (err) {
             const output = {
                 status: "false",
@@ -393,6 +393,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
             };
             return res.status(200).json(output);
         }
+        console.log(movie);
 
         movie.softdelete(function(err) {
             if (err) {
