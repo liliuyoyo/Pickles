@@ -304,8 +304,9 @@ router.get("/search", function(req, res) {
                 };
             } else query = { year: year };
         }
-        //  console.log(query);
+
         Movie.find(query)
+            .where({ $or: [{ deleted: false }, { deleted: { $exists: false } }] })
             .exec()
             .then(docs => {
                 res.status(200).json(docs);
@@ -376,7 +377,7 @@ router.get("/:id", (req, res, next) => {
  *   message:
  * }
  ***************************************************************************************************/
-router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
+router.post("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
     if (legit.isUser == "true") {
         return res.status(200).json({
@@ -393,7 +394,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
             };
             return res.status(200).json(output);
         }
-        console.log(movie);
+        //  console.log(movie);
 
         movie.softdelete(function(err) {
             if (err) {
@@ -424,6 +425,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
  *   status:
  *   message:
  * }
+ * note: unused
  ***************************************************************************************************/
 router.post("/admin/movie/update", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
