@@ -53,7 +53,40 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
     var output;
     const legit = req.legit;
 
-    console.log(req.body);
+    // console.log(typeof legit.isUser);
+
+    if (type == "movie" && legit.isUser) {
+        return res.status(200).json({
+            status: "false",
+            message: "no permit"
+        });
+    } else if (type == "movie" && !legit.isUser) {
+        const query = {
+            title: req.body.value.title,
+            description: req.body.value.description,
+            year: req.body.value.year,
+            director: req.body.value.director,
+            actors: req.body.value.actors,
+            geners: req.body.value.geners,
+            area: req.body.value.area,
+            length: req.body.value.length
+        };
+
+        Movie.findByIdAndUpdate({ _id: id }, { $set: query }, { multi: true, new: true }, function(err, movie) {
+            if (err) {
+                const output = {
+                    status: "false",
+                    message: "failure to find movie"
+                };
+                return res.status(200).json(output);
+            }
+            const output = {
+                status: "true",
+                message: movie
+            };
+            return res.json(output);
+        });
+    }
 
     Movie.findById(id).exec(function(err, movie) {
         if (err) {

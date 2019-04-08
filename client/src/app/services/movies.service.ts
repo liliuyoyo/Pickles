@@ -31,12 +31,19 @@ export class MoviesService {
 
 
     /*******************************************************
-     * Update single movie likes
+     * Update single movie
      ********************************************************/
     public updateMoiveById( updateData:any ): Observable<any>{
         return this.http.post<any>(this.serverUrl+"movie/update",updateData);
     }
 
+    /*******************************************************
+     * Delete the movie with specific ID
+     ********************************************************/
+    public deleteMoiveById( deleteData:any ): Observable<any>{
+        console.log(deleteData);
+        return this.http.post<any>(this.serverUrl+"movie/delete",deleteData);
+    }
 
 
 

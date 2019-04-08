@@ -385,7 +385,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
         });
     }
 
-    Movie.findById(req.body._id, function(err, movie) {
+    Movie.findById(req.body.id, function(err, movie) {
         if (err) {
             const output = {
                 status: "false",
@@ -393,6 +393,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
             };
             return res.status(200).json(output);
         }
+        console.log(movie);
 
         movie.softdelete(function(err) {
             if (err) {
@@ -424,7 +425,7 @@ router.delete("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
  *   message:
  * }
  ***************************************************************************************************/
-router.post("/moviemovie/update", middleware.isLoggedIn, (req, res, next) => {
+router.post("/admin/movie/update", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
     if (legit.isUser == "true") {
         return res.status(200).json({
@@ -433,7 +434,22 @@ router.post("/moviemovie/update", middleware.isLoggedIn, (req, res, next) => {
         });
     }
 
-    Movie.findById(req.body._id, function(err, movie) {
+    const query = {
+        title: req.body.movie.title,
+        description: req.body.movie.description,
+        smallImagePath: req.body.movie.smallImagePath,
+        imagePath: req.body.movie.imagePath,
+        year: req.body.movie.year,
+        director: req.body.movie.director,
+        actors: req.body.movie.actors,
+        geners: req.body.movie.geners,
+        area: req.body.movie.area,
+        length: req.body.movie.length,
+        rating: req.body.movie.rating
+    };
+    console.log(query);
+
+    Movie.findByIdAndUpdate(req.body._id, query, { new: true }, function(err, movie) {
         if (err) {
             const output = {
                 status: "false",
@@ -441,33 +457,7 @@ router.post("/moviemovie/update", middleware.isLoggedIn, (req, res, next) => {
             };
             return res.status(200).json(output);
         }
-        const query = {
-            title: req.body.title,
-            description: req.body.description,
-            smallImagePath: req.body.smallImagePath,
-            imagePath: req.body.imagePath,
-            year: req.body.year,
-            director: req.body.director,
-            actors: req.body.actors,
-            geners: req.body.geners,
-            area: req.body.area,
-            length: req.body.length,
-            rating: req.body.rating
-        };
-        // movie.updateOne({ query }, function(err) {
-        //     if (err) {
-        //         const output = {
-        //             status: "false",
-        //             message: "failure to update"
-        //         };
-        //         return res.status(200).json(output);
-        //     }
-        //     const output = {
-        //         status: "true",
-        //         message: ""
-        //     };
-        //     return res.status(200).json(output);
-        // });
+        return res.json(movie);
     });
 });
 

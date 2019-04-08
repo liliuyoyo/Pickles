@@ -1,8 +1,12 @@
 <div class="card" (click)="getMoiveDetail()">
     <a (click)="getMoiveDetail()"><img src="{{ movie.smallImagePath }}" class="card-img-top" alt="{{ movie.title }}"></a>
     <div class="overlay" *ngIf="isAdmin">
-        <a class="overlay-item" (click)="onEditMovie()"><i class="fas fa-pencil-alt"></i></a>
-        <a class="overlay-item item2" (click)="onDeleteMovie()"> <i class="far fa-trash-alt"></i></a>
+        <a class="overlay-item" 
+           (click)="onEditMovie()"
+           onclick="event.cancelBubble = true"><i class="fas fa-pencil-alt"></i></a>
+        <a class="overlay-item item2" 
+           (click)="onDeleteMovie()"
+           onclick="event.cancelBubble = true"><i class="far fa-trash-alt"></i></a>
     </div>
     <div class="card-body">
       <p class="card-text">{{ movie.title }} <span>{{ movie.rating }}</span></p>

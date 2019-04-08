@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { getToken } from '@angular/router/src/utils/preactivation';
 
 /*Interfaces */
 export interface UserDetails {
@@ -34,7 +35,6 @@ export class UserService {
     public getToken(): string {
         if (!this.token) {
             this.token = sessionStorage.getItem('mean-token');
-
         }
         return this.token;
     }
@@ -53,7 +53,7 @@ export class UserService {
 
     // check whether user is loggedIn
     public isLoggedIn(): Observable<string>{
-        return this.http.post<string>(this.serverUrl+"status", { token: this.token });
+        return this.http.post<string>(this.serverUrl+"status", { token: this.getToken()});
     }
 
     //login user and get TokenResponse

@@ -32,7 +32,11 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
 import { LoginPopupComponent } from './users/login-popup/login-popup.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { MovieEditComponent } from './movie-edit/movie-edit.component';
+<<<<<<< HEAD
 import { ContactComponent } from './contact/contact.component';
+=======
+import { DeleteConfirmComponent } from './partials/delete-confirm/delete-confirm.component';
+>>>>>>> 84d5701aace14c38ea54930a6ebedf666f01abfb
 
 
 @NgModule({
@@ -52,7 +56,11 @@ import { ContactComponent } from './contact/contact.component';
     LoginPopupComponent,
     UserProfileComponent,
     MovieEditComponent,
+<<<<<<< HEAD
     ContactComponent,
+=======
+    DeleteConfirmComponent,
+>>>>>>> 84d5701aace14c38ea54930a6ebedf666f01abfb
   ],
   imports: [
     BrowserModule,
@@ -69,6 +77,7 @@ import { ContactComponent } from './contact/contact.component';
   providers: [ MoviesService, UserService, DataService],
   bootstrap: [AppComponent],
   entryComponents:[AddCommentComponent,
-                   LoginPopupComponent ]
+                   LoginPopupComponent,
+                   DeleteConfirmComponent ]
 })
 export class AppModule { }
