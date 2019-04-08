@@ -34,7 +34,6 @@ export class UserService {
     public getToken(): string {
         if (!this.token) {
             this.token = sessionStorage.getItem('mean-token');
-
         }
         return this.token;
     }

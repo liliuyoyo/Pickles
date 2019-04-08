@@ -1,10 +1,12 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
-import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-movie-edit',
@@ -14,7 +16,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class MovieEditComponent implements OnInit {
   private subscription : Subscription;
   modalRef: BsModalRef;
-  movieToShow: Movie;
+  movieToEdit: Movie = new Movie("","","","","",0,[],[],[],"",0,0,0,0,[]);
   token: string;
   isLoggedin: boolean = false;
   movieId: string;
@@ -27,9 +29,8 @@ export class MovieEditComponent implements OnInit {
   
   constructor(private moviesService : MoviesService,
               private userService:UserService,
-              private modalService: BsModalService,
               private route: ActivatedRoute,
-              private elementRef : ElementRef) { }
+              private location:Location) { }
 
   ngOnInit(){
     this.subscription = this.route.params
@@ -37,16 +38,85 @@ export class MovieEditComponent implements OnInit {
         this.movieId = params['id']; // get movie-id from current url
         this.moviesService.getMovieById(this.movieId) // search the movie from serve by movie-id
         .subscribe((data) => { 
-          this.movieToShow = data; // get movie detailed information
+          this.movieToEdit = data; // get movie detailed information
 
           // show the movie rating by stars
-          var totalS = +(this.movieToShow.rating).toFixed();
+          var totalS = +(this.movieToEdit.rating).toFixed();
           this.stars.fullStars = Math.floor(totalS/2);
           this.stars.halfStar = totalS%2;
           this.stars.emptyStars = 5 - this.stars.fullStars - this.stars.halfStar;
         });
       }
     );
+  }
+
+  
+  /*******************************************************
+   * UPDATE moive info by id
+   * Test: No
+   * Request: POST{
+   *    id,
+   *    token,
+   *    updateMovieValue
+   * }
+   * Response: {
+   *    status,
+   *    message
+   * }
+   ********************************************************/
+  public updateMovie(){
+    console.log(this.movieToEdit);    
+
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      // if user is loggedin
+      if(res=="true"){
+        this.token = this.userService.getToken();
+        const updateData = {
+          id : this.movieToEdit._id,
+          token : this.token,
+          type: "movie",
+          value: this.movieToEdit
+        }
+        
+        // update movie data by pass the new value to server
+        this.moviesService.updateMoiveById(updateData)
+        .subscribe((updatedRes)=>{
+          console.log(updatedRes);
+          // check the server response
+          if(updatedRes['status'] == "true"){
+            //get updated movie value 
+            this.movieToEdit = updatedRes['message'];
+          }else{
+            console.log("Fail to update.");
+          }
+        });
+      }else{
+        // if user is not loggedin , show popup login page
+        console.log("loggin expired.")
+      }
+    });  
+  }
+
+  /*******************************************************
+   * DELETE moive by id
+   * Test: No
+   * Request: POST{
+   *    id,
+   *    token,
+   *    updateValue = ""
+   * }
+   * Response: {
+   *    status,
+   *    message
+   * }
+   ********************************************************/
+  public deleteMovie(){
+  
+  }
+
+  public goBack(){
+    this.location.back();
   }
 
   ngOnDestroy(){

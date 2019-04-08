@@ -31,7 +31,7 @@ export class MoviesService {
 
 
     /*******************************************************
-     * Update single movie likes
+     * Update single movie
      ********************************************************/
     public updateMoiveById( updateData:any ): Observable<any>{
         return this.http.post<any>(this.serverUrl+"movie/update",updateData);
