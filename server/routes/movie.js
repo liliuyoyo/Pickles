@@ -497,6 +497,7 @@ router.post("/admin/movie/update", middleware.isLoggedIn, (req, res, next) => {
  * }
  ***************************************************************************************************/
 router.post("/movie/add", middleware.isLoggedIn, (req, res, next) => {
+    console.log(req.body);
     const legit = req.legit;
     if (legit.isUser == "true") {
         return res.status(200).json({
@@ -523,17 +524,19 @@ router.post("/movie/add", middleware.isLoggedIn, (req, res, next) => {
         comments: []
     });
 
+    console.log(movie);
+
     movie
         .save()
         .then(result => {
             //console.log(result);
-            return result.status(200).json({
+            return res.status(200).json({
                 status: "true",
                 message: ""
             });
         })
         .catch(err => {
-            return result.status(200).json({
+            return res.status(200).json({
                 status: "false",
                 message: "failure to save"
             });
