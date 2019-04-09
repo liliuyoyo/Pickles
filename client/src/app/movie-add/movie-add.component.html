@@ -14,6 +14,10 @@
             <label id="descLabel" for="desc">Description</label>
             <textarea name="desc" id="desc" cols="50" rows="10" class="form-control"
             [(ngModel)]="newMovie.description"></textarea>
+
+            <label id="rating" for="rating">Rating</label>
+            <input type="number" step="0.01" min="0.0" max="10.0" name="rating" id="rating" class="form-control col-sm-4"
+            [(ngModel)]="newMovie.rating">
           </div>
           <div class="col-sm-3 info-item form-group imgDiv">
             <img src={{newMovie.imagePath}} alt="upload image"
