@@ -161,7 +161,10 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
                     if (!userMovieList.includes(id) && value == "true") {
                         user.userList.push(movie);
                         const userHistoryList = user.historyList.map(String);
-                        if (!userHistoryList.includes(movie)) user.historyList.push(movie);
+                        if (!userHistoryList.includes(String(movie._id))) {
+                            //console.log("history");
+                            user.historyList.push(movie);
+                        }
                         output = {
                             status: "true",
                             message: "success add to wish list"
