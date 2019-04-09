@@ -12,14 +12,23 @@ import { UserService } from 'src/app/services/user.service';
 export class PhotoPopupComponent implements OnInit {
   token: string = "";
   movieLink: string = "";
-  msg:string;
+  msg: string;
+  prevUserPhoto: string;
+  prevHeight: number;
 
   constructor(public bsModalRef: BsModalRef,
     private userService:UserService
     ) { }
 
   ngOnInit() {
+    //get current user info
     this.token = this.userService.getToken();
+    this.prevUserPhoto=this.userService.prevUserPhoto;
+
+    //set user photo height = width
+    // this.prevHeight = $(".user-prev-image").width();
+    // $(".user-prev-image").css("height",this.prevHeight );
+    // console.log(this.prevHeight);
 
     //link user photo from service
     this.userService.currentUserPhoto

@@ -24,6 +24,9 @@ export class UserService {
     token: string;
     username: string;
     loggedin:boolean = false;
+
+    //UserPhoto communication
+    prevUserPhoto: string;
     private userPhoto = new BehaviorSubject("");
     currentUserPhoto = this.userPhoto.asObservable();
 

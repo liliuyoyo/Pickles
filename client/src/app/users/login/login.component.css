@@ -10,10 +10,17 @@ h4{
     float:left;
     padding-bottom: 3%;
 }
-.img{
-    margin: 10% auto 0 auto ;
+.user-photo{
     display:block;
-    width: 38%;
+    width:100%;
+}
+.user-image{
+    position: relative;
+    width: 12vw;
+    height: 12vw;
+    border-radius: 50%;
+    margin: 10% auto 0 auto;
+    overflow:hidden;
 }
 .login{
     padding: 7%;

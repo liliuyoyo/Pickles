@@ -1,12 +1,25 @@
+.user-prev-photo{
+    display:block;
+    width:100%;
+}
+.user-prev-image{
+    position: relative;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 50%;
+    margin: 0 auto 0 auto;
+    overflow:hidden;
+}
+
 h4{
     float:left;
     padding-bottom: 3%;
 }
+
 .photo-change{
     padding: 5%;
     padding-top:5%;
 }
-
 .txt{
     padding-top: 1%;
     padding-bottom: 3%;

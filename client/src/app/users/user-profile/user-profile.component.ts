@@ -38,8 +38,8 @@ export class UserProfileComponent implements OnInit {
     $('#btn-history').trigger("click");
 
     //set user photo height = width
-    var height = $(".user-image").width();
-    $(".user-image").css("height",height );
+    // var height = $(".user-image").width();
+    // $(".user-image").css("height",height );
 
     //send token to back end and get info of user
     this.token = this.userService.getToken()  
@@ -104,8 +104,6 @@ export class UserProfileComponent implements OnInit {
         if(this.historyList.length==0){
           this.haveHistoryList=false;
         }
-        console.log(this.historyList.length);
-        console.log(this.haveHLPaginate);
       }
       else{
         //to add a popup window
@@ -120,6 +118,7 @@ export class UserProfileComponent implements OnInit {
   
   //
   popupPhototChange(){
+    this.userService.prevUserPhoto=this.curUser.image;
     this.modalRef = this.modalService.show(PhotoPopupComponent);
   }
   //add new function here
