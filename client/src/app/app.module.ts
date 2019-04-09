@@ -35,6 +35,7 @@ import { MovieEditComponent } from './movie-edit/movie-edit.component';
 import { ContactComponent } from './contact/contact.component';
 import { DeleteConfirmComponent } from './partials/delete-confirm/delete-confirm.component';
 import { UploadImageComponent } from './partials/upload-image/upload-image.component';
+import { MovieAddComponent } from './movie-add/movie-add.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { UploadImageComponent } from './partials/upload-image/upload-image.compo
     ContactComponent,
     DeleteConfirmComponent,
     UploadImageComponent,
+    MovieAddComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
     <app-filter [searchConditions]="searchConditions" (onFilter)="filterMovies($event)"></app-filter>
     <div class="row">
         <div *ngIf="isAdmin" class="col-md-3 col-sm-6 addMovieDiv">
-            <i class="fas fa-folder-plus"></i>
+            <a routerLink="/movies/new"><i class="fas fa-folder-plus"></i></a> 
         </div>
         <div class="col-md-3 col-sm-6" *ngFor="let movieEl of moviesList | paginate: { itemsPerPage: items, currentPage: p }">
             <app-movie-item [movie]="movieEl" [isAdmin]="isAdmin"></app-movie-item>

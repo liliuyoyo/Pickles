@@ -9,11 +9,13 @@ import { WelcomeComponent } from './users/welcome/welcome.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { MovieEditComponent } from './movie-edit/movie-edit.component';
 import { ContactComponent } from './contact/contact.component';
+import { MovieAddComponent } from './movie-add/movie-add.component';
 
 
 const appRoutes:Routes = [
     { path: "", redirectTo:"/movies", pathMatch: "full" },
-    { path: "movies", component: MoviesListComponent }, 
+    { path: "movies", component: MoviesListComponent },
+    { path: "movies/new", component: MovieAddComponent },
     { path: "movies/:id", component: MovieDetailComponent },
     { path: "movies/edit/:id", component: MovieEditComponent},
     { path: 'signup', component: SignupComponent},

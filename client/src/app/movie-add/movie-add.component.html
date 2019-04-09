@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="head-div">
+    <h3>ADD A NEW MOVIE</h3>
+  </div>
+  <form>
+     <div class="movie-info ">
+       <div class="info-item form-group">
+         <label for="title">Title</label>
+         <input type="text" name="title" id="title" class="form-control"
+         [(ngModel)]="newMovie.title">
+       </div>
+       <div class="row">
+          <div class="col-sm-7 info-item form-group ">
+            <label id="descLabel" for="desc">Description</label>
+            <textarea name="desc" id="desc" cols="50" rows="10" class="form-control"
+            [(ngModel)]="newMovie.description"></textarea>
+          </div>
+          <div class="col-sm-3 info-item form-group imgDiv">
+            <img src="{{ imgPath }}" alt="upload image">
+          </div>
+       </div>
+       
+      <hr>
+      <div class="info-item form-group">
+        <label for="directors">Directors</label>
+        <input type="text" name="directors" id="directors" class="form-control" 
+        [(ngModel)]="directors" placeholder="Sperate directors with comma.    E.g. Tom,John,Davis">
+      </div>
+      <div class="info-item form-group">
+        <label for="actors">Casts</label>
+        <input type="text" name="actors" id="actors" class="form-control" 
+        [(ngModel)]="actors" placeholder="Sperate actors with comma.    E.g. Tom,John,Davis">
+      </div>
+      <div class="info-item form-group">
+        <label for="geners">Geners</label>
+        <div class="row">
+          <div class="col-sm-3 form-check form-check-inline"
+            *ngFor="let gener of geners">
+            <input class="form-check-input" type="checkbox" id="gener.value" value="gener.value" 
+            [checked]="gener.checked"
+            (change)="gener.checked = !gener.checked">
+            <label class="form-check-label" for="gener.value">{{ gener.label }}</label>
+          </div>
+        </div>
+      </div> 
+      
+      <div class="info-item form-group">
+        <label for="area">Area</label>
+        <input type="text" name="area" id="area" class="form-control"
+        [(ngModel)]="newMovie.area">
+      </div>
+      <div class="info-item form-group">
+          <label for="year">In Theaters</label>
+          <input type="number" name="year" id="year" min="1979" class="form-control col-sm-2"
+          [(ngModel)]="newMovie.year">
+      </div>
+      <div class="info-item form-group">
+          <label for="length">Runtime</label>
+          <div class="input-group">
+            <input type="text" class="form-control col-sm-2" name="length" id="length" 
+            [(ngModel)]="newMovie.length"  aria-describedby="appendText">
+            <div class="input-group-append">
+              <span class="input-group-text" id="appendText">minues</span>
+            </div>
+          </div>
+        </div>
+     </div>
+   </form>
+   <button class="btn btn-dark" (click)="resetMovieData()"> RESET ALL</button>
+   <button class="btn btn-warning" (click)="createNewMovie()">CREATE A NEW MOVIE</button>
+   <!-- <div class="bottom-div"></div> -->
+</div>

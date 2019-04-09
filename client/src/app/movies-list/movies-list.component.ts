@@ -54,7 +54,6 @@ export class MoviesListComponent implements OnInit, OnDestroy {
             this.items = 7;
           }
        }else{
-
            console.log("error");
        }
       });
