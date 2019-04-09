@@ -5,6 +5,8 @@
 
 .container img{
     margin: 20px auto;
+    max-width: 90%;
+    overflow: hidden;
 }
 
 .upload{

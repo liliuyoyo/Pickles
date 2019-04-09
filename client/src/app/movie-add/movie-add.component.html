@@ -16,7 +16,8 @@
             [(ngModel)]="newMovie.description"></textarea>
           </div>
           <div class="col-sm-3 info-item form-group imgDiv">
-            <img src="{{ imgPath }}" alt="upload image">
+            <img src={{newMovie.imagePath}} alt="upload image"
+            (click)="uploadImages()">
           </div>
        </div>
        

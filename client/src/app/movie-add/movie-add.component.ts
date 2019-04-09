@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Movie } from '../models/movie.model';
-import { generate } from 'rxjs';
+import { UserService } from '../services/user.service';
+import { MoviesService } from '../services/movies.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UploadImageComponent } from '../partials/upload-image/upload-image.component';
+
 
 @Component({
   selector: 'app-movie-add',
@@ -8,10 +12,11 @@ import { generate } from 'rxjs';
   styleUrls: ['./movie-add.component.css']
 })
 export class MovieAddComponent implements OnInit {
-  imgPath :string ="../../../assets/images/placeholder.png";
-  newMovie: Movie = new Movie("","","","","../../../assets/images/placeholder.png",0,[],[],[],"",0,0,0,0,[]);;
+  newMovie: Movie = new Movie("","","","../../../assets/images/placeholder.png","../../../assets/images/placeholder.png",0,[],[],[],"",0,0,0,0,[]);;
   actors = "";
   directors = "";
+  modalRef: BsModalRef;
+
   geners = [
     { 
       value: "action",
@@ -54,7 +59,9 @@ export class MovieAddComponent implements OnInit {
       label: "Drama"
     }
     ];
-  constructor() { }
+  constructor(private userService: UserService,
+              private moviesService: MoviesService,
+              private modalService:BsModalService,) { }
 
   ngOnInit() {
   }
@@ -76,12 +83,50 @@ export class MovieAddComponent implements OnInit {
       }
     });
   
-    console.log(this.newMovie);
+    this.userService.isLoggedIn()
+    .subscribe((res)=>{
+      // if user is loggedin
+      if(res=="true"){
+        const token = this.userService.getToken();
+        const addData = {
+          token : token,
+          movie: this.newMovie
+        }
+        // update movie data by pass the new value to server
+        this.moviesService.createMovie(addData)
+        .subscribe((updatedRes)=>{
+          console.log(updatedRes);
+          // check the server response
+          if(updatedRes['status'] == "true"){
+            //get updated movie value 
+            console.log("Successfully added movie");
+            this.resetMovieData();
+          }else{
+            console.log("Fail to update.");
+          }
+        });
+      }else{
+        // if user is not loggedin , show popup login page
+        console.log("loggin expired.")
+      }
+    });  
   }
 
+  public uploadImages(){
+    const initialState={
+      movie: this.newMovie
+    }
+    this.modalRef = this.modalService.show(UploadImageComponent,{initialState});
+    this.modalRef.content.imageUploadEvent
+    .subscribe((updated)=>{
+      this.newMovie.smallImagePath = updated.smallImagePath;
+      this.newMovie.imagePath = updated.imagePath;
+    });
+  }
+
+
   public resetMovieData(){
-    this.imgPath = "../../../assets/images/placeholder.png";
-    this.newMovie = new Movie("","","","","../../../assets/images/placeholder.png",0,[],[],[],"",0,0,0,0,[]);;
+    this.newMovie = new Movie("","","","../../../assets/images/placeholder.png","../../../assets/images/placeholder.png",0,[],[],[],"",0,0,0,0,[]);;
     this.actors = "";
     this.directors = "";
     this.geners = [
