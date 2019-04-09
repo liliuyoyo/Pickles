@@ -507,19 +507,19 @@ router.post("/movie/add", middleware.isLoggedIn, (req, res, next) => {
 
     const movie = new Movie({
         _id: new mongoose.Types.ObjectId(),
-        title: req.body.title,
-        description: req.body.description,
-        smallImagePath: req.body.smallImagePath,
-        imagePath: req.body.imagePath,
-        year: req.body.year,
-        director: req.body.director,
-        actors: req.body.actors,
-        geners: req.body.geners,
-        area: req.body.area,
-        length: req.body.length,
+        title: req.body.movie.title,
+        description: req.body.movie.description,
+        smallImagePath: req.body.movie.smallImagePath,
+        imagePath: req.body.movie.imagePath,
+        year: req.body.movie.year,
+        director: req.body.movie.director,
+        actors: req.body.movie.actors,
+        geners: req.body.movie.geners,
+        area: req.body.movie.area,
+        length: req.body.movie.length,
         likes: 0,
         watched: 0,
-        rating: req.body.rating,
+        rating: req.body.movie.rating,
         comments: []
     });
 
