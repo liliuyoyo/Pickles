@@ -204,11 +204,11 @@ router.post("/user/profile/edit", middleware.isLoggedIn, (req, res, next) => {
     console.log(req.body);
     const legit = req.legit;
     if (!legit.isUser) {
-        return res.status(200).json("false");
-        // return res.status(200).json({
-        //     status: "false",
-        //     message: "no permit"
-        // });
+        // return res.status(200).json("false");
+        return res.status(200).json({
+            status: "false",
+            message: "no permit"
+        });
     }
     if (legit.isUser) {
         if (req.body.type == "image") {
@@ -223,20 +223,20 @@ router.post("/user/profile/edit", middleware.isLoggedIn, (req, res, next) => {
 
         User.findOneAndUpdate({ userName: legit.userName }, { $set: query }, { multi: true, new: true }, function(err, user) {
             if (err) {
-                // const output = {
-                //     status: "false",
-                //     message: "failure to find user"
-                // };
-                // return res.status(200).json(output);
-                return res.status(200).json("false");
+                const output = {
+                    status: "false",
+                    message: "failure to find user"
+                };
+                return res.status(200).json(output);
+                //return res.status(200).json("false");
             }
             console.log(user);
-            return res.status(200).json("true");
-            // const output = {
-            //     status: "true",
-            //     message: user
-            // };
-            // return res.json(output);
+            //  return res.status(200).json("true");
+            const output = {
+                status: "true",
+                message: user
+            };
+            return res.json(output);
         });
     }
 });
