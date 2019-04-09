@@ -104,6 +104,8 @@ export class UserProfileComponent implements OnInit {
         if(this.historyList.length==0){
           this.haveHistoryList=false;
         }
+        console.log(this.historyList.length);
+        console.log(this.haveHLPaginate);
       }
       else{
         //to add a popup window

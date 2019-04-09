@@ -103,7 +103,7 @@
           <div class="card card-body">
               <div class = "empty-msg" *ngIf="!haveHistoryList">History is empty.</div>
               <div class="row" *ngIf="haveHistoryList">
-                <div class="col-md-3 col-sm-6" *ngFor="let movie of historyList | paginate: { itemsPerPage: 8, currentPage: p } ; trackBy: trackingFunction"> 
+                <div class="col-md-3 col-sm-6" *ngFor="let movie of historyList | paginate: { itemsPerPage: 8, currentPage: p1 } ; trackBy: trackingFunction"> 
                   <div class="card wish-list-item">
                     <a (click)="getMoiveDetail(movie.id)">
                       <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
@@ -114,7 +114,7 @@
                   </div>
                 </div>
               </div>
-              <pagination-controls *ngIf="haveHLPaginate" (pageChange)="p = $event"></pagination-controls>
+              <pagination-controls *ngIf="haveHLPaginate" (pageChange)="p1 = $event"></pagination-controls>
               
             </div>
           </div>
