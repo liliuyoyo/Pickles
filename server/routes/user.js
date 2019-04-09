@@ -201,6 +201,7 @@ router.post("/user/login", (req, res, next) => {
  * }
  ***************************************************************************************************/
 router.post("/user/profile/edit", middleware.isLoggedIn, (req, res, next) => {
+    console.log(req.body);
     const legit = req.legit;
     if (!legit.isUser) {
         return res.status(200).json("false");
@@ -229,6 +230,7 @@ router.post("/user/profile/edit", middleware.isLoggedIn, (req, res, next) => {
                 // return res.status(200).json(output);
                 return res.status(200).json("false");
             }
+            console.log(user);
             return res.status(200).json("true");
             // const output = {
             //     status: "true",
