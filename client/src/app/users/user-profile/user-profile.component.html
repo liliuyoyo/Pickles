@@ -83,7 +83,7 @@
                 </div>
               </div>
             </div>
-            <pagination-controls *ngIf="havePaginate" (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls *ngIf="haveWLPaginate" (pageChange)="p = $event"></pagination-controls>
             
           </div>
         </div>
@@ -99,8 +99,23 @@
           </button>
           <!-- popdown info -->
           <div class="collapse" id="section-history">
-            <div class="card card-body">
-              Coming soon!
+            <!--  -->
+          <div class="card card-body">
+              <div class = "empty-msg" *ngIf="!haveHistoryList">History is empty.</div>
+              <div class="row" *ngIf="haveHistoryList">
+                <div class="col-md-3 col-sm-6" *ngFor="let movie of historyList | paginate: { itemsPerPage: 8, currentPage: p } ; trackBy: trackingFunction"> 
+                  <div class="card wish-list-item">
+                    <a (click)="getMoiveDetail(movie.id)">
+                      <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
+                    </a>
+                    <div class="card-body"  (click)="getMoiveDetail(movie.id)">
+                      <p class="card-text">{{movie.name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <pagination-controls *ngIf="haveHLPaginate" (pageChange)="p = $event"></pagination-controls>
+              
             </div>
           </div>
         </div>

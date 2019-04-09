@@ -15,9 +15,14 @@ import { PhotoPopupComponent } from 'src/app/users/user-profile/photo-popup/phot
 export class UserProfileComponent implements OnInit {
   curUser: User=new User("","","","","",true,[]);
   wishList: any;
+  historyList: any;
   token: string;
-  havePaginate: boolean = true;
+  
+  haveWLPaginate: boolean = true;
   haveWishList: boolean = true;
+  haveHistoryList: boolean = true;
+  haveHLPaginate: boolean = true;
+
   modalRef: BsModalRef;
 
   constructor(private userService : UserService,
@@ -32,9 +37,19 @@ export class UserProfileComponent implements OnInit {
     $('#btn-user-info').trigger("click");
     $('#btn-history').trigger("click");
 
+    //set user photo height = width
+    var height = $(".user-image").width();
+    $(".user-image").css("height",height );
+
     //send token to back end and get info of user
     this.token = this.userService.getToken()  
     this.getUserInfo();
+
+    //link user photo from service
+    this.userService.currentUserPhoto
+      .subscribe(
+        photo => this.curUser.image = photo
+        )
   }
 
   //delete movie from user wish list
@@ -76,11 +91,18 @@ export class UserProfileComponent implements OnInit {
         this.curUser.email=data['email'];
         this.curUser.image=data['image'];
         this.wishList=data['list'];
+        this.historyList=data['history'];
         if(this.wishList.length<=8){
-          this.havePaginate=false;
+          this.haveWLPaginate=false;
         }
         if(this.wishList.length==0){
           this.haveWishList=false;
+        }
+        if(this.historyList.length<=8){
+          this.haveHLPaginate=false;
+        }
+        if(this.historyList.length==0){
+          this.haveHistoryList=false;
         }
       }
       else{

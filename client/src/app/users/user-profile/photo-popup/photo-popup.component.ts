@@ -12,13 +12,20 @@ import { UserService } from 'src/app/services/user.service';
 export class PhotoPopupComponent implements OnInit {
   token: string = "";
   movieLink: string = "";
+  msg:string;
 
   constructor(public bsModalRef: BsModalRef,
     private userService:UserService
     ) { }
 
   ngOnInit() {
-    this.token = this.userService.getToken(); 
+    this.token = this.userService.getToken();
+
+    //link user photo from service
+    this.userService.currentUserPhoto
+      .subscribe(
+        photo => this.msg = photo
+        )
   }
 
   ngAfterViewInit() {
@@ -34,24 +41,27 @@ export class PhotoPopupComponent implements OnInit {
         const updateData = {
           token : this.token,
           type: "image",
-          value: this.movieLink
+          value: this.movieLink,
         }
         
         // update movie data by pass the new value to server
         this.userService.uploadPhoto(updateData)
-        .subscribe((updatedRes)=>{
-          console.log(updatedRes);
+        .subscribe(data=>{
           // check the server response
-          if(updatedRes == "true"){
-            console.log("Update successfully.");
-          }else{
-            console.log("Fail to update.");
+          if(data['status']=="true"){
+            var userinfo=data['message']
+            this.userService.changeUserPhoto(userinfo.userImage);
+            this.bsModalRef.hide();
           }
-        });
+          else{
+            console.log("Fail to upload.")
+          }
+        });  
       }else{
         // if user is not loggedin , show popup login page
         console.log("loggin expired.")
       }
     });  
   }
+
 }

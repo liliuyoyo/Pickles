@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { getToken } from '@angular/router/src/utils/preactivation';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /*Interfaces */
 export interface UserDetails {
@@ -23,9 +24,12 @@ export class UserService {
     token: string;
     username: string;
     loggedin:boolean = false;
+    private userPhoto = new BehaviorSubject("");
+    currentUserPhoto = this.userPhoto.asObservable();
 
     constructor(private http: HttpClient,
-                private router: Router){};
+                private router: Router,
+                ){};
 
     public saveToken(token: string): void {
         sessionStorage.setItem('mean-token', token);        
@@ -102,10 +106,14 @@ export class UserService {
             {});
     }
 
-    public uploadPhoto(data: any): Observable<string>{
-        return this.http.post<string>( this.serverUrl+"user/profile/edit",
+    public uploadPhoto(data: any): Observable<any>{
+        return this.http.post<any>( this.serverUrl+"user/profile/edit",
             data,
             {});
     }
-
+    
+    //change user photo in srevice
+    public changeUserPhoto(photoLink: string) {
+        this.userPhoto.next(photoLink)
+    }
 }
