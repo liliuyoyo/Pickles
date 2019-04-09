@@ -12,7 +12,8 @@ import { UploadImageComponent } from '../partials/upload-image/upload-image.comp
   styleUrls: ['./movie-add.component.css']
 })
 export class MovieAddComponent implements OnInit {
-  newMovie: Movie = new Movie("","","","../../../assets/images/placeholder.png","../../../assets/images/placeholder.png",0,[],[],[],"",0,0,0,0,[]);;
+  defaultImgPath = "https://imgplaceholder.com/300x450/cccccc/757575/fa-file-photo-o?font-size=130";
+  newMovie: Movie = new Movie("","","",this.defaultImgPath,this.defaultImgPath,0,[],[],[],"",0,0,0,0,[]);;
   actors = "";
   directors = "";
   modalRef: BsModalRef;
@@ -39,9 +40,9 @@ export class MovieAddComponent implements OnInit {
       label: "Crime"
     },
     { 
-      value: "comey",
+      value: "comedy",
       checked: false,
-      label: "Comey"
+      label: "Comedy"
     },
     { 
       value: "adventure",
@@ -92,10 +93,10 @@ export class MovieAddComponent implements OnInit {
           token : token,
           movie: this.newMovie
         }
+
         // update movie data by pass the new value to server
         this.moviesService.createMovie(addData)
         .subscribe((updatedRes)=>{
-          console.log(updatedRes);
           // check the server response
           if(updatedRes['status'] == "true"){
             //get updated movie value 
@@ -126,7 +127,7 @@ export class MovieAddComponent implements OnInit {
 
 
   public resetMovieData(){
-    this.newMovie = new Movie("","","","../../../assets/images/placeholder.png","../../../assets/images/placeholder.png",0,[],[],[],"",0,0,0,0,[]);;
+    this.newMovie = new Movie("","","",this.defaultImgPath,this.defaultImgPath,0,[],[],[],"",0,0,0,0,[]);;
     this.actors = "";
     this.directors = "";
     this.geners = [
@@ -151,9 +152,9 @@ export class MovieAddComponent implements OnInit {
       label: "Crime"
     },
     { 
-      value: "comey",
+      value: "comedy",
       checked: false,
-      label: "Comey"
+      label: "Comedy"
     },
     { 
       value: "adventure",

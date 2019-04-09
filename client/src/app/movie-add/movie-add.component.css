@@ -22,29 +22,30 @@ h3{
 }
 
 .info-item .row, 
-.form-control,
-.imgDiv{
+.form-control{
     margin-left:5%;
     width: 90%;
 }
 
 .imgDiv{
+    padding: 0 0;
     text-align: center;
     border-radius: 20px;
-    height:300px;
+    width: 300px;
+    height:400px;
+    margin-left: 5%;
     overflow: hidden;
 }
 
 .imgDiv img{
-    margin-left: -110px;
+    margin: 0 0;
+    padding: 0 0;
+    max-width: 100%;
+    
 }
 
 .imgDiv:hover{
     box-shadow: 0 0 15px #81dfc9cf;
-}
-
-.imgDiv img:hover{
-    transform: scale(1.2);
 }
 
 .info-item .row input{
