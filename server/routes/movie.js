@@ -353,7 +353,7 @@ router.get("/search", function(req, res) {
 router.get("/:id", (req, res, next) => {
     Movie.findById(req.params.id)
         .where({ $or: [{ deleted: false }, { deleted: { $exists: false } }] })
-        .populate("comments")
+        .populate({ path: "comments", options: { sort: { date: -1 } } })
         .exec(function(err, movie) {
             if (err) {
                 console.log(err);
@@ -365,7 +365,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 /*************************************************************************************************
- * test status: no
+ * test status: yes
  * description: delete a movie
  * note: soft delete
  * note: only admin could delete movie
@@ -411,6 +411,25 @@ router.post("/movie/delete", middleware.isLoggedIn, (req, res, next) => {
             };
             return res.status(200).json(output);
         });
+    });
+});
+/*************************************************************************************************
+ * test status: yes
+ * description: restore a movie
+ ***************************************************************************************************/
+router.get("/movie/restore/:id", (req, res, next) => {
+    Movie.findById(req.params.id, function(err, movie) {
+        if (err) {
+            return res.status(200).json(err);
+        } else {
+            movie.restore(function(err) {
+                if (err) {
+                    return res.status(200).json(err);
+                }
+                // movie.save();
+                return res.status(200).json(movie);
+            });
+        }
     });
 });
 

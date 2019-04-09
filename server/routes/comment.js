@@ -69,7 +69,9 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
             actors: req.body.value.actors,
             geners: req.body.value.geners,
             area: req.body.value.area,
-            length: req.body.value.length
+            length: req.body.value.length,
+            smallImagePath: req.body.value.smallImagePath,
+            imagePath: req.body.value.imagePath
         };
 
         Movie.findByIdAndUpdate({ _id: id }, { $set: query }, { multi: true, new: true }, function(err, movie) {
