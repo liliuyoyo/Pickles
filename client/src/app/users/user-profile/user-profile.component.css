@@ -14,9 +14,38 @@
 /*sider column elemnts*/
 .user-photo, h6{
     display:block;
-    width: 55%;
-    margin:0 auto 10% auto;
-    
+}
+.user-image{
+    position: relative;
+    border-radius: 50%;
+    width: 60%;
+    margin: 0 auto 10% auto;
+    overflow:hidden;
+}
+.user-image:hover .overlay {
+    height: 100%;
+}
+.overlay{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(219, 221, 221, 0.884);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+}
+.icon{
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 /*main column elemnts*/

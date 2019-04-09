@@ -10,7 +10,14 @@
     <!-- ** username and user photo ** -->
     <!-- ***************************** -->
     <div class="col-12 col-md-2 sider">
-      <img class="user-photo" src="{{curUser.image}}" alt="User Photo">
+      <div class="user-image">
+        <img class="user-photo" src="{{curUser.image}}" alt="User Photo">
+        <div class="overlay">
+          <div class="icon" (click)="popupPhototChange()">
+            <i class="fa fa-camera fa-lg" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
       <h6>{{curUser.username}}</h6>
     </div>
 
@@ -103,7 +110,6 @@
       <!-- *************************** -->
       <div class="col-12 col-md-1 sider-2">
       </div>
-
     </div>
 </div>
 

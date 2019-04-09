@@ -1,0 +1,14 @@
+<div id="popup">
+  <form class="photo-change" onsubmit="return false">
+    <h6>Photo Link</h6>
+    <div class="form-group" class = "txt">
+      <input type="text" 
+          class="form-control" [(ngModel)]="movieLink"
+          name="photo-link" id="photo-link" placeholder="Photo Link" required/>
+    </div>
+    <div>
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Cancle</button>
+      <button type="button" class="btn btn-outline-secondary submit" (click)="upLoadPhoto()">Upload</button>
+    </div> 
+  </form>
+</div>

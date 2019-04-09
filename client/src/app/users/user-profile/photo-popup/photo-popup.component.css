@@ -1,0 +1,33 @@
+h4{
+    float:left;
+    padding-bottom: 3%;
+}
+.photo-change{
+    padding: 5%;
+    padding-top:5%;
+}
+
+.txt{
+    padding-top: 1%;
+    padding-bottom: 3%;
+}
+#photo-link{
+	border-color:#ccc
+}
+
+.btn {
+    width: 25%;
+    margin: 0 auto;
+    margin-left:10%;
+}
+
+.submit{
+    margin-left:20%;
+}
+
+/*prompt msgs & validation msgs*/
+.error {
+    Font-size:75%;
+    float:left;
+    color:rgb(226, 52, 52);
+}
