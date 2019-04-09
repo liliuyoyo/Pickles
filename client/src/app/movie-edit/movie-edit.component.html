@@ -5,7 +5,9 @@
             <img src="{{ movieToEdit?.imagePath }}" class="card-img-top" alt="{{ movieToEdit?.title }}">
             <div class="overlay"></div>
             <div class="button">
-                <a class="overlay-item"><i class="far fa-image"></i></a>
+                <a class="overlay-item"
+                (click)="uploadImage()"
+                onclick="event.cancelBubble = true"><i class="far fa-image"></i></a>
             </div>
         </div>
       </div>

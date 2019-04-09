@@ -1,0 +1,23 @@
+.container{
+    padding: 20px 20px;
+    text-align: center;
+}
+
+.container img{
+    margin: 20px auto;
+}
+
+.upload{
+    text-align: left;
+}
+
+.upload p{
+    margin-top:20px;
+}
+.url{
+    margin-top:20px;
+    width: 100%;
+    border:none;
+    border-bottom: 2px solid gray;
+    display: block;
+}

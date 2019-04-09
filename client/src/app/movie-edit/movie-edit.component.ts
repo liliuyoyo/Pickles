@@ -8,6 +8,7 @@ import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
 import { UserService } from '../services/user.service';
 import { DeleteConfirmComponent } from '../partials/delete-confirm/delete-confirm.component';
+import { UploadImageComponent } from '../partials/upload-image/upload-image.component';
 
 
 @Component({
@@ -57,7 +58,7 @@ export class MovieEditComponent implements OnInit {
   
   /*******************************************************
    * UPDATE moive info by id
-   * Test: No
+   * Test: YES
    * Request: POST{
    *    id,
    *    token,
@@ -104,7 +105,7 @@ export class MovieEditComponent implements OnInit {
 
   /*******************************************************
    * DELETE moive by id
-   * Test: No
+   * Test: YES
    * Request: POST{
    *    id,
    *    token,
@@ -148,6 +149,26 @@ export class MovieEditComponent implements OnInit {
         });
       }
     });  
+  }
+
+  /*******************************************************
+   * UPDATE moive IMAGE by id
+   * Test: YES
+   * Request: POST{
+   *    id,
+   *    token,
+   *    updateMovieValue
+   * }
+   * Response: {
+   *    status,
+   *    message
+   * }
+   ********************************************************/
+  public uploadImage(){
+    const initialState={
+      movie: this.movieToEdit
+    }
+    this.modalRef = this.modalService.show(UploadImageComponent,{initialState});
   }
 
   public goBack(){

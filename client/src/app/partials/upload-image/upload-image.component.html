@@ -1,0 +1,16 @@
+<div class="container">
+  <h5>{{ movie.title }}</h5>
+  <img src="{{ movie.smallImagePath}}" alt="movie.title">
+  <div class="upload">
+      <label for="newImage">Choose small image file:</label>
+      <input class="chooseFile" type="file" accept="image/*" name="newImage" id="newImage">
+      <label for="newLargeImage">Choose large image file:</label>
+      <input class="chooseFile" type="file" accept="image/*" name="newLargeImage" id="newLargeImage">
+      <p>OR</p>
+      <input class="url" type="text" placeholder="New Small Image URL...">
+      <input class="url" type="text" placeholder="New Large Image URL...">
+  </div>
+  <hr>
+  <button>Cancle</button>
+  <button>Upload</button>
+</div>

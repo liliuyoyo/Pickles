@@ -34,6 +34,7 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
 import { MovieEditComponent } from './movie-edit/movie-edit.component';
 import { ContactComponent } from './contact/contact.component';
 import { DeleteConfirmComponent } from './partials/delete-confirm/delete-confirm.component';
+import { UploadImageComponent } from './partials/upload-image/upload-image.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { DeleteConfirmComponent } from './partials/delete-confirm/delete-confirm
     MovieEditComponent,
     ContactComponent,
     DeleteConfirmComponent,
+    UploadImageComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +74,7 @@ import { DeleteConfirmComponent } from './partials/delete-confirm/delete-confirm
   bootstrap: [AppComponent],
   entryComponents:[AddCommentComponent,
                    LoginPopupComponent,
-                   DeleteConfirmComponent ]
+                   DeleteConfirmComponent,
+                   UploadImageComponent ]
 })
 export class AppModule { }
