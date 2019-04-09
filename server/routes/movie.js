@@ -352,6 +352,7 @@ router.get("/search", function(req, res) {
  ***************************************************************************************************/
 router.get("/:id", (req, res, next) => {
     Movie.findById(req.params.id)
+        .where({ $or: [{ deleted: false }, { deleted: { $exists: false } }] })
         .populate("comments")
         .exec(function(err, movie) {
             if (err) {

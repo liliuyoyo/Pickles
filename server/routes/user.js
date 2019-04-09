@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const middleware = require("../middleware");
+const Movie = require("../models/movies");
 /*************************************************************************************************
  * test status: yes
  * description: generate saltpassword
@@ -108,6 +109,11 @@ router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
                 movieinfo.id = list._id;
                 movieinfo.image = list.smallImagePath;
                 movieinfo.name = list.title;
+                if (!list.deleted || list.deleted == null) {
+                    movieinfo.exist = true;
+                } else {
+                    movieinfo.exist = false;
+                }
                 userobject.list.push(movieinfo);
             });
             return res.status(200).json(userobject);
