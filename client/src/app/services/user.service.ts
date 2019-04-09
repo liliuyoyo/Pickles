@@ -71,7 +71,8 @@ export class UserService {
         this.username = '';
         window.sessionStorage.removeItem('mean-token');   
         window.sessionStorage.removeItem('mean-username');     
-        this.router.navigateByUrl('/movies');
+        window.open('/movies',"_self");
+        //this.router.navigate(['/movies']);
     }
 
     /***************************************

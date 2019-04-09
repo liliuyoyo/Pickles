@@ -6,3 +6,25 @@
     margin: 20px auto;
     margin-left: 30%;
 }
+
+.addMovieDiv{
+    background-color: rgba(182, 182, 182, 0.331);
+    height: 376px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: .25em;
+    text-align: center;
+    
+}
+.addMovieDiv i{
+    color: rgba(114, 114, 114, 0.817);
+    font-size: 5em;
+    margin-top: 50%;
+    
+}
+
+.addMovieDiv i:hover{
+    text-shadow: 0px 0px 15px #64ffea;
+    transform: scale(1.2);
+}

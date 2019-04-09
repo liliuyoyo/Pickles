@@ -23,6 +23,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   };
   token:string ="";
   isAdmin:boolean = false;
+  items = 8;
 
   constructor(private moviesService: MoviesService,
               private userService:UserService) {}
@@ -49,7 +50,11 @@ export class MoviesListComponent implements OnInit, OnDestroy {
       .subscribe((res)=>{
         if(res['status']=='true'){
           this.isAdmin = !res['isuser'];
+          if(this.isAdmin){
+            this.items = 7;
+          }
        }else{
+
            console.log("error");
        }
       });
