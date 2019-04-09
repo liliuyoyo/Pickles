@@ -489,7 +489,7 @@ router.post("/admin/movie/update", middleware.isLoggedIn, (req, res, next) => {
  * note: only admin could add movie
  * input: {
  *  token:
- *  movieinfo:
+ *  movie:
  * }
  * output: {
  *   status:
