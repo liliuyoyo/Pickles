@@ -70,8 +70,6 @@ export class MovieEditComponent implements OnInit {
    * }
    ********************************************************/
   public updateMovie(){
-    console.log(this.movieToEdit);    
-
     this.userService.isLoggedIn()
     .subscribe((res)=>{
       // if user is loggedin
@@ -169,6 +167,37 @@ export class MovieEditComponent implements OnInit {
       movie: this.movieToEdit
     }
     this.modalRef = this.modalService.show(UploadImageComponent,{initialState});
+    this.modalRef.content.imageUploadEvent
+    .subscribe((updated)=>{
+        this.userService.isLoggedIn()
+        .subscribe((res)=>{
+          // if user is loggedin
+          if(res=="true"){
+            this.token = this.userService.getToken();
+            const updateData = {
+              id : this.movieToEdit._id,
+              token : this.token,
+              type: "movie",
+              value: updated
+            }
+        
+            // update movie data by pass the new value to server
+            this.moviesService.updateMoiveById(updateData)
+            .subscribe((updatedRes)=>{
+              // check the server response
+              if(updatedRes['status'] == "true"){
+                //get updated movie value 
+                this.movieToEdit = updatedRes['message'];
+              }else{
+                console.log("Fail to update.");
+              }
+            });
+          }else{
+            // if user is not loggedin , show popup login page
+            console.log("loggin expired.")
+          }
+        });  
+    });
   }
 
   public goBack(){

@@ -1,16 +1,17 @@
 <div class="container">
   <h5>{{ movie.title }}</h5>
   <img src="{{ movie.smallImagePath}}" alt="movie.title">
+  <hr>
   <div class="upload">
-      <label for="newImage">Choose small image file:</label>
+      <!-- <label for="newImage">Choose small image file:</label>
       <input class="chooseFile" type="file" accept="image/*" name="newImage" id="newImage">
       <label for="newLargeImage">Choose large image file:</label>
       <input class="chooseFile" type="file" accept="image/*" name="newLargeImage" id="newLargeImage">
-      <p>OR</p>
-      <input class="url" type="text" placeholder="New Small Image URL...">
-      <input class="url" type="text" placeholder="New Large Image URL...">
+      <p>OR</p> -->
+      <input class="url" type="text" [(ngModel)]="movie.smallImagePath" placeholder="New Small Image URL...">
+      <input class="url" type="text" [(ngModel)]="imagePath" placeholder="New Large Image URL...">
   </div>
   <hr>
-  <button>Cancle</button>
-  <button>Upload</button>
+  <button class="cancle-btn"(click)="this.bsModalRef.hide();">Cancle</button>
+  <button class="upload-btn" (click)="uploadImage()">Upload</button>
 </div>

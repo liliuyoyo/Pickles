@@ -21,3 +21,23 @@
     border-bottom: 2px solid gray;
     display: block;
 }
+
+button{
+    margin: 30px auto;
+    font-size: 1.3em;
+    border: none;
+    background-color: rgb(255, 255, 255);
+}
+
+.cancle-btn {
+    color: rgb(249, 83, 83);
+}
+.upload-btn{
+    color: rgb(95, 95, 254);
+    margin-left: 25%;
+}
+
+.cancle-btn:hover, .upload-btn:hover{
+    border-bottom: 2px solid;
+    font-style: italic;
+}

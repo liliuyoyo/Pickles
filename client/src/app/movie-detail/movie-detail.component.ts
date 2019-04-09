@@ -24,7 +24,7 @@ export class MovieDetailComponent implements OnInit {
   movieToShow: Movie;
   token: string;
   isLoggedin: boolean = false;
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
   movieId: string;
   isClickLike: boolean = false;
   isClickWatched: boolean = false;
@@ -61,7 +61,6 @@ export class MovieDetailComponent implements OnInit {
            *  check whether the movie is in user's wishlist
            *******************************************************/
           this.token = this.userService.getToken();
-          console.log(this.token);
           if(this.token != null){
               this.userService.getLoginedUser(this.token)
               .subscribe((res)=>{
@@ -81,7 +80,9 @@ export class MovieDetailComponent implements OnInit {
 
         this.userService.getLoginedUser(this.userService.getToken())
         .subscribe((res)=>{
-          this.isAdmin = !res.isuser;
+          if(res.status == 'true'){
+            this.isAdmin = !res.isuser;
+          }
         });
       }
     );
