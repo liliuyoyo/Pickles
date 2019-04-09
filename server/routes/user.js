@@ -88,6 +88,7 @@ router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
     User.findById(legit._id)
         .populate("userList")
+        .populate("historyList")
         .exec(function(err, user) {
             if (err) {
                 const output = {
@@ -116,6 +117,20 @@ router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
                 }
                 userobject.list.push(movieinfo);
             });
+            userobject.history = [];
+            user.historyList.forEach(function(list) {
+                const moviehistory = new Object();
+                moviehistory.id = list._id;
+                moviehistory.image = list.smallImagePath;
+                moviehistory.name = list.title;
+                if (!list.deleted || list.deleted == null) {
+                    moviehistory.exist = true;
+                } else {
+                    moviehistory.exist = false;
+                }
+                userobject.history.push(moviehistory);
+            });
+            console.log(userobject);
             return res.status(200).json(userobject);
         });
 });
@@ -376,7 +391,8 @@ router.post("/user/register", (req, res, next) => {
         userPassword: newPassword,
         isUser: status,
         userImage: "https://image.flaticon.com/icons/svg/149/149071.svg",
-        userList: []
+        userList: [],
+        historyList: []
     });
 
     user.save()
