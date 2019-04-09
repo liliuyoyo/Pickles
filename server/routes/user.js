@@ -88,6 +88,7 @@ router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
     const legit = req.legit;
     User.findById(legit._id)
         .populate("userList")
+        .populate("historyList")
         .exec(function(err, user) {
             if (err) {
                 const output = {
@@ -116,6 +117,20 @@ router.post("/user/profile", middleware.isLoggedIn, (req, res, next) => {
                 }
                 userobject.list.push(movieinfo);
             });
+            userobject.history = [];
+            user.historyList.forEach(function(list) {
+                const moviehistory = new Object();
+                moviehistory.id = list._id;
+                moviehistory.image = list.smallImagePath;
+                moviehistory.name = list.title;
+                if (!list.deleted || list.deleted == null) {
+                    moviehistory.exist = true;
+                } else {
+                    moviehistory.exist = false;
+                }
+                userobject.history.push(moviehistory);
+            });
+            // console.log(userobject);
             return res.status(200).json(userobject);
         });
 });
@@ -177,67 +192,53 @@ router.post("/user/login", (req, res, next) => {
  * description: edit image
  * input: {
  *  token:
- *  image:
+ *  type:
+ *  value:
  * }
  * output: {
  *  status:
  *  message:
  * }
  ***************************************************************************************************/
-router.post("/user/profile/edit/image", middleware.isLoggedIn, (req, res, next) => {
-    // console.log(req.body);
-    const legit = req.legit;
-    // console.log(req.body);
-
-    User.findOneAndUpdate({ _id: legit._id }, { userImage: req.body.image }, function(err, user) {
-        if (err) {
-            const output = {
-                status: "false",
-                message: "failure to update"
-            };
-            return res.status(200).json(output);
-        }
-
-        const output = {
-            status: "true",
-            message: ""
-        };
-        return res.status(200).json(output);
-    });
-});
-
-/*************************************************************************************************
- * test status: no
- * description: edit name
- * input: {
- *  token:
- *  name:
- * }
- * output: {
- *  status:
- *  message:
- * }
- ***************************************************************************************************/
-router.post("/user/profile/edit/name", (req, res, next) => {
+router.post("/user/profile/edit", middleware.isLoggedIn, (req, res, next) => {
     console.log(req.body);
     const legit = req.legit;
-    console.log(req.body);
-
-    User.findOneAndUpdate({ _id: legit._id }, { userName: res.body.name }, function(err, user) {
-        if (err) {
-            const output = {
-                status: "false",
-                message: "failure to update"
+    if (!legit.isUser) {
+        return res.status(200).json("false");
+        // return res.status(200).json({
+        //     status: "false",
+        //     message: "no permit"
+        // });
+    }
+    if (legit.isUser) {
+        if (req.body.type == "image") {
+            query = {
+                userImage: req.body.value
             };
-            return res.status(200).json(output);
+        } else if (req.body.type == "name") {
+            query = {
+                userName: req.body.value
+            };
         }
 
-        const output = {
-            status: "true",
-            message: ""
-        };
-        return res.status(200).json(output);
-    });
+        User.findOneAndUpdate({ userName: legit.userName }, { $set: query }, { multi: true, new: true }, function(err, user) {
+            if (err) {
+                // const output = {
+                //     status: "false",
+                //     message: "failure to find user"
+                // };
+                // return res.status(200).json(output);
+                return res.status(200).json("false");
+            }
+            console.log(user);
+            return res.status(200).json("true");
+            // const output = {
+            //     status: "true",
+            //     message: user
+            // };
+            // return res.json(output);
+        });
+    }
 });
 
 /*************************************************************************************************
@@ -376,7 +377,8 @@ router.post("/user/register", (req, res, next) => {
         userPassword: newPassword,
         isUser: status,
         userImage: "https://image.flaticon.com/icons/svg/149/149071.svg",
-        userList: []
+        userList: [],
+        historyList: []
     });
 
     user.save()

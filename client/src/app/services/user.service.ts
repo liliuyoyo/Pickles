@@ -90,6 +90,7 @@ export class UserService {
             user,
             {});
     }
+
     public checkUsername(user: User): Observable<string>{
         return this.http.post<string>( this.serverUrl+"user/register/username",
             user,
@@ -100,4 +101,11 @@ export class UserService {
             user,
             {});
     }
+
+    public uploadPhoto(data: any): Observable<string>{
+        return this.http.post<string>( this.serverUrl+"user/profile/edit",
+            data,
+            {});
+    }
+
 }

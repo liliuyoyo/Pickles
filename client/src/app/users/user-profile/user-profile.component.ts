@@ -4,6 +4,8 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { MoviesService } from 'src/app/services/movies.service';
 import { Router } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { PhotoPopupComponent } from 'src/app/users/user-profile/photo-popup/photo-popup.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,10 +18,12 @@ export class UserProfileComponent implements OnInit {
   token: string;
   havePaginate: boolean = true;
   haveWishList: boolean = true;
+  modalRef: BsModalRef;
 
   constructor(private userService : UserService,
     private moviesService : MoviesService,
     private router: Router,
+    private modalService: BsModalService,
     ) { }
 
   ngOnInit() {
@@ -90,5 +94,9 @@ export class UserProfileComponent implements OnInit {
     this.router.navigateByUrl('/movies/'+ id);
   }
   
+  //
+  popupPhototChange(){
+    this.modalRef = this.modalService.show(PhotoPopupComponent);
+  }
   //add new function here
 }

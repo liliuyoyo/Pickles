@@ -527,10 +527,16 @@ router.post("/movie/add", middleware.isLoggedIn, (req, res, next) => {
         .save()
         .then(result => {
             //console.log(result);
-            return result.status(200).json("true");
+            return result.status(200).json({
+                status: "true",
+                message: ""
+            });
         })
         .catch(err => {
-            return result.status(200).json("false");
+            return result.status(200).json({
+                status: "false",
+                message: "failure to save"
+            });
         });
 });
 

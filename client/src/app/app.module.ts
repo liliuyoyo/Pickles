@@ -35,7 +35,12 @@ import { MovieEditComponent } from './movie-edit/movie-edit.component';
 import { ContactComponent } from './contact/contact.component';
 import { DeleteConfirmComponent } from './partials/delete-confirm/delete-confirm.component';
 import { UploadImageComponent } from './partials/upload-image/upload-image.component';
+<<<<<<< HEAD
 import { MovieAddComponent } from './movie-add/movie-add.component';
+||||||| merged common ancestors
+=======
+import { PhotoPopupComponent } from './users/user-profile/photo-popup/photo-popup.component';
+>>>>>>> 5a6d90ea3a0d32839867e99792a96b1b3159731a
 
 
 @NgModule({
@@ -58,7 +63,12 @@ import { MovieAddComponent } from './movie-add/movie-add.component';
     ContactComponent,
     DeleteConfirmComponent,
     UploadImageComponent,
+<<<<<<< HEAD
     MovieAddComponent,
+||||||| merged common ancestors
+=======
+    PhotoPopupComponent,
+>>>>>>> 5a6d90ea3a0d32839867e99792a96b1b3159731a
   ],
   imports: [
     BrowserModule,
@@ -77,6 +87,7 @@ import { MovieAddComponent } from './movie-add/movie-add.component';
   entryComponents:[AddCommentComponent,
                    LoginPopupComponent,
                    DeleteConfirmComponent,
-                   UploadImageComponent ]
+                   UploadImageComponent,
+                   PhotoPopupComponent, ]
 })
 export class AppModule { }
