@@ -72,7 +72,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
           this.router.navigateByUrl("welcome");
         }
         else{
-          //--->popup something wrong page
+          console.log("Database Error in signup.component.ts function signup().");
         }
       }); 
       this.username_valid=false;
@@ -110,7 +110,8 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
       signup.focusEvents("confirmPassword");
     });
     $("#confirmPassword").blur(function(){
-      signup.blurEvents("confirmPassword");
+      // signup.blurEvents("confirmPassword");
+      signup.blurEvents("password");
     });
     //Agree box Events
     $("#agree").click(function(){
@@ -194,7 +195,6 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
         this.userService.checkUsername(this.userToCheckUsername)
         .subscribe(data =>
         {
-          console.log(data);
           //username exists
           if(data=='false'){
             $("#username-info").text("Username already exists.");
@@ -212,6 +212,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
         this.username_id=2;
       }
     }
+
     else if(obj == "email"){
       this.email_valid=false;
       $("#email-info").text("");
@@ -246,48 +247,61 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
         this.email_id=2;
       }
     }
+    
     else if(obj == "password"){
       this.password_valid=false;
+      this.confirmPassword_valid=false;
       $("#password-info").text("");
+      $("#confirmPassword-info").text("");
+      
       this.password_id=0;
+      this.confirmPassword_id=0;
+
       var isMoreThanSixChars=/^.{6,}$/;
       var password=$("#password").val();
-      this.blurEvents("confirmPassword");
+      var confirmPassword=$("#confirmPassword").val();
+
       if(password==""){
         this.password_valid=false;
         $("#password-info").hide();
+        if(confirmPassword == ""){
+          this.confirmPassword_valid=false;
+          $("#confirmPassword-info").hide();
+        }
+        else{
+          this.confirmPassword_valid=false;
+          $("#confirmPassword-info").text("Must match with password");
+          this.confirmPassword_id=1;
+          $("#confirmPassword-info").show();
+        }
       }
       else if(isMoreThanSixChars.test(String(password).toLowerCase())){
         this.password_valid=true;
         $("#password-info").hide();
+        if(confirmPassword == ""){
+          this.confirmPassword_valid=false;
+          $("#confirmPassword-info").hide();
+        }
+        else if(confirmPassword === $("#password").val()){
+          this.confirmPassword_valid=true;
+          $("#confirmPassword-info").hide();
+        }
+        else{
+          this.confirmPassword_valid=false;
+          $("#confirmPassword-info").text("Must match with password");
+          this.confirmPassword_id=1;
+          $("#confirmPassword-info").show();
+         }
       }
       else{
         this.password_valid=false;
         $("#password-info").text("Please enter a valid password");
         this.password_id=2;
-       }
-    }
-    else if(obj == "confirmPassword"){
-      this.confirmPassword_valid=false;
-      $("#confirmPassword-info").text("");
-      this.confirmPassword_id=0;
-      var confirmPassword=$("#confirmPassword").val();
-      console.log(confirmPassword);
-      if(confirmPassword==""){
         this.confirmPassword_valid=false;
         $("#confirmPassword-info").hide();
-      }
-      else if(confirmPassword === $("#password").val()){
-        this.confirmPassword_valid=true;
-        $("#confirmPassword-info").hide();
-      }
-      else{
-        this.confirmPassword_valid=false;
-        $("#confirmPassword-info").text("Must match with password");
-        this.confirmPassword_id=1;
-        $("#confirmPassword-info").show();
        }
     }
+
     else if(obj == "agree"){
       if(!$('#agree').is(':checked')){
         $("#agree-info").text("Please agree to the privacy policy.");

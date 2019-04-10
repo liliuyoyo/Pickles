@@ -97,26 +97,36 @@ export class UserService {
             user,
             {});
     }
-
+    //check if userename exist, using in signup page
     public checkUsername(user: User): Observable<string>{
         return this.http.post<string>( this.serverUrl+"user/register/username",
             user,
             {});
     }
+    //check if email exist, using in signup page
     public checkEmail(user: User): Observable<string>{
         return this.http.post<string>( this.serverUrl+"user/register/email",
             user,
             {});
     }
-
+    //upload new photo link to back end and get new link from back end
+    //(for showing new photo on profile page), using in photo-popup window
     public uploadPhoto(data: any): Observable<any>{
         return this.http.post<any>( this.serverUrl+"user/profile/edit",
             data,
             {});
     }
-    
-    //change user photo in srevice
+
+    //change user photo in srevice, using in communacation between
+    //photo-popup window and user-profile page
     public changeUserPhoto(photoLink: string) {
         this.userPhoto.next(photoLink)
+    }
+
+    //get user photo when uername is input , using in login page
+    public getUserPhoto(username: any): Observable<any>{
+        return this.http.post<any>( this.serverUrl+"user/login/userimage",
+            username,
+            {});
     }
 }

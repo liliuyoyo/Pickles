@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   username_valid: boolean=false;
   password_valid: boolean=false;
 
+  //cur user photo and photo initial: default link
+  defaultPhoto: string = "https://image.flaticon.com/icons/svg/149/149071.svg";
+  curUserPhoto: string = this.defaultPhoto;
+
   constructor(private userService: UserService,
               private router: Router,
               private modalService: NgbModal){}
@@ -114,17 +118,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }
       else{
         this.username_valid=true;
+        // Show user photo after input correct username
+        const curUserData = {
+          username : this.user.username,
+        }
+        this.userService.getUserPhoto(curUserData)
+          .subscribe((data)=>{
+            if(data["status"]=="true"){
+              this.curUserPhoto=data['image'];
+            }
+            else{
+              this.curUserPhoto=this.defaultPhoto;
+            }
+          });
       }
-
-      // Show user photo after input correct username
-      // else{
-      //   login.userService.userLogin(login.user)
-      //     .subscribe((data)=>{
-      //       if(data !== 'false'){
-      //         login.tokenResponse = data.token;
-      //       }
-      //     });
-      // }
+      
+     
     }
     else if(obj == "password"){
       $("#password-info").text("");
