@@ -189,6 +189,48 @@ router.post("/user/login", (req, res, next) => {
 
 /*************************************************************************************************
  * test status: no
+ * description: login return userimage
+ * note:
+ * input: {
+ *  username:
+ * }
+ * output: {
+ *  status:
+ *  image:
+ * }
+ ***************************************************************************************************/
+router.post("/user/login/userimage", (req, res, next) => {
+    const username = req.body.username;
+
+    //User.find({ userName: username }, { deleted: true })
+    User.find({ userName: username })
+        .exec()
+        .then(docs => {
+            if (Object.keys(docs).length === 0) {
+                console.log("empty");
+                return res.status(200).json({
+                    status: "false",
+                    image: ""
+                });
+            }
+
+            Object.entries(docs).forEach(doc => {
+                return res.status(200).json({
+                    status: "true",
+                    image: doc[1].userImage
+                });
+            });
+        })
+        .catch(err => {
+            return res.status(200).json({
+                status: "false",
+                image: ""
+            });
+        });
+});
+
+/*************************************************************************************************
+ * test status: no
  * description: edit image
  * input: {
  *  token:

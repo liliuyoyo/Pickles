@@ -362,6 +362,8 @@ router.get("/:id", (req, res, next) => {
             if (err) {
                 console.log(err);
             } else {
+                console.log(movie.comments[0].author);
+                console.log(movie.comments[0]._id);
                 res.status(200).json(movie);
             }
         });
