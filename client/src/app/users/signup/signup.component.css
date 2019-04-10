@@ -21,10 +21,13 @@
 .txt{
     padding-bottom: 7%;
 }
+.txt-confpaswrd{
+	padding-top: 7%;
+}
 
 /**/
-#username #email #password{
-	border-color:#ccc
+#username, #email, #password, #confirmPassword{
+	border-color:#ccc;
 }
 
 /**/
@@ -38,11 +41,6 @@
     color:slategray;
     text-align: left;
     clear: left;
-}
-
-.ok {
-	background: #cfc;
-	border: 2px solid #9c9;
 }
 
 /*prompt msgs & validation msgs*/

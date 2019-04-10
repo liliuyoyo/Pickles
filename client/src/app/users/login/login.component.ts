@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   username_id:number=1;
   password_id:number=1;
 
+  //for check valiation
+  username_valid: boolean=false;
+  password_valid: boolean=false;
+
   constructor(private userService: UserService,
               private router: Router,
               private modalService: NgbModal){}
@@ -37,65 +41,129 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('content') private content:TemplateRef <any>;
 
   public onSubmit(){
-    // get logined user
-    this.userService.userLogin(this.user)
-    .subscribe((data)=>{
-      if(data !== 'false'){
-        this.tokenResponse = data.token;
-        this.userService.saveToken(this.tokenResponse);
-        this.userService.saveUsername(this.user.username);
-        this.isAdmin = data.isuser;
-        this.router.navigateByUrl('/movies');  
-      }else{
-        // wrong user;
-        this.modalService.open(this.content, { size: 'sm' });
-      }
-      
-    });
+    this.checkEmpty();
+    if(this.username_valid == true&&
+      this.password_valid == true){
+      // get logined user
+      this.userService.userLogin(this.user)
+        .subscribe((data)=>{
+          if(data !== 'false'){
+            this.tokenResponse = data.token;
+            this.userService.saveToken(this.tokenResponse);
+            this.userService.saveUsername(this.user.username);
+            this.isAdmin = data.isuser;
+            this.router.navigateByUrl('/movies');  
+          }else{
+            // wrong user;
+            this.modalService.open(this.content, { size: 'sm' });
+          }
+        });
+    }
   }
 
   listeners(login:any){
     //hide the prompt spans firstly
     $("span").hide();
-
-    //********Username Events********
-
+    //Username Events
     //focus
     $("#username").focus(function(){
-      $("#username-info").hide();
+      login.focusEvents("username");
     });
-
     //blur
     $("#username").blur(function(){
-      $("#username-info").text("");
-      login.username_id=0;
-      var username=$("#username").val();
-      if(username==""){
-        login.username_id=1;
-        $("#username-info").text("Username can't be empty.");
-        $("#username-info").show();
-      }
+      login.blurEvents("username");
     }); 
-    
-    //********Password Events********
-    
+    //Password Events
     //focus
     $("#password").focus(function(){
-      $("#password-info").hide();
+      login.focusEvents("password");
     });
-    
     //blur
     $("#password").blur(function(){
-      $("#password-info").text("");
-      login.password_id=0;
-      var password=$("#password").val();
-      if(password==""){
-        login.password_id=1;
-        $("#password-info").text("Password can't be empty.");
-        $("#password-info").show();
-      }
+      login.blurEvents("password");
     });
   }
 
+  //********Show prompt msg when blur input element********
+  private focusEvents(obj: string){
+    if(obj == "username"){
+      $("#username").css({"border-color":"#ccc",});
+      $("#username-info").hide();
+    }
+    else if(obj == "password"){
+      $("#password").css({"border-color":"#ccc",});
+      $("#password-info").hide();
+    }
+    else{
+      console.log("Wrong input param in login.component function focusEvents(obj: string).");
+    }
+  }
+
+  //********Show prompt msg when blur input element********
+  private blurEvents(obj: string){
+    if(obj == "username"){
+      $("#username-info").text("");
+      this.username_id=0;
+      this.username_valid=false;
+      var username=$("#username").val();
+      if(username==""){
+        this.username_id=1;
+        this.username_valid=false;
+        $("#username-info").text("Username can't be empty.");
+        $("#username-info").show();
+      }
+      else{
+        this.username_valid=true;
+      }
+
+      // Show user photo after input correct username
+      // else{
+      //   login.userService.userLogin(login.user)
+      //     .subscribe((data)=>{
+      //       if(data !== 'false'){
+      //         login.tokenResponse = data.token;
+      //       }
+      //     });
+      // }
+    }
+    else if(obj == "password"){
+      $("#password-info").text("");
+      this.password_id=0;
+      this.password_valid=false;
+      var password=$("#password").val();
+      if(password==""){
+        this.password_id=1;
+        this.password_valid=false;
+        $("#password-info").text("Password can't be empty.");
+        $("#password-info").show();
+      }
+      else{
+        this.password_valid=true;
+      }
+    }
+    else{
+      console.log("Wrong input param in login.component function blurEvents(obj: string).");
+    }
+  }
+
+  //check if all input element are empty 
+  //in case of no blur function are called
+  private checkEmpty(){
+    var username = $("#username").val();
+    var password = $("#password").val();
+
+    if(username==""){
+      $("#username").css({
+        "border-style":"solid",
+        "border-color":"rgb(255, 102, 102)",});
+    }
+    if(password==""){
+      $("#password").css({
+        "border-style":"solid",
+        "border-color":"rgb(255, 102, 102)",});
+    }
+  }
+
+  //--->if continue, add code here
 }
 

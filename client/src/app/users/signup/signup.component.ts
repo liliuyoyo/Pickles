@@ -1,6 +1,3 @@
-//need to install these below:
-//  npm install --save jquery @types/jquery --save ng2-password-strength-bar --save
-
 import { Component, OnInit, OnDestroy, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -19,15 +16,17 @@ import * as $ from 'jquery';
 export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   usertoSend: User=new User("","","","","",true,[]);
   //for switch the class of prompt spans
-  username_id:number=1;
-  email_id:number=1;
-  password_id:number=1;
-  agree_id:number=1;
+  username_id: number=1;
+  email_id: number=1;
+  password_id: number=1;
+  confirmPassword_id: number=1;
+  agree_id: number=1;
 
   //for check valiation
-  username_valid:boolean=false;
-  email_valid:boolean=false;
-  password_valid:boolean=false;
+  username_valid: boolean=false;
+  email_valid: boolean=false;
+  password_valid: boolean=false;
+  confirmPassword_valid: boolean=false;
 
   //for check exist
   userToCheckUsername: User=new User("","","","","",true,[]);
@@ -57,18 +56,12 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   signup() {
-    if(!$('#agree').is(':checked')){
-      $("#agree-info").text("Please agree to the privacy policy.");
-      this.agree_id=1;
-      $("#agree-info").css({
-        "left":$("#agree").offset().left - 1.7*$("#agree").width(),
-        "top":$("#agree").offset().top - 2.5*$("#agree").width(),
-        "display":"inline","text-align":"center",});
-      $("#agree-info").show();
-    }
+    this.blurEvents("agree");
+    this.checkEmpty();
     if(this.username_valid==true&&
       this.email_valid==true&&
       this.password_valid==true&&
+      this.confirmPassword_valid==true&&
       $('#agree').is(':checked')
       ){
       this.userService.signup(this.usertoSend)
@@ -91,153 +84,43 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   listeners(signup:any){
     //hide the prompt spans firstly
     $("span").hide();
-
-    //********Username Events********
-
-    //focus
+    //Username Events
     $("#username").focus(function(){
-      $("#username-info").text("The username field must contain only alphabetical or numeric characters.");
-      $("#username-info").css({
-        "left":$("#username").offset().left + 1.12*$("#username").width(),
-        "top":$("#username").offset().top ,
-        "display":"inline"});
-      signup.username_id=1;
-      $("#username-info").show();
+      signup.focusEvents("username");
     });
-
-    //blur
     $("#username").blur(function(){
-      signup.username_valid=false;
-      $("#username-info").text("");
-      signup.username_id=0;
-      let isAlphanumeric=/^[A-Za-z0-9]+$/; 
-      var username=$("#username").val();
-      if(username==""){
-        signup.username_valid=false;
-        $("#username-info").hide();
-      }
-      else if(isAlphanumeric.test(String(username).toLowerCase())){
-        //send user{username:"username.value",email:"?",password:"?",_id:"",...}
-        //  to back end, check if username exists.
-        signup.userToCheckUsername.username=signup.usertoSend.username;
-        signup.userService.checkUsername(signup.userToCheckUsername)
-        .subscribe(data =>
-        {
-          //username exists
-          if(data=='false'){
-            $("#username-info").text("Username already exists.");
-            signup.username_id=2;
-          }
-          else{
-            $("#username-info").hide();
-            signup.username_valid=true;
-          }
-        }); 
-      }
-      else{
-        signup.username_valid=false;
-        $("#username-info").text("Please enter a valid username");
-        signup.username_id=2;
-      }
+      signup.blurEvents("username");
     });
-
-    //********Eamil Events********
-    
-    //focus
+    //Eamil Events
     $("#email").focus(function(){
-      $("#email-info").text("The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.");
-      signup.email_id=1;
-      $("#email-info").css({
-        "left":$("#email").offset().left + 1.12*$("#email").width(),
-        "top":$("#email").offset().top,
-        "display":"inline"});
-      $("#email-info").show();
+      signup.focusEvents("email");
     });
-
-    //blur
     $("#email").blur(function(){
-      signup.email_valid=false;
-      $("#email-info").text("");
-      signup.email_id=0;
-      var isEmail=/^[A-Za-z\d]+([A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{3}$/;
-      var email=$("#email").val();
-      if(email==""){
-        signup.email_valid=false;
-        $("#email-info").hide();
-      }
-      else if(isEmail.test(String(email).toLowerCase())){
-        //send user{username:"?",email:"email.value",password:"?",_id:"",...}
-        //  to back end, check if email exists.
-        signup.userToCheckEmail.email=signup.usertoSend.email;
-        signup.userService.checkEmail(signup.userToCheckEmail)
-        .subscribe(data =>
-        {
-          //email exists
-          if(data=='false'){
-            $("#email-info").text("Email already exists.");
-            signup.email_id=2;
-          }
-          else{
-            $("#email-info").hide();
-            signup.email_valid=true;
-          }
-        }); 
-      }
-      else{
-        signup.email_valid=false;
-        $("#email-info").text("Please enter a valid email");
-        signup.email_id=2;
-      }
+      signup.blurEvents("email");
     });
-
-    //********Password Events********
-    
-    //focus
+    //Password Events
     $("#password").focus(function(){
-      $("#password-info").text("The password field should be at least 6 characters long.");
-      $("#password-info").css({
-        "left":$("#password").offset().left + 0.94*$("#password").width(),
-        "top":$("#password").offset().top ,
-        "display":"inline"});
-      signup.password_id=1;
-      $("#password-info").show();
+      signup.focusEvents("password");
     });
-    
-    //blur
     $("#password").blur(function(){
-      signup.password_valid=false;
-      $("#password-info").text("");
-      signup.password_id=0;
-      var isMoreThanSixChars=/^.{6,}$/;
-      var password=$("#password").val();
-      if(password==""){
-        signup.password_valid=false;
-        $("#password-info").hide();
-      }
-      else if(isMoreThanSixChars.test(String(password).toLowerCase())){
-        signup.password_valid=true;
-        $("#password-info").hide();
-      }
-      else{
-        signup.password_valid=false;
-        $("#password-info").text("Please enter a valid password");
-        signup.password_id=2;
-       }
+      signup.blurEvents("password");
     });
-
-    //********Agree box Events********
-    
-    //click
+    //Confirm Password Events
+    $("#confirmPassword").focus(function(){
+      signup.focusEvents("confirmPassword");
+    });
+    $("#confirmPassword").blur(function(){
+      signup.blurEvents("confirmPassword");
+    });
+    //Agree box Events
     $("#agree").click(function(){
-      $("#agree-info").text("");
-      signup.agree_id=0;
-      $("#agree-info").hide();
+      signup.focusEvents("agree");
     });
   }
 
  
   //policy popup window
-  openLg(content:any) {
+  public openLg(content:any) {
     this.modalService.open(content, { size: 'lg' });
   }
 
@@ -245,6 +128,210 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.data.welcomeUserName = this.usertoSend.username;
     this.dataService.dataToSend = this.data; 
+  }
+
+  //********Show prompt msg when focus on input element********
+  private focusEvents(obj: string){
+    if(obj == "username"){
+      $("#username").css({"border-color":"#ccc",});
+      $("#username-info").text("The username field must contain only alphabetical or numeric characters.");
+      $("#username-info").css({
+        "left":$("#username").offset().left + 1.12*$("#username").width(),
+        "top":$("#username").offset().top+ 0.8*$("#username").height() ,
+        "display":"inline"});
+      this.username_id=1;
+      $("#username-info").show();
+    }
+    else if(obj == "email"){
+      $("#email").css({"border-color":"#ccc",});
+      $("#email-info").text("The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.");
+      this.email_id=1;
+      $("#email-info").css({
+        "left":$("#email").offset().left + 1.12*$("#email").width(),
+        "top":$("#email").offset().top,
+        "display":"inline"});
+      $("#email-info").show();
+    }
+    else if(obj == "password"){
+      $("#password").css({"border-color":"#ccc",});
+      $("#password-info").text("The password field should be at least 6 characters long.");
+      $("#password-info").css({
+        "left":$("#password").offset().left + 0.94*$("#password").width(),
+        "top":$("#password").offset().top ,
+        "display":"inline"});
+      this.password_id=1;
+      $("#password-info").show();
+    }
+    else if(obj == "confirmPassword"){
+      $("#confirmPassword").css({"border-color":"#ccc",});
+    }
+    else if(obj == "agree"){
+      $("#agree-info").text("");
+      this.agree_id=0;
+      $("#agree-info").hide();
+    }
+    else{
+      console.log("Wrong input param in signup.component function focusEvents(obj: string).");
+    }
+  }
+
+  //********Show prompt msg when blur input element********
+  private blurEvents(obj: string){
+    if(obj == "username"){
+      this.username_valid=false;
+      $("#username-info").text("");
+      this.username_id=0;
+      let isAlphanumeric=/^[A-Za-z0-9]+$/; 
+      var username=$("#username").val();
+      if(username==""){
+        this.username_valid=false;
+        $("#username-info").hide();
+      }
+      else if(isAlphanumeric.test(String(username).toLowerCase())){
+        //send user{username:"username.value",email:"?",password:"?",_id:"",...}
+        //  to back end, check if username exists.
+        this.userToCheckUsername.username=this.usertoSend.username;
+        this.userService.checkUsername(this.userToCheckUsername)
+        .subscribe(data =>
+        {
+          console.log(data);
+          //username exists
+          if(data=='false'){
+            $("#username-info").text("Username already exists.");
+            this.username_id=2;
+          }
+          else{
+            $("#username-info").hide();
+            this.username_valid=true;
+          }
+        }); 
+      }
+      else{
+        this.username_valid=false;
+        $("#username-info").text("Please enter a valid username");
+        this.username_id=2;
+      }
+    }
+    else if(obj == "email"){
+      this.email_valid=false;
+      $("#email-info").text("");
+      this.email_id=0;
+      var isEmail=/^[A-Za-z\d]+([A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{3}$/;
+      var email=$("#email").val();
+      if(email==""){
+        this.email_valid=false;
+        $("#email-info").hide();
+      }
+      else if(isEmail.test(String(email).toLowerCase())){
+        //send user{username:"?",email:"email.value",password:"?",_id:"",...}
+        //  to back end, check if email exists.
+        this.userToCheckEmail.email=this.usertoSend.email;
+        this.userService.checkEmail(this.userToCheckEmail)
+        .subscribe(data =>
+        {
+          //email exists
+          if(data=='false'){
+            $("#email-info").text("Email already exists.");
+            this.email_id=2;
+          }
+          else{
+            $("#email-info").hide();
+            this.email_valid=true;
+          }
+        }); 
+      }
+      else{
+        this.email_valid=false;
+        $("#email-info").text("Please enter a valid email");
+        this.email_id=2;
+      }
+    }
+    else if(obj == "password"){
+      this.password_valid=false;
+      $("#password-info").text("");
+      this.password_id=0;
+      var isMoreThanSixChars=/^.{6,}$/;
+      var password=$("#password").val();
+      this.blurEvents("confirmPassword");
+      if(password==""){
+        this.password_valid=false;
+        $("#password-info").hide();
+      }
+      else if(isMoreThanSixChars.test(String(password).toLowerCase())){
+        this.password_valid=true;
+        $("#password-info").hide();
+      }
+      else{
+        this.password_valid=false;
+        $("#password-info").text("Please enter a valid password");
+        this.password_id=2;
+       }
+    }
+    else if(obj == "confirmPassword"){
+      this.confirmPassword_valid=false;
+      $("#confirmPassword-info").text("");
+      this.confirmPassword_id=0;
+      var confirmPassword=$("#confirmPassword").val();
+      console.log(confirmPassword);
+      if(confirmPassword==""){
+        this.confirmPassword_valid=false;
+        $("#confirmPassword-info").hide();
+      }
+      else if(confirmPassword === $("#password").val()){
+        this.confirmPassword_valid=true;
+        $("#confirmPassword-info").hide();
+      }
+      else{
+        this.confirmPassword_valid=false;
+        $("#confirmPassword-info").text("Must match with password");
+        this.confirmPassword_id=1;
+        $("#confirmPassword-info").show();
+       }
+    }
+    else if(obj == "agree"){
+      if(!$('#agree').is(':checked')){
+        $("#agree-info").text("Please agree to the privacy policy.");
+        this.agree_id=1;
+        $("#agree-info").css({
+          "left":$("#agree").offset().left - 1.5*$("#agree").width(),
+          "top":$("#agree").offset().top - 4.5*$("#agree").height(),
+          "display":"inline","text-align":"center",});
+        $("#agree-info").show();
+      }
+    }
+    else{
+      console.log("Wrong input param in signup.component function blurEvents(obj: string).");
+    }
+  }
+
+  //check if all input element are empty 
+  //in case of no blur function are called
+  private checkEmpty(){
+    var username = $("#username").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    var confirmPassword = $("#confirmPassword").val();
+
+    if(username==""){
+      $("#username").css({
+        "border-style":"solid",
+        "border-color":"rgb(255, 102, 102)",});
+    }
+    if(email==""){
+      $("#email").css({
+        "border-style":"solid",
+        "border-color":"rgb(255, 102, 102)",});
+    }
+    if(password==""){
+      $("#password").css({
+        "border-style":"solid",
+        "border-color":"rgb(255, 102, 102)",});
+    }
+    if(confirmPassword==""){
+      $("#confirmPassword").css({
+        "border-style":"solid",
+        "border-color":"rgb(255, 102, 102)",});
+    }
   }
 
   //--->if continue, add code here

@@ -4,16 +4,17 @@
 }
 .user-prev-image{
     position: relative;
-    width: 30vw;
-    height: 30vw;
+    width: 26vw;
+    height: 26vw;
     border-radius: 50%;
     margin: 0 auto 0 auto;
     overflow:hidden;
 }
 
-h4{
+h6{
     float:left;
-    padding-bottom: 3%;
+    padding-top: 4%;
+    padding-bottom: 1%;
 }
 
 .photo-change{
