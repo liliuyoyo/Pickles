@@ -355,15 +355,13 @@ router.get("/:id", (req, res, next) => {
         .where({ $or: [{ deleted: false }, { deleted: { $exists: false } }] })
         .populate({
             path: "comments",
-            options: { sort: { date: -1 } }
+            options: { sort: { _id: -1 } }
         })
         .deepPopulate("comments.author.id")
         .exec(function(err, movie) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(movie.comments[0].author);
-                console.log(movie.comments[0]._id);
                 res.status(200).json(movie);
             }
         });
