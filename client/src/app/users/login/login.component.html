@@ -4,21 +4,22 @@
     </div>
     <form class="login" (ngSubmit)="onSubmit()">
         <h4>Login</h4>
-        <div class="form-group" class = "txt">
+        <div class="form-group txt">
             <input type="text" [(ngModel)]="user.username"
-                class="form-control"
+                class="form-control" 
                 name="username" id="username" placeholder="Username"/>
             <span id="username-info" [ngClass]="{'error': username_id === 1}">1</span>
         </div>
         <div class="form-group" class = "txt">
             <input type="password" [(ngModel)]="user.password"
-                class="form-control"
+                class="form-control" 
                 name="password" id="password" placeholder="Password"/>
             <span id="password-info" [ngClass]="{'error': password_id === 1}"></span>
         </div>
-        <div id="login-btn">
+        <div class="form-group" id="login-btn">
             <button type="submit" class="btn btn-outline-secondary btn-block">Login</button>
         </div> 
+        <!-- <button class="btn btn-default" type="submit">Submit</button> -->
         <div>
             <a [routerLink]="['/movies']" class="btn btn-link">Cancel</a>
             <a [routerLink]="['/signup']" class="btn btn-link">Create Account</a>

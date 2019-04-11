@@ -1,18 +1,18 @@
 <div id="popup">
-  <form class="photo-change" onsubmit="return false">
-    <div class="user-prev-image">
+  <form class="photo-change" (ngSubmit)="upLoadPhoto()">
+    <div class="form-group user-prev-image">
       <img src="{{prevUserPhoto}}" class="user-prev-photo" alt="Current User Photo" (error)="updateUrl()">
     </div>
     <h6>Upload Photo</h6>
-    <div class="form-group" class = "txt">
+    <div class="form-group txt">
       <input type="text" 
         class="form-control" [(ngModel)]="movieLink"
         name="photo-link" id="photo-link" placeholder="Photo Link" required/>
       <span id="photo-link-info" [ngClass]="{'error': photoLink_id === 1}"></span>
     </div>
-    <div>
+    <div class="form-group">
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Cancle</button>
-      <button type="button" class="btn btn-outline-secondary submit" (click)="upLoadPhoto()">Upload</button>
+      <button type="submit" class="btn btn-outline-secondary submit-btn">Upload</button>
     </div> 
   </form>
 </div>
