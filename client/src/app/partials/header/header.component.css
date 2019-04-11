@@ -16,34 +16,26 @@
     width:20%;
     margin: 0;
     padding: 0;
-    margin-left: 1%;
+   
 }
 .brand img{
     margin: 0;
     padding: 0;
-}
-
-.brandImg{
-    width: 20%;
-}
-
-.brandTextImg {
-    width: 70%;
-    opacity: 0.7;
+    width: 60%;
+    opacity: 1;
 }
 
 .top-link{
     margin: 0;
     cursor: pointer;
     padding-bottom: 5px;
-    border-bottom: 7px solid gray;
 }
 
 .top-link a {
     min-width: 95px;
     font-size: 1.1em;
     color:black;
-    border-radius: 10px;
+    border-radius: 0px;
     margin:0 auto;
     margin-right: 20px;
     padding: 20px auto;
@@ -52,5 +44,21 @@
 
 .top-link a:hover{
     font-style: italic;
-    background-color: #8ee6d1a9;
+    background-color: rgba(102, 198, 182, 0.468);
+}
+
+#search-area {
+    border: none;
+    border-radius: 0%;
+    border-bottom: 1px solid gray;
+}
+
+#search-area:focus{
+    box-shadow: none;
+    border-color: rgb(102, 198, 182);
+}
+
+.serach-btn:focus{
+    box-shadow: none;
+    background-color: rgba(102, 198, 182, 0.468);
 }
