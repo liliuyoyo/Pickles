@@ -8,8 +8,16 @@
       <label for="newLargeImage">Choose large image file:</label>
       <input class="chooseFile" type="file" accept="image/*" name="newLargeImage" id="newLargeImage">
       <p>OR</p> -->
-      <input class="url" type="text" [(ngModel)]="movie.smallImagePath" placeholder="New Small Image URL...">
-      <input class="url" type="text" [(ngModel)]="imagePath" placeholder="New Large Image URL...">
+      <div class="imgDiv">
+          <label for="smallImg">Preview Image :</label>
+          <textarea class="url" name="smallImg" id="smallImg" cols="100" rows="5" 
+          [(ngModel)]="movie.smallImagePath" placeholder="New Small Image URL..."></textarea>
+      </div>
+      <div class="imgDiv">
+          <label for="largeImg">Movie Poster :</label>
+          <textarea class="url" name="largeImg" id="largeImg" cols="100" rows="5" 
+          [(ngModel)]="imagePath" placeholder="New Large Image URL..."></textarea>
+      </div>
   </div>
   <hr>
   <button class="cancle-btn"(click)="this.bsModalRef.hide();">Cancle</button>
