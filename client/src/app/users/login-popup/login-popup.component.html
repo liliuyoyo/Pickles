@@ -1,20 +1,34 @@
 <div id="popup">
-  <img class="img" src="https://image.flaticon.com/icons/svg/149/149071.svg">
-    <form class="login" onsubmit="return false">
-        <h4>Login</h4>
-        <div class="form-group" class = "txt">
-            <input type="text" [(ngModel)]="user.username"
-                class="form-control"
-                name="username" id="username" placeholder="Username" required/>
-        </div>
-        <div class="form-group" class = "txt">
-            <input type="password" [(ngModel)]="user.password"
-                class="form-control"
-                name="password" id="password" placeholder="Password" required/>
-        </div>
-        <div>
-            <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Cancle</button>
-            <button type="button" class="btn btn-outline-secondary submit" (click)="getUserLogin()">Login</button>
-        </div> 
-    </form>
+  <!-- <img class="img" src="https://image.flaticon.com/icons/svg/149/149071.svg"> -->
+  <div class="row">
+      <div class="col-sm-4"></div>
+      <div class="col-sm-8">
+        <form class="login" onsubmit="return false" autocomplete="off">
+            <h4>Login</h4>
+            <div class = "txt">
+                <input type="text" class="form-control inputText"  
+                [(ngModel)]="user.username"
+                name="username" id="username" required/>
+                <span class="floating-label">Username</span>
+                <!-- <input type="text" [(ngModel)]="user.username"
+                    class="form-control"
+                    name="username" id="username" placeholder="Username" required/> -->
+            </div>
+            <div class = "txt">
+                <input type="password" class="form-control inputText"  
+                [(ngModel)]="user.password"
+                name="password" id="password" required/>
+                <span class="floating-label">Password</span>
+                <!-- <input type="password" [(ngModel)]="user.password"
+                    class="form-control"
+                    name="password" id="password" placeholder="Password" required/> -->
+            </div>
+            <div>
+                <button type="button" class="btn cancle" (click)="bsModalRef.hide()">Cancle</button>
+                <button type="button" class="btn submit" (click)="getUserLogin()">Login</button>
+            </div> 
+        </form>
+      </div>
+  </div>
+    
 </div>

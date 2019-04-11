@@ -1,55 +1,69 @@
 #popup{
-    
-    margin: 30px 30px;
+    margin: 0 0;
+    padding: 0 0 ;
 }
 
+.col-sm-4{
+    background-image: url(https://images.unsplash.com/photo-1528498069114-c382c9c976a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);
+    background-size: contain;
+}
 h4{
     float:left;
-    padding-bottom: 3%;
+    padding-bottom: 7%;
 }
-.img{
-    margin: 10% auto 0 auto ;
-    display:block;
-    width: 25%;
-}
-
 
 .login{
-    padding: 7%;
-    padding-top:5%;
-}
-
-.txt{
-    padding-bottom: 10%;
-}
-#username,#email,#password{
-	border-color:#ccc
+    padding: 10%;
+    padding-top:10%;
 }
 
 .btn {
+    border: none;
     width: 30%;
     margin: 0 auto;
     margin-left:10%;
+    border-radius: 0%;
 }
 
-.submit{
+.cancle:hover{
+    color:white;
+    background-color: rgba(128, 128, 128, 0.653);
+}
+.submit{ 
     margin-left:20%;
 }
+.submit:hover{
+    color: white;
+    background-color: rgba(68, 116, 54, 0.774);
+}
 
-/*prompt msgs & validation msgs*/
-.info {
-    color:slategray;
-    border: ridge;
-    position: absolute;
-    width: 17%;
-    background: white;
-    border-radius: 5px;
+
+input{
+    border: none;
+    border-bottom: 1px solid gray;
+    border-radius: 0%;
 }
-.error {
-    Font-size:75%;
-    float:left;
-    color:rgb(226, 52, 52);
+
+.form-control:focus{
+    box-shadow: none;
 }
-.wrongUser{
-    color:rgb(226, 52, 52);
+
+.floating-label {
+    position: relative;
+    pointer-events: none;
+    left: 10px;
+    top: -25px;
+    color: gray;
+    transition: 0.2s ease all;
+  }
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label{
+  top: -53px;
+  bottom: 10px;
+  left: 5px;
+  font-size: 12px;
+  color:rgb(0, 145, 255);
+  opacity: 1;
 }
+
