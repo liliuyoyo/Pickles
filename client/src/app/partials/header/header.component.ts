@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  searchString:string;
+  searchString:string = "";
   username:string;
 
   constructor(private moviesService : MoviesService,

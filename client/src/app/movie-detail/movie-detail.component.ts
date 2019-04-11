@@ -83,7 +83,7 @@ export class MovieDetailComponent implements OnInit {
           if(res.status == 'true'){
             this.isAdmin = !res.isuser;
           }
-        });
+       });
       }
     );
   }
