@@ -6,20 +6,38 @@ import { Movie } from '../models/movie.model';
 
 @Injectable()
 export class MoviesService {
-    
+    searchConditions = {
+        str:"",
+        year:"*",
+        genres:"*",
+        area:"*"
+      };
+
     serverUrl: string = "http://localhost:4600/";
-    searchEvent = new EventEmitter<string>();
+    // searchEvent = new EventEmitter<string>();
+    movieListEvent = new EventEmitter<Movie[]>();
 
     constructor(private http: HttpClient){};
     
     /*******************************************************
+     * Set the searching conditions from the components
+     ********************************************************/
+    public setConditions(conditions:any){
+        this.searchConditions = conditions;
+    }
+    public getConditions(){
+        return this.searchConditions;
+    }
+
+
+    /*******************************************************
      * General Searching Method
      ********************************************************/
-    public searchingMovies(searchConditions : any): Observable<Movie[]>{
-        return this.http.get<Movie[]>(this.serverUrl+"search?str="+searchConditions.str
-                                                    +"&year="+searchConditions.year
-                                                    +"&genres="+searchConditions.genres
-                                                    +"&area="+searchConditions.area);
+    public searchingMovies(): Observable<Movie[]>{
+        return this.http.get<Movie[]>(this.serverUrl+"search?str="+this.searchConditions.str
+                                                    +"&year="+this.searchConditions.year
+                                                    +"&genres="+this.searchConditions.genres
+                                                    +"&area="+this.searchConditions.area);
     }
 
     /*******************************************************

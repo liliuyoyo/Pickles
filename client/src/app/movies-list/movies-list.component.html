@@ -1,5 +1,5 @@
 <div class="container"> 
-    <app-filter [searchConditions]="searchConditions" (onFilter)="filterMovies($event)"></app-filter>
+    <app-filter (onFilter)="filterMovies($event)"></app-filter>
     <div class="row">
         <div *ngIf="isAdmin" class="col-md-3 col-sm-6 addMovieDiv">
             <a routerLink="/movies/new"><i class="fas fa-folder-plus"></i></a> 

@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Movie } from '../models/movie.model';
 import { MoviesService } from '../services/movies.service';
-import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -9,18 +8,10 @@ import { UserService } from '../services/user.service';
   templateUrl: './movies-list.component.html',
   styleUrls: ['./movies-list.component.css']
 })
-export class MoviesListComponent implements OnInit, OnDestroy {
+export class MoviesListComponent implements OnInit {
   
-  private subscription : Subscription;
-  private subscription1 : Subscription;
-  private subscription2 : Subscription;
   moviesList: Movie[];
-  searchConditions = {
-    str:"",
-    year:"*",
-    genres:"*",
-    area:"*"
-  };
+  
   token:string ="";
   isAdmin:boolean = false;
   items = 8;
@@ -28,25 +19,32 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   constructor(private moviesService: MoviesService,
               private userService:UserService) {}
 
+
   ngOnInit() {
     /* Initially get all movies */
-    this.subscription = this.moviesService.searchingMovies(this.searchConditions)
+    this.moviesService.searchingMovies()
+    .subscribe((data)=>{
+      this.moviesList = data;
+    }).unsubscribe;
+
+    // /* Top searching bar event linster */
+    // this.subscription1 = this.moviesService.searchEvent
+    // .subscribe( str => {
+    //   this.searchConditions.str = str;
+    //   this.moviesService.searchingMovies(this.searchConditions)
+    //   .subscribe(data => this.moviesList = data);
+    // });
+    /* Top searching bar event linster */
+    this.moviesService.movieListEvent
     .subscribe((data)=>{
       this.moviesList = data;
     });
-
-    /* Top searching bar event linster */
-    this.subscription1 = this.moviesService.searchEvent
-    .subscribe( str => {
-      this.searchConditions.str = str;
-      this.moviesService.searchingMovies(this.searchConditions)
-      .subscribe(data => this.moviesList = data);
-    });
+  
 
     /*check whether the user is admin */
     this.token = this.userService.getToken();
     if(this.token != null){
-      this.subscription2 = this.userService.getLoginedUser(this.token)
+      this.userService.getLoginedUser(this.token)
       .subscribe((res)=>{
         if(res['status']=='true'){
           this.isAdmin = !res['isuser'];
@@ -62,14 +60,12 @@ export class MoviesListComponent implements OnInit, OnDestroy {
 
   /* Filter linster */
   filterMovies(filterVal : any){
-    this.moviesService.searchingMovies(filterVal)
+    this.moviesService.setConditions(filterVal);
+    this.moviesService.searchingMovies()
     .subscribe(data => {
       this.moviesList = data;
-    });;
+    });
   }
 
-  ngOnDestroy(){
-    this.subscription.unsubscribe();
-    this.subscription1.unsubscribe();
-  }
+  
 }

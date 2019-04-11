@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-filter',
@@ -15,9 +16,10 @@ export class FilterComponent implements OnInit {
     area:"*"
   };
   
-  constructor() { }
+  constructor(private movieService:MoviesService) { }
 
   ngOnInit() {
+    this.searchConditions = this.movieService.getConditions();
   }
 
   filterBy(){
