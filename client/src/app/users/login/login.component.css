@@ -1,46 +1,56 @@
+/* main div */
 #loginscreen{
     margin: 5% auto 22% auto ;
 	width: 26%;
     height: 30%;
     min-width:350px;
     min-height:380px;
-	border-style: ridge;
+    /* #c6e4df */
+    border: 1px solid gray;
 }
-h4{
-    float:left;
-    padding-bottom: 3%;
-}
+
+/* user photo */
 .user-photo{
     display:block;
     width:100%;
 }
 .user-image{
-    position: relative;
+    /* position: absolute; */
     width: 12vw;
     height: 12vw;
     border-radius: 50%;
     margin: 10% auto 0 auto;
     overflow:hidden;
 }
+
+/* login label */
+h4{
+    float:left;
+    padding-bottom: 5%;
+}
+
+/* input text area */
 .login{
     padding: 7%;
-    padding-top:5%;
-}
-#login-btn{
-    padding-top:5%;
-    padding-bottom: 5%; 
+    padding-bottom: 3%;
 }
 .txt{
-    padding-bottom: 10%;
+    padding-bottom: 4%;
 }
 #username{
 	border-color:#ccc
 }
-#email{
-	border-color:#ccc
-}
 #password{
 	border-color:#ccc
+}
+input{
+    border: none;
+    border-bottom: 1px solid gray;
+    border-radius: 0%;
+}
+
+.form-control:focus{
+    box-shadow: none;
 }
 
 /*prompt msgs & validation msgs*/
@@ -60,3 +70,32 @@ h4{
 .wrongUser{
     color:rgb(226, 52, 52);
 }
+
+/* buttons */
+#login-btn{
+    padding-top:3%;
+    padding-bottom: 5%; 
+}
+.btn {
+    border: none;
+    width: 35%;
+    border-radius: 0%;
+}
+
+.cancle:hover{
+    color:white;
+    background-color: rgba(128, 128, 128, 0.653);
+}
+.submit{ 
+    margin-left:10%;
+}
+.submit:hover{
+    color: white;
+    background-color: rgba(68, 116, 54, 0.774);
+}
+
+.btn-link{
+    color:slategray;
+}
+
+

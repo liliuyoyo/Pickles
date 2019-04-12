@@ -2,28 +2,35 @@
     <div class="user-image">
         <img class="user-photo" src="{{curUserPhoto}}" alt="Default User Photo">
     </div>
-    <form class="login" (ngSubmit)="onSubmit()">
+    <form class="login" (ngSubmit)="onSubmit()" autocomplete="off">
         <h4>Login</h4>
-        <div class="form-group" class = "txt">
+        <div class="form-group txt">
             <input type="text" [(ngModel)]="user.username"
-                class="form-control"
-                name="username" id="username" placeholder="Username"/>
-            <span id="username-info" [ngClass]="{'error': username_id === 1}">1</span>
+                class="form-control" 
+                name="username" id="username" placeholder="Usrename" required/>          
+            <span id="username-info" [ngClass]="{'error': username_id === 1}"></span>
         </div>
-        <div class="form-group" class = "txt">
+        <div class="form-group txt">
             <input type="password" [(ngModel)]="user.password"
-                class="form-control"
-                name="password" id="password" placeholder="Password"/>
+                class="form-control" 
+                name="password" id="password" placeholder="Password" required/>
             <span id="password-info" [ngClass]="{'error': password_id === 1}"></span>
         </div>
-        <div id="login-btn">
-            <button type="submit" class="btn btn-outline-secondary btn-block">Login</button>
+        <div class="form-group" id="login-btn">
+            <button type="button"  [routerLink]="['/movies']" class="btn cancle">Cancel</button>
+            <button type="submit" class="btn submit">Login</button>
         </div> 
         <div>
-            <a [routerLink]="['/movies']" class="btn btn-link">Cancel</a>
+            <!-- <a [routerLink]="['/movies']" class="btn btn-link"></a> -->
             <a [routerLink]="['/signup']" class="btn btn-link">Create Account</a>
         </div>
     </form>
+</div>
+
+<div class="box">
+    <div class="content">
+        <h1>This is the box you should be thinking outside of</h1> 
+    </div>
 </div>
 
 <ng-template #content let-modal>

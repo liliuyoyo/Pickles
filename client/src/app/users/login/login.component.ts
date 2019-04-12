@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
               private modalService: NgbModal){}
   
   ngOnInit(){
-    // $('#username').focus();
     this.listeners(this);
   }
 
@@ -173,6 +172,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onKeydownEvent(event: KeyboardEvent): void {
+    if (event.keyCode === 13 && event.shiftKey) {
+        this.onSubmit();
+    }
+ }
   //--->if continue, add code here
 }
 
