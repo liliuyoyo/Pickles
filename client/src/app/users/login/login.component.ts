@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
               private modalService: NgbModal){}
   
   ngOnInit(){
-    // $('#username').focus();
     this.listeners(this);
   }
 
