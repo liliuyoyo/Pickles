@@ -26,16 +26,16 @@
 /* login label */
 h4{
     float:left;
-    padding-bottom: 3%;
+    padding-bottom: 5%;
 }
 
 /* input text area */
 .login{
     padding: 7%;
-    padding-top:5%;
+    padding-bottom: 3%;
 }
 .txt{
-    padding-bottom: 10%;
+    padding-bottom: 4%;
 }
 #username{
 	border-color:#ccc
@@ -72,14 +72,30 @@ input{
 }
 
 /* buttons */
-.btn {
-    border: none;
-    border-radius: 0%;
-}
 #login-btn{
-    padding-top:5%;
+    padding-top:3%;
     padding-bottom: 5%; 
 }
+.btn {
+    border: none;
+    width: 35%;
+    border-radius: 0%;
+}
 
+.cancle:hover{
+    color:white;
+    background-color: rgba(128, 128, 128, 0.653);
+}
+.submit{ 
+    margin-left:10%;
+}
+.submit:hover{
+    color: white;
+    background-color: rgba(68, 116, 54, 0.774);
+}
+
+.btn-link{
+    color:slategray;
+}
 
 
