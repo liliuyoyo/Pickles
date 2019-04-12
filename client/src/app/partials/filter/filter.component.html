@@ -1,7 +1,8 @@
 <div class="container">
-    <h4>SELECT MOVIES</h4>
+    <h4>SELECT MOVIES <span id="filterIcon"><i class="fas fa-chevron-right" 
+        (click)='showFilter=!showFilter' ></i></span></h4>
     <hr>
-    <form>
+    <form *ngIf="showFilter">
         <div class="row">
             <label class="filterLabel">Year :</label>
             <ul>

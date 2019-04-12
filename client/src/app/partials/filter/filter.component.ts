@@ -7,6 +7,7 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit {
+  showFilter :boolean = false;
   
   @Output() onFilter = new EventEmitter<Object>();
   @Input() searchConditions = {
