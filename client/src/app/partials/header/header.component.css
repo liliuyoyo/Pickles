@@ -44,7 +44,7 @@
 
 .top-link a:hover{
     font-style: italic;
-    background-color: rgba(102, 198, 182, 0.468);
+    background-color: #c6e4df;
 }
 
 #search-area {
@@ -55,10 +55,10 @@
 
 #search-area:focus{
     box-shadow: none;
-    border-color: rgb(102, 198, 182);
+    border-color: #c6e4df;
 }
 
 .serach-btn:focus{
     box-shadow: none;
-    background-color: rgba(102, 198, 182, 0.468);
+    background-color: #c6e4dfea;
 }

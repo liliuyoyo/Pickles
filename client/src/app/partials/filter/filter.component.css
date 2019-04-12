@@ -18,7 +18,7 @@ hr{
 }
 #filterIcon{
     margin-left: 20px;
-    color:rgb(102, 198, 182);
+    color:#c6e4df;
 }
 h4 i:hover{
     transform: scale(1.3) rotate(90deg);
@@ -43,11 +43,11 @@ li label {
 }
 
 li label:hover {
-    background:#8ee6d1a9;
+    background:#c6e4df;
 }
 
 input:checked + label {
-    background:#8ee6d1a9;
+    background:#c6e4df;
 }
 
 .filterLabel{
