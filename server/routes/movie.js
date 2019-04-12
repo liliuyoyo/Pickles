@@ -523,6 +523,7 @@ router.post("/movie/add", middleware.isLoggedIn, (req, res, next) => {
         length: req.body.movie.length,
         likes: 0,
         watched: 0,
+        counter: 100,
         rating: req.body.movie.rating,
         comments: []
     });

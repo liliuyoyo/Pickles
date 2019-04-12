@@ -199,6 +199,19 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
                 }
             });
         }
+
+        if (type == "rating") {
+            if (movie.count == null) {
+                movie.count = 100;
+            }
+            const newrating = movie.rating * movie.count + parseInt(req.body.value);
+            movie.rating = newrating / (movie.count + 1);
+            movie.save();
+            return res.status(200).json({
+                status: "true",
+                message: movie
+            });
+        }
     });
 });
 
