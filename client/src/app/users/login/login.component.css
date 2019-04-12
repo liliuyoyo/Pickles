@@ -1,7 +1,7 @@
 /* main div */
 #loginscreen{
     margin: 5% auto 22% auto ;
-	width: 26%;
+	width: 30%;
     height: 30%;
     min-width:350px;
     min-height:380px;
@@ -26,15 +26,11 @@
 /* login label */
 h4{
     float:left;
-    padding-bottom: 5%;
 }
 
 /* input text area */
 .login{
-    padding: 7%;
-    padding-bottom: 3%;
-}
-.txt{
+    padding: 10%;
     padding-bottom: 4%;
 }
 #username{
@@ -52,6 +48,28 @@ input{
 .form-control:focus{
     box-shadow: none;
 }
+
+.form-group {
+    position: relative;
+    margin-bottom: 10%;
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: 20%;
+    left:0;
+    padding: 7px 0px 0 13px;
+    transition: all 200ms;
+    opacity: 0.5;
+}
+  
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+    font-size: 75%;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+}
+
 
 /*prompt msgs & validation msgs*/
 .info {
@@ -95,6 +113,7 @@ input{
 }
 
 .btn-link{
+    width: 50%;
     color:slategray;
 }
 

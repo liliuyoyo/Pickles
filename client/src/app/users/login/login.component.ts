@@ -161,14 +161,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
     var password = $("#password").val();
 
     if(username==""){
-      $("#username").css({
-        "border-style":"solid",
-        "border-color":"rgb(255, 102, 102)",});
+      $("#username").css({ "border-color":"rgb(255, 102, 102)",});
     }
     if(password==""){
-      $("#password").css({
-        "border-style":"solid",
-        "border-color":"rgb(255, 102, 102)",});
+      $("#password").css({"border-color":"rgb(255, 102, 102)",});
     }
   }
 
