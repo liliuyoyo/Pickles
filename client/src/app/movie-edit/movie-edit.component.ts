@@ -90,6 +90,7 @@ export class MovieEditComponent implements OnInit {
           if(updatedRes['status'] == "true"){
             //get updated movie value 
             this.movieToEdit = updatedRes['message'];
+            this.router.navigateByUrl('/movies/'+this.movieToEdit._id);
           }else{
             console.log("Fail to update.");
           }
