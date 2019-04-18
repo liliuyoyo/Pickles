@@ -47,6 +47,7 @@ router.post("/status", (req, res, next) => {
  * }
  ***************************************************************************************************/
 router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
+    console.log("update");
     const id = req.body.id;
     const type = req.body.type;
     const value = req.body.value;
@@ -74,20 +75,22 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
             imagePath: req.body.value.imagePath
         };
 
-        Movie.findByIdAndUpdate({ _id: id }, { $set: query }, { multi: true, new: true }, function(err, movie) {
-            if (err) {
+        Movie.findByIdAndUpdate({ _id: id }, { $set: query }, { multi: true, new: true })
+            .populate("comments")
+            .exec(function(err, movie) {
+                if (err) {
+                    const output = {
+                        status: "false",
+                        message: "failure to find movie"
+                    };
+                    return res.status(200).json(output);
+                }
                 const output = {
-                    status: "false",
-                    message: "failure to find movie"
+                    status: "true",
+                    message: movie
                 };
-                return res.status(200).json(output);
-            }
-            const output = {
-                status: "true",
-                message: movie
-            };
-            return res.json(output);
-        });
+                return res.json(output);
+            });
     }
 
     Movie.findById(id).exec(function(err, movie) {

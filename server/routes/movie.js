@@ -474,16 +474,19 @@ router.post("/admin/movie/update", middleware.isLoggedIn, (req, res, next) => {
     };
     console.log(query);
 
-    Movie.findByIdAndUpdate(req.body._id, query, { new: true }, function(err, movie) {
-        if (err) {
-            const output = {
-                status: "false",
-                message: "failure to find movie"
-            };
-            return res.status(200).json(output);
-        }
-        return res.json(movie);
-    });
+    Movie.findByIdAndUpdate(req.body._id, query, { new: true })
+        .populate("comments")
+        .exec(function(err, movie) {
+            if (err) {
+                const output = {
+                    status: "false",
+                    message: "failure to find movie"
+                };
+                return res.status(200).json(output);
+            }
+            console.log(movie);
+            return res.json(movie);
+        });
 });
 
 /*************************************************************************************************
