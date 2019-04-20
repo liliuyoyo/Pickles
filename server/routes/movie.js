@@ -176,6 +176,7 @@ const middleware = require("../middleware");
  * output: a list of movie
  ***************************************************************************************************/
 router.get("/search", function(req, res) {
+    // console.log(req.query);
     const year = req.query.year;
     const geners = req.query.genres;
     const area = req.query.area;
@@ -231,12 +232,20 @@ router.get("/search", function(req, res) {
                         { year: year },
                         { geners: geners },
                         {
-                            $nor: [{ area: USA }, { area: China }, { area: Europe }, { area: India }, { area: Korea }, { area: Japan }]
+                            $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                         }
                     ]
                 };
-            } else {
-                query = { year: year, geners: geners, area: area };
+            } else if (year == "other" && area == "Other") {
+                query = {
+                    $and: [
+                        { $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }] },
+                        { geners: geners },
+                        {
+                            $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
+                        }
+                    ]
+                };
             }
         } else if (year == "*" && geners != "*" && area != "*") {
             if (area == "Other") {
@@ -244,7 +253,7 @@ router.get("/search", function(req, res) {
                     $and: [
                         { geners: geners },
                         {
-                            $nor: [{ area: USA }, { area: China }, { area: Europe }, { area: India }, { area: Korea }, { area: Japan }]
+                            $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                         }
                     ]
                 };
@@ -267,7 +276,7 @@ router.get("/search", function(req, res) {
                         { year: year },
                         ,
                         {
-                            $nor: [{ area: USA }, { area: China }, { area: Europe }, { area: India }, { area: Korea }, { area: Japan }]
+                            $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                         }
                     ]
                 };
