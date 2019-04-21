@@ -32,15 +32,9 @@ h4{
     padding: 10%;
     padding-bottom: 4%;
 }
-#username{
-	border-color:#ccc
-}
-#password{
-	border-color:#ccc
-}
 input{
     border: none;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #ccc;
     border-radius: 0%;
 }
 
@@ -66,6 +60,7 @@ input{
 .form-control:valid + .form-control-placeholder {
     font-size: 75%;
     transform: translate3d(0, -100%, 0);
+    color:rgb(0, 145, 255);
     opacity: 1;
 }
 
@@ -112,6 +107,7 @@ input{
 }
 
 .btn-link{
+    font-size: 75%;
     width: 50%;
     color:slategray;
 }

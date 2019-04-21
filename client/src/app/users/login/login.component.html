@@ -6,7 +6,6 @@
         <h4>Login</h4>
     </div>
     <form class="login" (ngSubmit)="onSubmit()" autocomplete="off">
-       
         <div class="form-group">
             <input type="text" [(ngModel)]="user.username"
                 class="form-control" 
@@ -26,7 +25,6 @@
             <button type="submit" class="btn submit">Login</button>
         </div> 
         <div>
-            <!-- <a [routerLink]="['/movies']" class="btn btn-link"></a> -->
             <a [routerLink]="['/signup']" class="btn btn-link">Create Account</a>
         </div>
     </form>

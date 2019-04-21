@@ -33,6 +33,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   userToCheckEmail: User=new User("","","","","",true,[]);
 
   //for password strength
+  public strength:number;
   public myColors = ['#DD2C00', '#FF6D00', '#FFD600', '#AEEA00', '#00C853'];
 
   //for pass data to welcome page
@@ -103,6 +104,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
       signup.focusEvents("password");
     });
     $("#password").blur(function(){
+      $("#password").css({"border-color":"#ccc",});
       signup.blurEvents("password");
     });
     //Confirm Password Events
@@ -110,7 +112,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
       signup.focusEvents("confirmPassword");
     });
     $("#confirmPassword").blur(function(){
-      // signup.blurEvents("confirmPassword");
+      $("#confirmPassword").css({"border-color":"#ccc",});
       signup.blurEvents("password");
     });
     //Agree box Events
@@ -134,37 +136,38 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   //********Show prompt msg when focus on input element********
   private focusEvents(obj: string){
     if(obj == "username"){
-      $("#username").css({"border-color":"#ccc",});
+      $("#username").css({"border-color":"rgb(0, 145, 255)",});
       $("#username-info").text("The username field must contain only alphabetical or numeric characters.");
       $("#username-info").css({
-        "left":$("#username").offset().left + 1.12*$("#username").width(),
-        "top":$("#username").offset().top+ 0.8*$("#username").height() ,
+        "left": 1.08*$("#username").width(),
+        "top": 0.8*$("#username").height() ,
         "display":"inline"});
       this.username_id=1;
       $("#username-info").show();
     }
     else if(obj == "email"){
-      $("#email").css({"border-color":"#ccc",});
+      $("#email").css({"border-color":"rgb(0, 145, 255)",});
       $("#email-info").text("The email field should be a valid email address (abc@def.xyz). Everything is alphanumeric, except “@”. There can be any number of characters before and after “@” and there will be three characters after dot.");
       this.email_id=1;
       $("#email-info").css({
-        "left":$("#email").offset().left + 1.12*$("#email").width(),
-        "top":$("#email").offset().top,
+        "left": 1.08*$("#email").width(),
+        "top": 0*$("#email").height(),
         "display":"inline"});
       $("#email-info").show();
     }
     else if(obj == "password"){
-      $("#password").css({"border-color":"#ccc",});
-      $("#password-info").text("The password field should be at least 6 characters long.");
+      $("#password").css({"border-color":"rgb(0, 145, 255)",});
+      $("#password-info").text("The password field should be at least 6 characters long and password strength should be over level 1.");
       $("#password-info").css({
-        "left":$("#password").offset().left + 0.94*$("#password").width(),
-        "top":$("#password").offset().top ,
+        "left": 1.04*$("#password").width(),
+        "top": 0.5*$("#password").height() ,
         "display":"inline"});
       this.password_id=1;
       $("#password-info").show();
     }
     else if(obj == "confirmPassword"){
-      $("#confirmPassword").css({"border-color":"#ccc",});
+      $("#confirmPassword").css({"border-color":"rgb(0, 145, 255)",});
+      $("#confirmPassword-info").hide();
     }
     else if(obj == "agree"){
       $("#agree-info").text("");
@@ -179,6 +182,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   //********Show prompt msg when blur input element********
   private blurEvents(obj: string){
     if(obj == "username"){
+      $("#username").css({"border-color":"#ccc",});
       this.username_valid=false;
       $("#username-info").text("");
       this.username_id=0;
@@ -214,6 +218,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     else if(obj == "email"){
+      $("#email").css({"border-color":"#ccc",});
       this.email_valid=false;
       $("#email-info").text("");
       this.email_id=0;
@@ -275,7 +280,8 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
           $("#confirmPassword-info").show();
         }
       }
-      else if(isMoreThanSixChars.test(String(password).toLowerCase())){
+      else if(isMoreThanSixChars.test(String(password).toLowerCase())&&
+        this.strength>=1){
         this.password_valid=true;
         $("#password-info").hide();
         if(confirmPassword == ""){
@@ -295,7 +301,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       else{
         this.password_valid=false;
-        $("#password-info").text("Please enter a valid password");
+        $("#password-info").text("Please enter a valid password (strength over 1)");
         this.password_id=2;
         this.confirmPassword_valid=false;
         $("#confirmPassword-info").hide();
@@ -307,8 +313,8 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
         $("#agree-info").text("Please agree to the privacy policy.");
         this.agree_id=1;
         $("#agree-info").css({
-          "left":$("#agree").offset().left - 1.5*$("#agree").width(),
-          "top":$("#agree").offset().top - 4.5*$("#agree").height(),
+          "left": -1.1*$("#agree").width(),
+          "top": -5.2*$("#agree").height(),
           "display":"inline","text-align":"center",});
         $("#agree-info").show();
       }
@@ -328,24 +334,25 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if(username==""){
       $("#username").css({
-        "border-style":"solid",
         "border-color":"rgb(255, 102, 102)",});
     }
     if(email==""){
       $("#email").css({
-        "border-style":"solid",
         "border-color":"rgb(255, 102, 102)",});
     }
     if(password==""){
       $("#password").css({
-        "border-style":"solid",
         "border-color":"rgb(255, 102, 102)",});
     }
     if(confirmPassword==""){
       $("#confirmPassword").css({
-        "border-style":"solid",
         "border-color":"rgb(255, 102, 102)",});
     }
+  }
+
+  //check password strength
+  public strengthChanged(strength: number) {
+    this.strength = strength;
   }
 
   //--->if continue, add code here

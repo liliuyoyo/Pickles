@@ -1,43 +1,61 @@
-/* Control the whole signup panel */
+/* main div */
 #signupscreen{
     margin: 5% auto 22% auto ;
-	width: 35%;
+	width: 32%;
     height: 30%;
     min-width:350px;
     min-height:380px;
-	border-style: ridge;
+	border: 1px solid gray;
 }
-
-/* Control the whole signup form */
 .signup{
 	padding: 15%;
 }
 
-#signup-btn{
-    padding-bottom: 5%; 
+/* signup label */
+h2{
+    float:left;
 }
 
-/* for there input tag */
-.txt{
-    padding-bottom: 7%;
+/* input text area */
+.signup{
+    padding: 10%;
+    padding-bottom: 4%;
 }
-.txt-confpaswrd{
-	padding-top: 7%;
-}
-
-/**/
-#username, #email, #password, #confirmPassword{
-	border-color:#ccc;
+input{
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0%;
 }
 
-/**/
-.login-tag{
-   margin-left:18%;
+.form-control:focus{
+    box-shadow: none;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 10%;
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: 20%;
+    left:0;
+    padding: 7px 0px 0 13px;
+    transition: all 200ms;
+    opacity: 0.5;
+}
+  
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+    font-size: 75%;
+    transform: translate3d(0, -100%, 0);
+    color:rgb(0, 145, 255);
+    opacity: 1;
 }
 
 /*password rules and policy*/
 #prmpt{
-    margin-top: 10%;
+    margin-top: 18%;
     color:slategray;
     text-align: left;
     clear: left;
@@ -45,9 +63,10 @@
 
 /*prompt msgs & validation msgs*/
 .info, .agree-info{
+	padding: 2%;
     color:slategray;
     position: absolute;
-    width: 17%;
+    width: 55%;
     background: #efefef;
     border-radius: 5px;
 }
@@ -92,4 +111,33 @@
 /*password strength */
 .password-strength-bar{
     float:left;
+}
+
+/* buttons */
+#signup-btn{
+    padding-top:3%;
+    padding-bottom: 5%; 
+}
+.btn {
+    border: none;
+    width: 35%;
+    border-radius: 0%;
+}
+
+.cancle:hover{
+    color:white;
+    background-color: rgba(128, 128, 128, 0.653);
+}
+.submit{ 
+    margin-left:10%;
+}
+.submit:hover{
+    color: white;
+    background-color: rgba(68, 116, 54, 0.774);
+}
+
+.btn-link{
+	font-size: 75%;
+    width: 50%;
+    color:slategray;
 }

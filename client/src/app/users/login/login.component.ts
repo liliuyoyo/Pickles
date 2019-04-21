@@ -90,11 +90,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
   //********Show prompt msg when blur input element********
   private focusEvents(obj: string){
     if(obj == "username"){
-      $("#username").css({"border-color":"#ccc",});
+      $("#username").css({"border-color":"rgb(0, 145, 255)",});
       $("#username-info").hide();
     }
     else if(obj == "password"){
-      $("#password").css({"border-color":"#ccc",});
+      $("#password").css({"border-color":"rgb(0, 145, 255)",});
       $("#password-info").hide();
     }
     else{
@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   //********Show prompt msg when blur input element********
   private blurEvents(obj: string){
     if(obj == "username"){
+      $("#username").css({"border-color":"#ccc",});
       $("#username-info").text("");
       this.username_id=0;
       this.username_valid=false;
@@ -135,6 +136,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
      
     }
     else if(obj == "password"){
+      $("#password").css({"border-color":"#ccc",});
       $("#password-info").text("");
       this.password_id=0;
       this.password_valid=false;

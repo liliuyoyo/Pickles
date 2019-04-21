@@ -1,61 +1,62 @@
 <div id="signupscreen">
-  <form class="signup" (ngSubmit)="signup()" novalidate>
-      <h2>Sign Up</h2>
-      <hr>
-      <div class="form-group txt">
-          <input type="text" class="form-control" 
-          [(ngModel)]="usertoSend.username" 
-          name="username" id="username" placeholder="Username"
-          maxlength="12" required/>
-          <span id="username-info" [ngClass]="{'info': username_id === 1,'error': username_id === 2}"></span>
-      </div>
-      
-      <div class="form-group txt" >
-          <input type="text" class="form-control" 
-          [(ngModel)]="usertoSend.email" 
-          name="email" id="email" placeholder="Email" required/>
-          <span id="email-info" [ngClass]="{'info': email_id === 1,'error': email_id === 2}"></span>
-      </div>
-      
-
-      <div class="form-group">
-          <input type="password" class="form-control" 
-          [(ngModel)]="usertoSend.password" #password="ngModel" 
-          name="password" id="password" placeholder="Password" 
-          maxlength="15" required/>
-          <ng2-password-strength-bar
-            class="password-strength-bar"
-            [passwordToCheck]="usertoSend.password"
-            [barColors]="myColors">
-          </ng2-password-strength-bar>
-          <span id="password-info" [ngClass]="{'info': password_id === 1,'error': password_id === 2}"></span>
-      </div>
-
-      <div class="form-group txt-confpaswrd">
-            <input type="password" class="form-control" 
-            [(ngModel)]="confirmPassword" #password="ngModel" 
-            name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" 
-            maxlength="15" required/>
-            <span id="confirmPassword-info" [ngClass]="{'error': confirmPassword_id === 1}"></span>
-      </div>
-
-      <div id="prmpt">
-          <p>In order to <strong>protect your account</strong>, make sure your password:</p>
-          <ul>
-            <li>Is longer than 6 characters</li>
-            <li>Password strength should be more than level 2.</li>
-          </ul>
-          <p><input type="checkbox" id="agree"> Agree to the <a [routerLink]="" (click)="openLg(content)">Privacy Policy</a>.</p>
-          <span id="agree-info" [ngClass]="{'agree-info':agree_id === 1}"></span>
+    <div class="signup">
+        <h2>Sign Up</h2>
+    </div>
+    <form class="signup" (ngSubmit)="signup()" novalidate>
+        
+        <div class="form-group">
+            <input type="text" class="form-control" 
+            [(ngModel)]="usertoSend.username" 
+            name="username" id="username"
+            maxlength="12" required/>
+            <label class="form-control-placeholder" for="username">Userame</label>
+            <span id="username-info" [ngClass]="{'info': username_id === 1,'error': username_id === 2}"></span>
         </div>
-      <div id="signup-btn">
-          <button type="submit" class="btn btn-outline-secondary btn-block">Sign Up</button>
-      </div> 
-      <div>
-          <a [routerLink]="['/movies']" class="btn btn-link">Cancel</a>
-          <a [routerLink]="['/login']" class="btn btn-link login-tag">Login</a>
-      </div>
-  </form>
+        
+        <div class="form-group" >
+            <input type="text" class="form-control" 
+            [(ngModel)]="usertoSend.email" 
+            name="email" id="email" required/>
+            <label class="form-control-placeholder" for="password">Email</label>
+            <span id="email-info" [ngClass]="{'info': email_id === 1,'error': email_id === 2}"></span>
+        </div>
+        
+        <div class="form-group">
+            <input type="password" class="form-control" 
+            [(ngModel)]="usertoSend.password" #password="ngModel" 
+            name="password" id="password"
+            maxlength="15" required/>
+            <label class="form-control-placeholder" for="password">Password</label>
+            <ng2-password-strength-bar
+                class="password-strength-bar"
+                [passwordToCheck]="usertoSend.password"
+                [barColors]="myColors"
+                (onStrengthChanged)="strengthChanged($event)">
+            </ng2-password-strength-bar>
+            <span id="password-info" [ngClass]="{'info': password_id === 1,'error': password_id === 2}"></span>
+        </div>
+
+        <div class="form-group">
+                <input type="password" class="form-control" 
+                [(ngModel)]="confirmPassword" #password="ngModel" 
+                name="confirmPassword" id="confirmPassword"
+                maxlength="15" required/>
+                <label class="form-control-placeholder" for="password">Confirm Password</label>
+                <span id="confirmPassword-info" [ngClass]="{'error': confirmPassword_id === 1}"></span>
+        </div>
+
+        <div class="form-group" id="prmpt">
+            <p><input type="checkbox" id="agree"> Agree to the <a [routerLink]="" (click)="openLg(content)">Privacy Policy</a>.</p>
+            <span id="agree-info" [ngClass]="{'agree-info':agree_id === 1}"></span>
+            </div>
+        <div id="signup-btn">
+            <button type="button"  [routerLink]="['/movies']" class="btn cancle">Cancel</button>
+            <button type="submit" class="btn submit">Sign Up</button>
+        </div> 
+        <div>
+            <a [routerLink]="['/login']" class="btn btn-link">Login</a>
+        </div>
+    </form>
 </div>
 
 <ng-template #content let-modal>
