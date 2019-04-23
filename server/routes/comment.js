@@ -47,7 +47,7 @@ router.post("/status", (req, res, next) => {
  * }
  ***************************************************************************************************/
 router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
-    console.log("update");
+    // console.log("update");
     const id = req.body.id;
     const type = req.body.type;
     const value = req.body.value;
@@ -205,10 +205,11 @@ router.post("/movie/update", middleware.isLoggedIn, (req, res, next) => {
 
         if (type == "rating") {
             if (movie.count == null) {
-                movie.count = 100;
+                movie.count = 10;
             }
-            const newrating = movie.rating * movie.count + parseInt(req.body.value);
-            movie.rating = newrating / (movie.count + 1);
+            const newrating = movie.rating * movie.count + parseFloat(req.body.value);
+            movie.rating = parseFloat(newrating / (movie.count + 1)).toFixed(2);
+            movie.count = movie.count + 1;
             movie.save();
             return res.status(200).json({
                 status: "true",
