@@ -38,7 +38,7 @@ export class UserProfileComponent implements OnInit {
     $('#btn-history').trigger("click");
 
     //send token to back end and get info of user
-    this.token = this.userService.getToken()  
+    this.token = this.userService.getToken();  
     this.getUserInfo();
 
     //link user photo from service

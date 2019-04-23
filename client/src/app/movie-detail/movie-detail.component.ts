@@ -50,7 +50,7 @@ export class MovieDetailComponent implements OnInit {
         this.moviesService.getMovieById(this.movieId) // search the movie from serve by movie-id
         .subscribe((data) => { 
           this.movieToShow = data; // get movie detailed information
-
+          
           // show the movie rating by stars
           var totalS = +(this.movieToShow.rating).toFixed();
           this.stars.fullStars = Math.floor(totalS/2);

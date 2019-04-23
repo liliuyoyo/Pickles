@@ -23,7 +23,6 @@ export class MoviesListComponent implements OnInit {
     this.moviesService.searchingMovies()
     .subscribe((data)=>{
       this.moviesList = data;
-      console.log(this.moviesList);
     }).unsubscribe;
 
     // /* Top searching bar event linster */
