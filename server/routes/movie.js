@@ -62,15 +62,15 @@ function moviesearch(year, geners, area) {
                     {
                         $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
                     },
-                    { geners: geners },
-                    { area: area }
+                    { geners: { $regex: geners, $options: "$i" } },
+                    { area: aea }
                 ]
             };
         } else if (year != "other" && area == "Other") {
             query = {
                 $and: [
                     { year: year },
-                    { geners: geners },
+                    { geners: { $regex: geners, $options: "$i" } },
                     {
                         $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                     }
@@ -80,27 +80,31 @@ function moviesearch(year, geners, area) {
             query = {
                 $and: [
                     { $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }] },
-                    { geners: geners },
+                    { geners: { $regex: geners, $options: "$i" } },
                     {
                         $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                     }
                 ]
             };
         } else {
-            query = { year: year, geners: geners, area: area };
+            query = {
+                $and: [{ year: year }, { geners: { $regex: geners, $options: "$i" } }, { area: area }]
+            };
         }
     } else if (year == "*" && geners != "*" && area != "*") {
         if (area == "Other") {
             query = {
                 $and: [
-                    { geners: geners },
+                    { geners: { $regex: geners, $options: "$i" } },
                     {
                         $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                     }
                 ]
             };
         } else {
-            query = { geners: geners, area: area };
+            query = {
+                $and: [{ geners: { $regex: geners, $options: "$i" } }, { area: area }]
+            };
         }
     } else if (year != "*" && geners == "*" && area != "*") {
         if (year == "other" && area != "Other") {
@@ -116,14 +120,26 @@ function moviesearch(year, geners, area) {
             query = {
                 $and: [
                     { year: year },
-                    ,
+                    {
+                        $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
+                    }
+                ]
+            };
+        } else if (year == "other" && area == "Other") {
+            query = {
+                $and: [
+                    {
+                        $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
+                    },
                     {
                         $nor: [{ area: "USA" }, { area: "China" }, { area: "Europe" }, { area: "India" }, { area: "Korea" }, { area: "Japan" }]
                     }
                 ]
             };
         } else {
-            query = { year: year, area: area };
+            query = {
+                $and: [{ year: year }, { area: area }]
+            };
         }
     } else if (year != "*" && geners != "*" && area == "*") {
         if (year == "other") {
@@ -132,11 +148,13 @@ function moviesearch(year, geners, area) {
                     {
                         $nor: [{ year: 2019 }, { year: 2018 }, { year: 2017 }, { year: 2016 }, { year: 2015 }]
                     },
-                    { geners: geners }
+                    { geners: { $regex: geners, $options: "$i" } }
                 ]
             };
         } else {
-            query = { year: year, geners: geners };
+            query = {
+                $and: [{ year: year }, { geners: { $regex: geners, $options: "$i" } }]
+            };
         }
     } else if (year == "*" && geners == "*" && area != "*") {
         if (area == "Other") {
@@ -147,7 +165,7 @@ function moviesearch(year, geners, area) {
             query = { area: area };
         }
     } else if (year == "*" && geners != "*" && area == "*") {
-        query = { geners: geners };
+        query = { geners: { $regex: geners, $options: "$i" } };
     } else if (year != "*" && geners == "*" && area == "*") {
         if (year == "other") {
             query = {
@@ -155,7 +173,6 @@ function moviesearch(year, geners, area) {
             };
         } else query = { year: year };
     }
-
     return query;
 }
 /*************************************************************************************************
@@ -198,12 +215,13 @@ router.get("/search", function(req, res) {
             ]
         };
     }
-
     filterQuery = moviesearch(year, geners, area);
+    deleteQuery = { $or: [{ deleted: false }, { deleted: { $exists: false } }] };
 
-    Movie.find(searchQuery)
-        .find(filterQuery)
-        .where({ $or: [{ deleted: false }, { deleted: { $exists: false } }] })
+    //console.log(filterQuery);
+
+    Movie.find({ $and: [searchQuery, filterQuery] })
+        .where(deleteQuery)
         .exec()
         .then(docs => {
             res.status(200).json(docs);
