@@ -10,12 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit {
   searchString:string = "";
-  searchConditions = {
-    str:"",
-    year:"*",
-    genres:"*",
-    area:"*"
-  };
+  // searchConditions = {
+  //   str:"",
+  //   year:"*",
+  //   genres:"*",
+  //   area:"*"
+  // };
   username:string;
 
   constructor(private moviesService : MoviesService,
@@ -24,10 +24,20 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {}
 
+  // public onSubmit(){
+  //   this.searchConditions.str = this.searchString;
+  //   this.searchString = "";
+  //   this.moviesService.setConditions(this.searchConditions);
+  //   this.moviesService.searchingMovies()
+  //   .subscribe((data)=>{
+  //     this.moviesService.movieListEvent.emit(data); 
+  //   });
+  //   this.router.navigateByUrl('/movies'); 
+  // }
+
   public onSubmit(){
-    this.searchConditions.str = this.searchString;
+    this.moviesService.setSearchStr(this.searchString);
     this.searchString = "";
-    this.moviesService.setConditions(this.searchConditions);
     this.moviesService.searchingMovies()
     .subscribe((data)=>{
       this.moviesService.movieListEvent.emit(data); 

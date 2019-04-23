@@ -23,16 +23,23 @@ export class MoviesService {
    * Set the searching conditions from the components
    ********************************************************/
   public setConditions(conditions: any) {
-    this.searchConditions = conditions;
+    this.searchConditions.year = conditions.year;
+    this.searchConditions.area = conditions.area;
+    this.searchConditions.genres = conditions.genres;
   }
   public getConditions() {
     return this.searchConditions;
+  }
+
+  public setSearchStr(str : string){
+    this.searchConditions.str = str;
   }
 
   /*******************************************************
    * General Searching Method
    ********************************************************/
   public searchingMovies(): Observable<Movie[]> {
+    console.log(this.searchConditions);
     return this.http.get<Movie[]>(
       this.serverUrl + "search?str=" + this.searchConditions.str + "&year=" + this.searchConditions.year + "&genres=" + this.searchConditions.genres + "&area=" + this.searchConditions.area
     );
