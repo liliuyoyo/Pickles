@@ -61,7 +61,7 @@ export class MovieItemComponent implements OnInit {
                 // Delete successfully
                 console.log("delete successfull!");
                 // redirct to home page
-                this.router.navigateByUrl('/movies');
+                window.location.reload();
               }else{
                 console.log("Fail to delete.");
               }
