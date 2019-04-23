@@ -39,7 +39,7 @@ export class MoviesListComponent implements OnInit {
     .subscribe((data)=>{
       this.moviesList = data;
     });
-  
+
 
     /*check whether the user is admin */
     this.token = this.userService.getToken();

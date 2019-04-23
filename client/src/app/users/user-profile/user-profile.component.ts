@@ -37,10 +37,6 @@ export class UserProfileComponent implements OnInit {
     $('#btn-user-info').trigger("click");
     $('#btn-history').trigger("click");
 
-    //set user photo height = width
-    // var height = $(".user-image").width();
-    // $(".user-image").css("height",height );
-
     //send token to back end and get info of user
     this.token = this.userService.getToken()  
     this.getUserInfo();
@@ -73,9 +69,9 @@ export class UserProfileComponent implements OnInit {
     }); 
   }
   
-  //
+  //track and update wish list when deleted a movie
   trackingFunction(index:number, item:Object) : number {
-    return item["value"]
+    return item["value"];
   }
 
 
@@ -116,10 +112,11 @@ export class UserProfileComponent implements OnInit {
     this.router.navigateByUrl('/movies/'+ id);
   }
   
-  //
+  //popup upload photo window
   popupPhototChange(){
     this.userService.prevUserPhoto=this.curUser.image;
     this.modalRef = this.modalService.show(PhotoPopupComponent);
   }
+
   //add new function here
 }

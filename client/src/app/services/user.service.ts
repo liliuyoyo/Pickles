@@ -120,7 +120,7 @@ export class UserService {
     //change user photo in srevice, using in communacation between
     //photo-popup window and user-profile page
     public changeUserPhoto(photoLink: string) {
-        this.userPhoto.next(photoLink)
+        this.userPhoto.next(photoLink);
     }
 
     //get user photo when uername is input , using in login page

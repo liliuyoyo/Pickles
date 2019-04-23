@@ -13,7 +13,7 @@ import { DeleteConfirmComponent } from 'src/app/partials/delete-confirm/delete-c
   styleUrls: ['./movie-item.component.css']
 })
 export class MovieItemComponent implements OnInit {
-  
+
   @Input() movie:Movie;
   @Input() isAdmin:boolean;
   modalRef: BsModalRef;
