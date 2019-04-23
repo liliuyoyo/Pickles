@@ -12,7 +12,8 @@ export class DeleteConfirmComponent implements OnInit {
   @Input() title: string = "";
   @Input() imgPath:string ="";
 
-  constructor(public bsModalRef: BsModalRef) { }
+  constructor(public bsModalRef: BsModalRef,
+    ) { }
 
   ngOnInit() {
     

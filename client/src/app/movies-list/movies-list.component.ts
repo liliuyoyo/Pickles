@@ -18,13 +18,12 @@ export class MoviesListComponent implements OnInit {
 
   constructor(private moviesService: MoviesService,
               private userService:UserService) {}
-
-
   ngOnInit() {
     /* Initially get all movies */
     this.moviesService.searchingMovies()
     .subscribe((data)=>{
       this.moviesList = data;
+      console.log(this.moviesList);
     }).unsubscribe;
 
     // /* Top searching bar event linster */
@@ -39,7 +38,6 @@ export class MoviesListComponent implements OnInit {
     .subscribe((data)=>{
       this.moviesList = data;
     });
-  
 
     /*check whether the user is admin */
     this.token = this.userService.getToken();
@@ -56,6 +54,7 @@ export class MoviesListComponent implements OnInit {
        }
       });
     }
+    
   }
 
   /* Filter linster */
