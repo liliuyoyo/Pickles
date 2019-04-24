@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
   public onSubmit(){
     this.moviesService.setSearchStr(this.searchString);
-    this.searchString = "";
+    //this.searchString = "";
     this.moviesService.searchingMovies()
     .subscribe((data)=>{
       this.moviesService.movieListEvent.emit(data); 
