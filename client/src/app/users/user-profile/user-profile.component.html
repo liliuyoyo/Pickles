@@ -121,6 +121,7 @@
               <div class = "empty-msg" *ngIf="!haveHistoryList">History is empty.</div>
               <div class="row" *ngIf="haveHistoryList">
                 <div class="col-md-3 col-sm-6" *ngFor="let movie of historyList | paginate: { itemsPerPage: 8, currentPage: d, id: 'd' } ; trackBy: trackingFunction"> 
+                  
                   <div class="card wish-list-item" *ngIf="movie.exist">
                     <a (click)="getMoiveDetail(movie.id)">
                       <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
@@ -129,8 +130,23 @@
                       <p class="card-text">{{movie.name}}</p>
                     </div>
                   </div>
+
+                  <!-- if movie has be deleted ny admins -->
+                  <div class="card wish-list-item" *ngIf="!movie.exist">
+                    <img class = "wish-movie-image" src="{{movie.image}}" alt="{{movie.name}}">
+                    <div class="overlay-movie">
+                      <i class="fa fa-ban icon-deleted"></i>
+                    </div>
+                    <div class="card-body">
+                      <p class="card-text">{{movie.name}}</p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
+
+             
+
               <pagination-controls *ngIf="haveHLPaginate" (pageChange)="d = $event" id="d"></pagination-controls>
               
             </div>
