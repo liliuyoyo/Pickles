@@ -56,6 +56,8 @@ export class MovieDetailComponent implements OnInit {
           this.stars.fullStars = Math.floor(totalS/2);
           this.stars.halfStar = totalS%2;
           this.stars.emptyStars = 5 - this.stars.fullStars - this.stars.halfStar;
+          this.moviesService.moiveRating=this.movieToShow.rating;
+          this.moviesService.moiveRatingStars=this.stars;
 
           /*******************************************************
            *  check whether the movie is in user's wishlist

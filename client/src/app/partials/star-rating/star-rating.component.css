@@ -26,3 +26,6 @@ span:hover{
 .s4:hover ~ span {
     color:gold;
 }
+#rated-label{
+    margin-left: 5%;
+}

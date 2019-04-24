@@ -1,10 +1,13 @@
-<div>
+<div *ngIf="!rated">
   <label>Rating : </label>
   <label class="stars">
-    <span class="fas fa-star s1" data-rating="10"></span>
-    <span class="fas fa-star s2" data-rating="8"></span>
-    <span class="fas fa-star s3" data-rating="6"></span>
-    <span class="fas fa-star s4" data-rating="4"></span>
-    <span class="fas fa-star s5" data-rating="2"></span>
+    <span class="fas fa-star s1" id="10" (click)="listeners($event)"></span>
+    <span class="fas fa-star s2" id="8" (click)="listeners($event)"></span>
+    <span class="fas fa-star s3" id="6" (click)="listeners($event)"></span>
+    <span class="fas fa-star s4" id="4" (click)="listeners($event)"></span>
+    <span class="fas fa-star s5" id="2" (click)="listeners($event)"></span>
   </label>  
+</div>
+<div *ngIf="rated" id="rated-label">
+  <label >Rated. </label>
 </div>

@@ -11,6 +11,12 @@ import * as $ from 'jquery';
 export class StarRatingComponent implements OnInit {
   token: string;
   userStars:number;
+  private stars ={
+    fullStars:0,
+    halfStar:0,
+    emptyStars:0
+  };
+  rated: boolean = false;
 
   @Input() movieId: string;
 
@@ -21,28 +27,36 @@ export class StarRatingComponent implements OnInit {
   ngOnInit() {
     //send token to back end and get info of user
     this.token = this.userService.getToken();
-    this.listeners(this);  
   }
-  public listeners(starating: any){
-    $('.stars .fas').on('click', function() {
-      starating.userStars=$(this).data('rating')
-      const updateData = {
-        id : starating.movieId,
-        token : starating.token,
-        type: "rating",
-        value: starating.userStars,
-      }
-      starating.uploadRating(updateData);
-    });
+  public listeners(event) {
+    var target = event.target || event.srcElement || event.currentTarget;
+    var idAttr = target.attributes.id;
+    var value = idAttr.nodeValue;
+    this.userStars= value;
+    const updateData = {
+      id : this.movieId,
+      token : this.token,
+      type: "rating",
+      value: this.userStars,
+    }
+    this.uploadRating(updateData);
   }
+
   public uploadRating(updateData:any){
       this.moviesService.updateMoiveById(updateData)
       .subscribe((updatedRes)=>{
         if(updatedRes['status'] == "true"){
+          var totalS = +(updatedRes['message'].rating).toFixed();
+          this.stars.fullStars = Math.floor(totalS/2);
+          this.stars.halfStar = totalS%2;
+          this.stars.emptyStars = 5 - this.stars.fullStars - this.stars.halfStar;
+          this.moviesService.moiveRatingStars=this.stars;
+          this.moviesService.moiveRating=updatedRes['message'].rating;
+          this.rated = true;
           console.log("Successfully rating!");
-          window.location.reload();
         }
         else{
+          this.rated=false;
           console.log(updatedRes['message']);
         }
       }); 

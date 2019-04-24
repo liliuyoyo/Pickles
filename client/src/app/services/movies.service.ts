@@ -16,6 +16,12 @@ export class MoviesService {
   serverUrl: string = "http://localhost:4600/";
   // searchEvent = new EventEmitter<string>();
   movieListEvent = new EventEmitter<Movie[]>();
+  moiveRatingStars ={
+    fullStars:0,
+    halfStar:0,
+    emptyStars:0
+  };
+  moiveRating:number;
 
   constructor(private http: HttpClient) {}
 

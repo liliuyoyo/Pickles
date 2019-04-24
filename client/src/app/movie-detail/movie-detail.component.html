@@ -8,10 +8,10 @@
       <div class="movie-desc">{{ movieToShow?.description }}</div>
       <div class="movie-rating">
         <!-- <img src="https://image.flaticon.com/icons/svg/605/605132.svg" alt="pickle-icon"> -->
-        <span>{{ movieToShow?.rating }}</span>
-        <span class="star" *ngFor="let i of [].constructor(stars.fullStars)"><i class="fas fa-star"></i></span>
-        <span class="star" *ngIf="stars.halfStar === 1"><i class="fas fa-star-half-alt"></i></span>
-        <span class="star" *ngFor="let i of [].constructor(stars.emptyStars)"><i class="far fa-star"></i></span>
+        <span>{{ moviesService.moiveRating }}</span>
+        <span class="star" *ngFor="let i of [].constructor(moviesService.moiveRatingStars.fullStars)"><i class="fas fa-star"></i></span>
+        <span class="star" *ngIf="moviesService.moiveRatingStars.halfStar === 1"><i class="fas fa-star-half-alt"></i></span>
+        <span class="star" *ngFor="let i of [].constructor(moviesService.moiveRatingStars.emptyStars)"><i class="far fa-star"></i></span>
       </div>
       <div class="movie-title movie-info"> MOVIE INFO </div>
       <div class="info-text row">
